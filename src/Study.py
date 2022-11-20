@@ -50,7 +50,7 @@ class Study:
         """
         Lese eine Studie aus der Datenbank
         """
-        with open(f"./data/{url}/study.json", "r") as f:
+        with open(url, "r") as f:
             return Study.from_json(f.read())
 
     def delete(self):
@@ -82,10 +82,11 @@ class Study:
         """
         Erstelle eine Studie aus einem JSON-Objekt
         """
+        data = json.loads(jsondata)
         return Study(
-            name=jsondata["name"],
-            description=jsondata["description"],
-            start=datetime.strptime(jsondata["start"], "%Y-%m-%d %H:%M:%S.%f"),
-            end=datetime.strptime(jsondata["end"], "%Y-%m-%d %H:%M:%S.%f"),
-            sensors=[Sensor.from_name(s) for s in jsondata["sensors"]]
+            name=data["name"],
+            description=data["description"],
+            start=datetime.strptime(data["start"], "%Y-%m-%d %H:%M:%S"),
+            end=datetime.strptime(data["end"], "%Y-%m-%d %H:%M:%S"),
+            sensors=[Sensor.from_name(s) for s in data["sensors"]]
         )

@@ -63,8 +63,8 @@ def new_study():
         # read the input which the user sent and create a new study
         name = request.form['name']
         description = request.form['description']
-        start_time = datetime.strptime(request.form['start_time'], '%Y-%m-%d %H:%M:%S')
-        end_time = datetime.strptime(request.form['end_time'], '%Y-%m-%d %H:%M:%S')
+        start_time = datetime.strptime(request.form['start_time'], '%Y-%m-%dT%H:%M:%S')
+        end_time = datetime.strptime(request.form['end_time'], '%Y-%m-%dT%H:%M:%S')
         sensors = [ Sensor.from_name(sensor.name())
                    for sensor in Sensor.list_all_sensors()
                    if request.form.get(f"sensor.{sensor.name()}")=="on"
