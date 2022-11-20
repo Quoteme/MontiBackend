@@ -32,13 +32,20 @@ def logout():
     session['logged_in'] = None
     return redirect('/')
 
-@app.route('/dashboard')
+@app.route('/study_overview')
 def dashboard():
     if 'username' in session:
         return render_template(
-                'dashboard.html',
+                'study_overview.html',
                 studies = Study.list_all_studies()
                 )
+    else:
+        return redirect('/login')
+
+@app.route('/new_study')
+def new_study():
+    if 'username' in session:
+        return render_template('new_study.html')
     else:
         return redirect('/login')
 
