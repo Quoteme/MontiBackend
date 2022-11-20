@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+import importlib, inspect
 
 @dataclass
 class Sensor:
@@ -23,6 +24,14 @@ class Sensor:
     @staticmethod
     def description() -> str:
         return "Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server übermittelt werden."
+
+    @staticmethod
+    def list_all_sensors() -> list[Sensor]:
+        """
+        Liefert eine Liste aller verfügbaren Sensoren.
+        """
+        return [ obj for name, obj in inspect.getmembers(importlib.import_module("Sensor")) if inspect.isclass(obj) and issubclass(obj, Sensor) and obj != Sensor ]
+            
     
     @staticmethod
     def from_name(name: str) -> Sensor:
