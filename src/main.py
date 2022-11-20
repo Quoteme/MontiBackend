@@ -17,16 +17,18 @@ def login():
         if not User.is_valid(username, password):
             return "Login fehlgeschlagen"
         else:
-            session['user'] = username
+            session['username'] = username
             session['password'] = password
+            session['logged_in'] = True
             return redirect('/dashboard')
     else:
         return render_template('login.html')
 
 @app.route("/logout")
 def logout():
-    session.pop('user', None)
-    session.pop('password', None)
+    session['username'] = None
+    session['password'] = None
+    session['logged_in'] = None
     return redirect('/')
 
 @app.route('/dashboard')
