@@ -51,5 +51,5 @@ class Administrator(User):
 
 class Benutzer(User):
     """
-    Ein Moderator kann nur Studien einsehen.
+    Ein Benutzer kann nur Studien einsehen.
     """

@@ -1,7 +1,55 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
-Hier muss noch ein Dashboard entstehen...
+<h1>Dashboard</h1>
+
+<h2>Laufende Studien</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Beschreibung</th>
+      <th scope="col">Start</th>
+      <th scope="col">Ende</th>
+      <th scope="col">Sensoren</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in studies %}
+    <tr>
+      <th scope="row">{{ s.name }}</th>
+      <td>{{ s.description }}</td>
+      <td>{{ str(s.start) }}</td>
+      <td>{{ str(s.end) }}</td>
+      <td>{{ str(s.sensors) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>Beendete Studien</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Beschreibung</th>
+      <th scope="col">Start</th>
+      <th scope="col">Ende</th>
+      <th scope="col">Sensoren</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in studies %}
+    <tr>
+      <th scope="row">{{ s.name }}</th>
+      <td>{{ s.description }}</td>
+      <td>{{ str(s.start) }}</td>
+      <td>{{ str(s.end) }}</td>
+      <td>{{ str(s.sensors) }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock %}

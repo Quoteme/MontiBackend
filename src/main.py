@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 import pandas as pd
 from User import User
+from Study import Study
 
 app = Flask(__name__, template_folder='./html/', static_folder='./static/')
 app.secret_key = "hier ist ein geheimer Schlüssel, der verwendet wird, um sessions zu verschlüsseln"
@@ -33,8 +34,11 @@ def logout():
 
 @app.route('/dashboard')
 def dashboard():
-    if 'user' in session:
-        return render_template('dashboard.html')
+    if 'username' in session:
+        return render_template(
+                'dashboard.html',
+                studies = Study.list_all_studies()
+                )
     else:
         return redirect('/login')
 
