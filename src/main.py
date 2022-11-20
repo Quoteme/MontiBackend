@@ -56,15 +56,21 @@ def new_study():
         return render_template(
                 'new_study.html',
                 sensors = Sensor.list_all_sensors(),
-                start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                end_time = (datetime.now() + relativedelta(months=1)).strftime("%Y-%m-%d %H:%M:%S")
+                start_time = (datetime.now() + relativedelta(hours=1)).strftime("%Y-%m-%d %H:%M:%S"),
+                end_time = (datetime.now() + relativedelta(hours=1) + relativedelta(months=1)).strftime("%Y-%m-%d %H:%M:%S")
                 )
     else:
         # read the input which the user sent and create a new study
         name = request.form['name']
         description = request.form['description']
-        # study = Study(name, description)
-        # study.save()
+        start_time = datetime.strptime(request.form['start_time'], '%Y-%m-%d %H:%M:%S')
+        end_time = datetime.strptime(request.form['end_time'], '%Y-%m-%d %H:%M:%S')
+        sensors = [ Sensor.from_name(sensor.name())
+                   for sensor in Sensor.list_all_sensors()
+                   if request.form.get(f"sensor.{sensor.name()}")=="on"
+                   ]
+        study = Study(name, description, start_time, end_time, sensors)
+        study.create()
         return redirect('/study_overview')
 
 @app.route('/api', methods=['POST'])

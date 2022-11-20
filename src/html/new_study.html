@@ -8,25 +8,25 @@
   <div class="form-group row">
     <label for="name" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" placeholder="Name">
+      <input type="text" class="form-control" name="name" placeholder="Name">
     </div>
   </div>
   <div class="form-group row">
     <label for="description" class="col-sm-2 col-form-label">Beschreibung</label>
     <div class="col-sm-10">
-      <textarea class="form-control" id="description" rows="3" placeholder="Beschreibung"></textarea>
+      <textarea class="form-control" name="description" rows="3" placeholder="Beschreibung"></textarea>
     </div>
   </div>
   <div class="form-group row">
     <label for="description" class="col-sm-2 col-form-label">Startzeitpunkt</label>
     <div class="col-sm-10">
-      <input type="datetime-local" class="form-control" id="start_time" placeholder="Startzeitpunkt" value="{{start_time}}">
+      <input type="datetime-local" class="form-control" name="start_time" placeholder="Startzeitpunkt" value="{{start_time}}">
     </div>
   </div>
   <div class="form-group row">
     <label for="description" class="col-sm-2 col-form-label">Endzeitpunkt</label>
     <div class="col-sm-10">
-      <input type="datetime-local" class="form-control" id="end_time" placeholder="Endzeitpunkt" value="{{end_time}}">
+      <input type="datetime-local" class="form-control" name="end_time" placeholder="Endzeitpunkt" value="{{end_time}}">
     </div>
   </div>
   <div class="form-group row">
@@ -34,8 +34,8 @@
     <div class="col-sm-10">
     {% for sensor in sensors %}
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="grid_check_{{sensor.name()}}">
-        <label class="form-check-label" for="grid_check_{{sensor.name()}}">
+        <input class="form-check-input" type="checkbox" name="sensor.{{sensor.name()}}">
+        <label class="form-check-label" for="sensor.{{sensor.name()}}">
           {{ sensor.name() }}
         </label>
       </div>

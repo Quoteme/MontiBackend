@@ -36,8 +36,6 @@ class Sensor:
     @staticmethod
     def from_name(name: str) -> Sensor:
         match name:
-            case "Sensor":
-                return Sensor(None)
             case "MobileAccelerometer":
                 return MobileAccelerometer(None)
             case "MobileGyroscope":
@@ -46,6 +44,8 @@ class Sensor:
                 return MobileMagnetometer(None)
             case "CorsanoMetricPPG":
                 return CorsanoMetricPPG(None)
+            case _:
+                return Sensor(None)
 
 
 @dataclass
@@ -54,9 +54,9 @@ class MobileAccelerometer(Sensor):
     Ein MobileAccelerometer zeichnet die Beschleunigung auf, welche ein
     Smartphone aufweist.
     """
-    x: float
-    y: float
-    z: float
+    x: float = 0.0
+    y: float = 0.0
+    z: float = 0.0
 
     @staticmethod
     def name() -> str:
@@ -71,9 +71,9 @@ class MobileGyroscope(Sensor):
     """
     Ein MobileGyroscope zeichnet die Drehung auf, welche ein Smartphone aufweist.
     """
-    x: float
-    y: float
-    z: float
+    x: float = 0.0
+    y: float = 0.0
+    z: float = 0.0
 
     @staticmethod
     def name() -> str:
@@ -89,9 +89,9 @@ class MobileMagnetometer(Sensor):
     Ein MobileMagnetometer zeichnet die Magnetfeldstärke auf, welche ein
     Smartphone aufweist. Wichtig für die Kompassfunktion.
     """
-    x: float
-    y: float
-    z: float
+    x: float = 0.0
+    y: float = 0.0
+    z: float = 0.0
 
     @staticmethod
     def name() -> str:
@@ -107,14 +107,14 @@ class CorsanoMetricPPG(Sensor):
     Ein CorsanoMetricPPG zeichnet die Herzfrequenz auf, welche ein
     Corsano-Messgerät aufweist.
     """
-    acc: int  
-    ppg: int  
-    bpm: int  
-    bpmQ: int 
-    crc: int  
-    accX: int
-    accY: int
-    accZ: int
+    acc: int  = 0
+    ppg: int  = 0
+    bpm: int  = 0
+    bpmQ: int = 0
+    crc: int  = 0
+    accX: int = 0
+    accY: int = 0
+    accZ: int = 0
 
     @staticmethod
     def name() -> str:
