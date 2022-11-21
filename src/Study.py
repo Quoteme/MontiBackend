@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from Sensor import Sensor
+from Participant import Participant
 import hashlib
 import os
 import json
@@ -67,6 +68,14 @@ class Study:
         Liefere eine Liste aller Studien, die bereits beendet sind
         """
         return [s for s in Study.list_all_studies() if s.end < datetime.now()]
+
+    @property
+    def participants(self) -> list[Participant]:
+        """
+        Liefere eine Liste aller Teilnehmer dieser Studie
+        """
+        return [Participant.from_json(f"./data/{self.id}/pariticpants/{f}/participant.json")
+                for f in os.listdir(f"./data/{self.id}/pariticpants")]
 
     def create(self):
         """

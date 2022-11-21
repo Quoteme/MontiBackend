@@ -40,10 +40,9 @@ class User:
         if userdata.size > 0:
             return userdata["userrole"][0]
 
-    @staticmethod
-    def is_valid(username: str, password: str) -> bool:
+    def is_valid(self) -> bool:
         db = pd.read_csv('./cfg/user.csv')
-        return db[["user", "password"]].isin([username, password]).any().all()
+        return db[["user", "password"]].isin([self.username, self.password]).any().all()
 
 class Administrator(User):
     """

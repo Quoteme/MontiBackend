@@ -4,6 +4,58 @@
 
 {% block content %}
 
-<p>Hier muss noch Text geschrieben werden</p>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/study_overview">Übersicht</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ study }}</li>
+  </ol>
+</nav>
+
+<div class="container">
+  <form action="/edit_study" method="post">
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="name" placeholder="Name" value="{{ study.name }}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="description" class="col-sm-2 col-form-label">Beschreibung</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" name="description" rows="3" placeholder="Beschreibung">{{ study.description }}</textarea>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="description" class="col-sm-2 col-form-label">Startzeitpunkt</label>
+      <div class="col-sm-10">
+        <input type="datetime-local" class="form-control" name="start_time" placeholder="Startzeitpunkt" value="{{ study.start }}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="description" class="col-sm-2 col-form-label">Endzeitpunkt</label>
+      <div class="col-sm-10">
+        <input type="datetime-local" class="form-control" name="end_time" placeholder="Endzeitpunkt" value="{{ study.end }}">
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-2">Sensoren</div>
+      <div class="col-sm-10">
+        {% for sensor in sensors %}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="sensor.{{sensor.name}}">
+          <label class="form-check-label" for="sensor.{{sensor.name}}">
+            {{ sensor.name }}
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Studie erstellen</button>
+      </div>
+    </div>
+  </form>
+</div>
 
 {% endblock %}

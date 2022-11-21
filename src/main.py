@@ -22,7 +22,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if not User.is_valid(username, password):
+        if not User(username, password).is_valid():
             return "Login fehlgeschlagen"
         else:
             session['username'] = username
@@ -82,6 +82,7 @@ def inspect_study(study_id):
     return render_template(
             'study.html',
             study = study,
+            sensors = Sensor.list_all_sensors(),
             )
 
 @app.route('/api', methods=['POST'])
