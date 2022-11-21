@@ -1,16 +1,17 @@
 from __future__ import annotations
 import pandas as pd
 from typing import Literal, Optional
+from dataclasses import dataclass
 
 UserRolle = Literal['benutzer', 'administrator']
 
+@dataclass
 class User:
     """
     Datentyp für Benutzer
     """
-    def __init__(self, username: str, password: str):
-        self.username = username
-        self.password = password
+    username: str = ""
+    password: str = ""
 
     def __str__(self) -> str:
         return self.username
