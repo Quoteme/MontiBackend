@@ -37,6 +37,27 @@ class Study:
         """
         return [Study.read_from_file(f"./data/{f}/study.json") for f in os.listdir('./data')]
 
+    @staticmethod
+    def list_all_current_studies() -> list[Study]:
+        """
+        Liefere eine Liste aller laufenden Studien
+        """
+        return [s for s in Study.list_all_studies() if s.start < datetime.now() and s.end > datetime.now()]
+
+    @staticmethod
+    def list_all_pending_studies() -> list[Study]:
+        """
+        Liefere eine Liste aller Studien, die noch nicht gestartet haben
+        """
+        return [s for s in Study.list_all_studies() if s.start > datetime.now()]
+
+    @staticmethod
+    def list_all_ended_studies() -> list[Study]:
+        """
+        Liefere eine Liste aller Studien, die bereits beendet sind
+        """
+        return [s for s in Study.list_all_studies() if s.end < datetime.now()]
+
     def create(self):
         """
         Erstelle diese Studie in der Datenbank
@@ -88,5 +109,5 @@ class Study:
             description=data["description"],
             start=datetime.strptime(data["start"], "%Y-%m-%d %H:%M:%S"),
             end=datetime.strptime(data["end"], "%Y-%m-%d %H:%M:%S"),
-            sensors=[Sensor.from_name(s) for s in data["sensors"]]
+            sensors=[Sensor.from_name(s) for s in json.loads(data["sensors"].replace("'", '"'))]
         )

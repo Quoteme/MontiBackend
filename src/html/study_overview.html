@@ -3,6 +3,30 @@
 {% block title %}Übersicht{% endblock %}
 
 {% block content %}
+<h2>Anstehende Studien</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Beschreibung</th>
+      <th scope="col">Start</th>
+      <th scope="col">Ende</th>
+      <th scope="col">Sensoren</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in pending_studies %}
+    <tr>
+      <th scope="row">{{ s.name }}</th>
+      <td>{{ s.description }}</td>
+      <td>{{ s.start }}</td>
+      <td>{{ s.end }}</td>
+      <td>{{ s.sensors }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 <h2>Laufende Studien</h2>
 <table class="table">
   <thead>
@@ -15,13 +39,13 @@
     </tr>
   </thead>
   <tbody>
-    {% for s in studies %}
+    {% for s in current_studies %}
     <tr>
       <th scope="row">{{ s.name }}</th>
       <td>{{ s.description }}</td>
-      <td>{{ str(s.start) }}</td>
-      <td>{{ str(s.end) }}</td>
-      <td>{{ str(s.sensors) }}</td>
+      <td>{{ s.start }}</td>
+      <td>{{ s.end }}</td>
+      <td>{{ s.sensors }}</td>
     </tr>
     {% endfor %}
   </tbody>
@@ -39,13 +63,13 @@
     </tr>
   </thead>
   <tbody>
-    {% for s in studies %}
+    {% for s in ended_studies %}
     <tr>
       <th scope="row">{{ s.name }}</th>
       <td>{{ s.description }}</td>
-      <td>{{ str(s.start) }}</td>
-      <td>{{ str(s.end) }}</td>
-      <td>{{ str(s.sensors) }}</td>
+      <td>{{ s.start }}</td>
+      <td>{{ s.end }}</td>
+      <td>{{ s.sensors }}</td>
     </tr>
     {% endfor %}
   </tbody>

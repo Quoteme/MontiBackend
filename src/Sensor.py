@@ -4,6 +4,13 @@ from datetime import datetime
 import importlib, inspect
 
 @dataclass
+class SensorData:
+    """
+    Ein SensorData-Objekt enthält die Daten eines Sensors.
+    """
+    timestamp: datetime = datetime.now()
+
+@dataclass
 class Sensor:
     """
     Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server
@@ -11,19 +18,15 @@ class Sensor:
     """
     timestamp: datetime
 
+    name: str = "Sensor"
+    description: str = "Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server übermittelt werden."
+    data: SensorData = SensorData()
+
     def __str__(self):
-        return self.name()
+        return self.name
 
     def __repr__(self):
-        return f"{str(self)} : {self.timestamp}"
-
-    @staticmethod
-    def name() -> str:
-        return "Sensor"
-
-    @staticmethod
-    def description() -> str:
-        return "Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server übermittelt werden."
+        return str(self)
 
     @staticmethod
     def list_all_sensors() -> list[Sensor]:
@@ -36,76 +39,98 @@ class Sensor:
     @staticmethod
     def from_name(name: str) -> Sensor:
         match name:
-            case "MobileAccelerometer":
-                return MobileAccelerometer(None)
-            case "MobileGyroscope":
-                return MobileGyroscope(None)
-            case "MobileMagnetometer":
-                return MobileMagnetometer(None)
-            case "CorsanoMetricPPG":
-                return CorsanoMetricPPG(None)
+            case "MobileAccelerometerSensor":
+                return MobileAccelerometerSensor(None)
+            case "MobileGyroscopeSensor":
+                return MobileGyroscopeSensor(None)
+            case "MobileMagnetometerSensor":
+                return MobileMagnetometerSensor(None)
+            case "CorsanoMetricPPGSensor":
+                return CorsanoMetricPPGSensor(None)
             case _:
                 return Sensor(None)
 
+@dataclass
+class MobileAccelerometerSensorData(SensorData):
+    """
+    Beschleinigungssensor rohdaten
+    """
+    x: float = 0.0
+    y: float = 0.0
+    z: float = 0.0
 
 @dataclass
-class MobileAccelerometer(Sensor):
+class MobileAccelerometerSensor(Sensor):
     """
     Ein MobileAccelerometer zeichnet die Beschleunigung auf, welche ein
     Smartphone aufweist.
     """
+    name: str = "MobileAccelerometerSensor"
+    description: str = "Ein MobileAccelerometer zeichnet die Beschleunigung auf, welche ein Smartphone aufweist."
+    data: MobileAccelerometerSensorData = MobileAccelerometerSensorData()
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return str(self)
+
+@dataclass
+class MobileGyroscopeSensorData(SensorData):
+    """
+    Gyroskopsensor rohdaten
+    """
     x: float = 0.0
     y: float = 0.0
     z: float = 0.0
 
-    @staticmethod
-    def name() -> str:
-        return "MobileAccelerometer"
-
-    @staticmethod
-    def description() -> str:
-        return "Ein MobileAccelerometer zeichnet die Beschleunigung auf, welche ein Smartphone aufweist."
-
 @dataclass
-class MobileGyroscope(Sensor):
+class MobileGyroscopeSensor(Sensor):
     """
     Ein MobileGyroscope zeichnet die Drehung auf, welche ein Smartphone aufweist.
     """
+    name: str = "MobileGyroscopeSensor"
+    description: str = "Ein MobileGyroscope zeichnet die Drehung auf, welche ein Smartphone aufweist."
+    data: MobileGyroscopeSensorData = MobileGyroscopeSensorData()
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return str(self)
+
+
+@dataclass
+class MobileMagnetometerSensorData(SensorData):
+    """
+    Magnetometer rohdaten.
+    Wichtig für Kompass
+    """
     x: float = 0.0
     y: float = 0.0
     z: float = 0.0
 
-    @staticmethod
-    def name() -> str:
-        return "MobileGyroscope"
-
-    @staticmethod
-    def description() -> str:
-        return "Ein MobileGyroscope zeichnet die Drehung auf, welche ein Smartphone aufweist."
-
 @dataclass
-class MobileMagnetometer(Sensor):
+class MobileMagnetometerSensor(Sensor):
     """
     Ein MobileMagnetometer zeichnet die Magnetfeldstärke auf, welche ein
     Smartphone aufweist. Wichtig für die Kompassfunktion.
     """
-    x: float = 0.0
-    y: float = 0.0
-    z: float = 0.0
+    name: str = "MobileMagnetometerSensor"
+    description: str = "Ein MobileMagnetometer zeichnet die Magnetfeldstärke auf, welche ein Smartphone aufweist. Wichtig für die Kompassfunktion."
+    data: MobileMagnetometerSensorData = MobileMagnetometerSensorData()
 
-    @staticmethod
-    def name() -> str:
-        return "MobileMagnetometer"
+    def __str__(self):
+        return self.name
 
-    @staticmethod
-    def description() -> str:
-        return "Ein MobileMagnetometer zeichnet die Magnetfeldstärke auf, welche ein Smartphone aufweist. Wichtig für die Kompassfunktion."
+    def __repr__(self):
+        return str(self)
+
 
 @dataclass
-class CorsanoMetricPPG(Sensor):
+class CorsanoMetricPPGSensorData(SensorData):
     """
-    Ein CorsanoMetricPPG zeichnet die Herzfrequenz auf, welche ein
-    Corsano-Messgerät aufweist.
+    Pulsdaten
     """
     acc: int  = 0
     ppg: int  = 0
@@ -116,10 +141,19 @@ class CorsanoMetricPPG(Sensor):
     accY: int = 0
     accZ: int = 0
 
-    @staticmethod
-    def name() -> str:
-        return "CorsanoMetricPPG"
+@dataclass
+class CorsanoMetricPPGSensor(Sensor):
+    """
+    Ein CorsanoMetricPPG zeichnet die Herzfrequenz auf, welche ein
+    Corsano-Messgerät aufweist.
+    """
+    name: str = "CorsanoMetricPPGSensor"
+    description: str = "Ein CorsanoMetricPPGSensor zeichnet die Herzfrequenz auf, welche ein Corsano-Messgerät aufweist."
+    data: CorsanoMetricPPGSensorData = CorsanoMetricPPGSensorData()
 
-    @staticmethod
-    def description() -> str:
-        return "Ein CorsanoMetricPPG zeichnet die Herzfrequenz auf, welche ein Corsano-Messgerät aufweist."
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return str(self)
+

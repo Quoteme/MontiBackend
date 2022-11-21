@@ -45,7 +45,9 @@ def logout():
 def dashboard():
     return render_template(
             'study_overview.html',
-            studies = Study.list_all_studies()
+            pending_studies = Study.list_all_pending_studies(),
+            current_studies = Study.list_all_current_studies(),
+            ended_studies   = Study.list_all_ended_studies()
             )
 
 @require_login
