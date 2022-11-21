@@ -42,7 +42,7 @@ def logout():
 
 @require_login
 @app.route('/study_overview')
-def dashboard():
+def study_overview():
     return render_template(
             'study_overview.html',
             pending_studies = Study.list_all_pending_studies(),
@@ -67,13 +67,22 @@ def new_study():
         description = request.form['description']
         start_time = datetime.strptime(request.form['start_time'], '%Y-%m-%dT%H:%M:%S')
         end_time = datetime.strptime(request.form['end_time'], '%Y-%m-%dT%H:%M:%S')
-        sensors = [ Sensor.from_name(sensor.name())
+        sensors = [ Sensor.from_name(sensor.name)
                    for sensor in Sensor.list_all_sensors()
-                   if request.form.get(f"sensor.{sensor.name()}")=="on"
+                   if request.form.get(f"sensor.{sensor.name}")=="on"
                    ]
         study = Study(name, description, start_time, end_time, sensors)
         study.create()
         return redirect('/study_overview')
+
+@require_login
+@app.route('/study/<study_id>')
+def inspect_study(study_id):
+    study = Study.from_id(study_id)
+    return render_template(
+            'study.html',
+            study = study,
+            )
 
 @app.route('/api', methods=['POST'])
 def api():

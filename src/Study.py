@@ -14,21 +14,31 @@ class Study:
     start: datetime
     end: datetime
     sensors: list[Sensor]
+    _id: str = ""
 
     def __str__(self):
         return self.name
 
+    @property
     def id(self) -> str:
         """
         Die ID einer Studie ist der Namen der Studie gefolgt von einem
         hash-Wert. Dieser hash-Wert wird aus dem Namen, der Beschreibung,
         dem Start- und Endzeitpunkt sowie den Sensoren berechnet.
+        Dieser Wert wird in der `_id` Variable gechached.
         """
-        hashstr = hashlib.sha256(
-                f'{self.name}{self.description}{self.start}{self.end}{self.sensors}'
-                .encode('utf-8')
-            ).hexdigest()
-        return f"{self.name}-{hashstr}"
+        if self._id == "":
+            hashstr = hashlib.sha256(
+                    f'{self.name}{self.description}{self.start}{self.end}{self.sensors}'
+                    .encode('utf-8')
+                ).hexdigest()
+            return f"{self.name}-{hashstr}"
+        else:
+            return self._id
+
+    @id.setter
+    def id(self, value: str):
+        self._id = value
 
     @staticmethod
     def list_all_studies() -> list[Study]:
@@ -62,9 +72,19 @@ class Study:
         """
         Erstelle diese Studie in der Datenbank
         """
-        os.mkdir(f"./data/{self.id()}")
-        with open(f"./data/{self.id()}/study.json", "w") as f:
+        os.mkdir(f"./data/{self.id}")
+        with open(f"./data/{self.id}/study.json", "w") as f:
             f.write(self.to_json())
+
+    @staticmethod
+    def from_id(id: str) -> Study:
+        """
+        Liefere die Studie mit der angegebenen ID.
+        Dafür wird die Studie aus der Datenbank gelesen.
+        Wir suchen den Ordner mit der ID und lesen die Studie aus der
+        Datei `study.json` aus.
+        """
+        return Study.read_from_file(f"./data/{id}/study.json")
 
     @staticmethod
     def read_from_file(url: str):
@@ -78,7 +98,7 @@ class Study:
         """
         Lösche diese Studie aus der Datenbank
         """
-        shutil.rmtree(f"./data/{self.id()}")
+        shutil.rmtree(f"./data/{self.id}")
 
     def update(self):
         """
@@ -95,7 +115,8 @@ class Study:
             "description": self.description,
             "start": str(self.start),
             "end": str(self.end),
-            "sensors": str([str(s) for s in self.sensors])
+            "sensors": str([str(s) for s in self.sensors]),
+            "_id": self.id
         })
 
     @staticmethod
@@ -109,5 +130,6 @@ class Study:
             description=data["description"],
             start=datetime.strptime(data["start"], "%Y-%m-%d %H:%M:%S"),
             end=datetime.strptime(data["end"], "%Y-%m-%d %H:%M:%S"),
-            sensors=[Sensor.from_name(s) for s in json.loads(data["sensors"].replace("'", '"'))]
+            sensors=[Sensor.from_name(s) for s in json.loads(data["sensors"].replace("'", '"'))],
+            _id=data["_id"]
         )

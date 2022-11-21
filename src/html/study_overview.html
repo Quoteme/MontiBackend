@@ -17,7 +17,7 @@
   <tbody>
     {% for s in pending_studies %}
     <tr>
-      <th scope="row">{{ s.name }}</th>
+      <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
       <td>{{ s.description }}</td>
       <td>{{ s.start }}</td>
       <td>{{ s.end }}</td>
@@ -41,7 +41,7 @@
   <tbody>
     {% for s in current_studies %}
     <tr>
-      <th scope="row">{{ s.name }}</th>
+      <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
       <td>{{ s.description }}</td>
       <td>{{ s.start }}</td>
       <td>{{ s.end }}</td>
@@ -65,7 +65,7 @@
   <tbody>
     {% for s in ended_studies %}
     <tr>
-      <th scope="row">{{ s.name }}</th>
+      <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
       <td>{{ s.description }}</td>
       <td>{{ s.start }}</td>
       <td>{{ s.end }}</td>
