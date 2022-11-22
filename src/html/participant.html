@@ -56,7 +56,18 @@
 
         <div class="form-group">
           <label for="birthday">Geburtsdatum</label>
-          <input type="date" class="form-control" name="birthday" value="{{ participant.birthday.strftime("%Y-%m-%d") }}" required>
+          <input type="date" class="form-control" name="birthday" value='{{ participant.birthday.strftime("%Y-%m-%d") }}' required>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Geschlecht</label>
+          <select name="gender" class="form-control">
+            <option value="male" {% if participant.gender == "male" %} selected {% endif %}>Männlich</option>
+            <option value="female" {% if participant.gender == "female" %} selected {% endif %}>Weiblich</option>
+            <option value="other" {% if participant.gender == "other" %} selected {% endif %}>Anderes</option>
+          </select>
+          <div>
+          </div>
         </div>
 
         <div class="form-group">

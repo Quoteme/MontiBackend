@@ -7,7 +7,7 @@ from util import *
 from User import User
 from Study import Study
 from Sensor import Sensor
-from Participant import Participant
+from Participant import Participant, Gender
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -100,9 +100,10 @@ def add_participant(study_id):
             )
     else:
         participant = Participant(
-               surname = request.form['surname'],
-               forename = request.form['forename'],
+               surname = request.form.get("surname") or "",
+               forename = request.form.get( 'forename' ) or "",
                birthday = datetime.strptime(request.form['birthday'], '%Y-%m-%d'),
+               gender = request.form.get("gender") or "other"
                )
         study.add_participant(participant)
         return redirect(f'/study/{study_id}')
@@ -123,9 +124,10 @@ def inspect_participant(study_id, participant_id):
 def edit_participant(study_id, participant_id):
     study = Study.from_id(study_id)
     participant = study.get_participant(participant_id)
-    participant.surname = request.form['surname']
-    participant.forename = request.form['forename']
-    participant.birthday = datetime.strptime(request.form['birthday'], '%Y-%m-%d')
+    participant.surname = request.form.get('surname') or ""
+    participant.forename = request.form.get('forename') or ""
+    participant.birthday = datetime.strptime(request.form.get('birthday') or str(datetime.now()), '%Y-%m-%d')
+    participant.gender = request.form.get('gender') or "other"
     study.update_participant(participant)
     flash(f'Benutzer wurde erfolgreich bearbeitet', 'success')
     return redirect(f'/study/{study_id}/participant/{participant_id}')

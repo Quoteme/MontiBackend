@@ -67,17 +67,6 @@ class Participant:
         """
         shutil.rmtree(f"{url}/{self.id}")
 
-    # @staticmethod
-    # def from_request(request: Request) -> Participant:
-    #     """
-    #     Erstelle einen Teilnehmer aus einer HTTP-Anfrage
-    #     """
-    #     return Participant(
-    #         surname=request.form["surname"],
-    #         forename=request.form["forename"],
-    #         birthday=datetime.strptime(request.form["birthday"], "%Y-%m-%d"),
-    #         )
-
     @staticmethod
     def from_file(url: str) -> Participant:
         """
