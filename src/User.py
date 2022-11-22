@@ -8,7 +8,11 @@ UserRolle = Literal['benutzer', 'administrator']
 @dataclass
 class User:
     """
-    Datentyp für Benutzer
+    Datentyp für Benutzer der Website.
+    Verschiedene Benutzer haben unterschiedliche Rechte.
+    Nur mit einem Benutzer kann man sich auf der Website einloggen.
+    Welche Konten und mit welchem Passwort existieren, wird in der Datei
+    `cfg/user.csv` gespeichert.
     """
     username: str = ""
     password: str = ""

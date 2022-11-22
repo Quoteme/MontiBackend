@@ -13,6 +13,16 @@ import base64
 
 @dataclass
 class Study:
+    """
+    Eine Studie kann erzeugt werden um Daten mehrerer Teilnehmer zu sammeln.
+
+    Einige Fragen die durch eine Studie beantwortet werden sind:
+    - Wessen...
+    - Welche...
+    - Von wan bis wann...
+    - Wie oft...
+    ... Daten werden gesammelt?
+    """
     name: str
     description: str
     start: datetime

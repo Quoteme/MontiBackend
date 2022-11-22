@@ -15,6 +15,8 @@ class Sensor:
     """
     Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server
     übermittelt werden.
+    Genauere Informationen und die Implementation wie diese Daten übermittelt
+    werden finden sich in den Unterklassen dieser Klasse.
     """
     timestamp: datetime = datetime.now()
 

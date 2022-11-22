@@ -14,7 +14,7 @@ Gender = Literal['male', 'female', 'other']
 @dataclass
 class Participant:
     """
-    Datentyp für Teilnehmer von Studien
+    Datentyp für Teilnehmer von Studien.
     """
     surname: str = ""
     forename: str = ""
