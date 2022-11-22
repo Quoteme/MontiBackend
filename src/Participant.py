@@ -7,6 +7,9 @@ import uuid
 import os
 import shutil
 from datetime import datetime
+from typing import Literal
+
+Gender = Literal['male', 'female', 'other']
 
 @dataclass
 class Participant:
@@ -16,6 +19,7 @@ class Participant:
     surname: str = ""
     forename: str = ""
     birthday: datetime = datetime.now()
+    gender: Gender = 'other'
     _id: str = ""
 
     def __str__(self) -> str:
@@ -34,6 +38,13 @@ class Participant:
         else:
             self._id = uuid.uuid4().hex
             return self._id
+
+    @property
+    def name(self) -> str:
+        """
+        Liefere den vollständigen Namen des Teilnehmers
+        """
+        return f"{self.forename} {self.surname}"
 
     def create(self, url: str) -> None:
         """
@@ -56,6 +67,17 @@ class Participant:
         """
         shutil.rmtree(f"{url}/{self.id}")
 
+    # @staticmethod
+    # def from_request(request: Request) -> Participant:
+    #     """
+    #     Erstelle einen Teilnehmer aus einer HTTP-Anfrage
+    #     """
+    #     return Participant(
+    #         surname=request.form["surname"],
+    #         forename=request.form["forename"],
+    #         birthday=datetime.strptime(request.form["birthday"], "%Y-%m-%d"),
+    #         )
+
     @staticmethod
     def from_file(url: str) -> Participant:
         """
@@ -71,10 +93,11 @@ class Participant:
         """
         data = json.loads(json_string)
         return Participant(
-                surname = data["surname"],
-                forename = data["forename"],
-                birthday = datetime.strptime(data["birthday"], "%Y-%m-%d"),
-                _id = data["id"]
+                surname = data.get("surname"),
+                forename = data.get("forename"),
+                birthday = datetime.strptime(data.get("birthday"), "%Y-%m-%d"),
+                gender = data.get("gender"),
+                _id = data.get("id")
                 )
 
     def to_json(self) -> str:
@@ -85,5 +108,6 @@ class Participant:
             "surname": self.surname,
             "forename": self.forename,
             "birthday": self.birthday.strftime("%Y-%m-%d"),
+            "gender": self.gender,
             "id": self.id
         })
