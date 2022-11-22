@@ -17,6 +17,7 @@
             flask
             ipython
             pandas
+            qrcode
             matplotlib
           ]));
       in

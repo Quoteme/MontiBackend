@@ -22,12 +22,13 @@
     <h1 class="display-4">App Integration</h1>
     <p class="lead">
     <div class="text-center">
-      <img src="data:image/gif;base64,R0lGODlhZABkAJEAAAAAAP///wAAAAAAACH5BAEAAAIALAAAAABkAGQAAAL/jI+py+0Po5y02ouz3rz7D4biSJbmiabqCgLuC8fyjMwAA9f2zlP8TzvYcC8d8HibIJHGGNHVXO580l+0uMgJqz0l1qJVhAPDLfQyhqS9Z/GXHDSsJfNGXf1uXttwPtX/cBeYZ5YkF9dnWCHoxgekVzhWduhoVfin+HgZ+TaZuOe0SddpSZmJ6ClZ+sl22mUKGiuamErooPrK2jiVRZrLmIDLC9ubC2laC3jrO6wbvHpMi2prx5ysCFonfI2ZzYxXGe7aDBytSbwsbr5aPnvu/DS+/ksd760+iI8uLRMNjt1qHsBdGNrt6+au3iyEo5RFEOav2MCHCgmi+bZQYsGK/8+4cEsozmOohiJHOoPIqeTEeCr1nbTWElNLeSDHzWSx0SHOnR1X8vxp8GeKoChQpjMpxZ7GjEcj7toGjelLnUsPSoRqTKpRii5ZwsxqdV9QbRw9/VPaNGDVav3UWkxLEi1bk2fXyq37du5YasD2zmyLrCxGsRzvlZQFdypNkn+/+iTs0m9jx3gVO517uS/faWAzbL2cmXMzDp+lhgbMj+6G0mF7eg2JiLTod3e1is6JdEnl07mpHsU62q5t1ERT2oyalzdroR8DcwG9onnqpKaj3zZOvTUL6TerP41ZM/v0wVz/ChT/TnJ3yFUMQ/+u8rxu7OR3u+0pvbZ24XGvXr1P/J5rFzmUnmAEFuYdZv4RZ+BEkrmXIGL4/beIY8u95iA7COZVoG8THkiPh3J1+NiHGYZY4ogaipjPicGBYWF9A7po1owQ7tcffKrBCBuDLAJI348KOtfbYvAEedh9JAqE4Xrl3WjZcJMJCdxWy035oI0LGgmlbEIqJyORxQGZo4lgouZlivylduaOnk3G5Jb6HfkbeOxhOKd6dkapY54bjvdcTXiuOaZQhh6KaKKKLspoo44+Cmmkkk7aQAEAOw==" class="rounded" alt="...">
+      <img src="data:image/png;base64,{{study.qrcode_participant_login(participant)}}" alt="">
     </div>
     </p>
     <hr class="my-4">
     <p>
-    Bitten Sie {{ participant.name }}, die App zu öffnen und den
+    Bitten Sie
+    {{ participant.name }}, die App zu öffnen und den
     gezeigten QR-Code zu scannen.
     Dadurch wird die App mit der Studie verbunden.
     Gesammelte Daten werden hier angezeigt.
