@@ -2,83 +2,90 @@
 
 {% block title %}Übersicht{% endblock %}
 
-{% block content %}
-
+{% block breadcrumb %}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active"><a href="/study_overview">Übersicht</a></li>
   </ol>
 </nav>
+{% endblock %}
 
-<h2>Anstehende Studien</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Beschreibung</th>
-      <th scope="col">Start</th>
-      <th scope="col">Ende</th>
-      <th scope="col">Sensoren</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for s in pending_studies %}
-    <tr>
-      <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
-      <td>{{ s.description }}</td>
-      <td>{{ s.start }}</td>
-      <td>{{ s.end }}</td>
-      <td>{{ s.sensors }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+{% block content %}
+<div class="container">
+  <h2>Anstehende Studien</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Beschreibung</th>
+        <th scope="col">Start</th>
+        <th scope="col">Ende</th>
+        <th scope="col">Sensoren</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in pending_studies %}
+      <tr>
+        <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
+        <td>{{ s.description }}</td>
+        <td>{{ s.start }}</td>
+        <td>{{ s.end }}</td>
+        <td>{{ s.sensors }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-<h2>Laufende Studien</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Beschreibung</th>
-      <th scope="col">Start</th>
-      <th scope="col">Ende</th>
-      <th scope="col">Sensoren</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for s in current_studies %}
-    <tr>
-      <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
-      <td>{{ s.description }}</td>
-      <td>{{ s.start }}</td>
-      <td>{{ s.end }}</td>
-      <td>{{ s.sensors }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="container">
+  <h2>Laufende Studien</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Beschreibung</th>
+        <th scope="col">Start</th>
+        <th scope="col">Ende</th>
+        <th scope="col">Sensoren</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in current_studies %}
+      <tr>
+        <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
+        <td>{{ s.description }}</td>
+        <td>{{ s.start }}</td>
+        <td>{{ s.end }}</td>
+        <td>{{ s.sensors }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
-<h2>Beendete Studien</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Beschreibung</th>
-      <th scope="col">Start</th>
-      <th scope="col">Ende</th>
-      <th scope="col">Sensoren</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for s in ended_studies %}
-    <tr>
-      <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
-      <td>{{ s.description }}</td>
-      <td>{{ s.start }}</td>
-      <td>{{ s.end }}</td>
-      <td>{{ s.sensors }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="container">
+  <h2>Beendete Studien</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Beschreibung</th>
+        <th scope="col">Start</th>
+        <th scope="col">Ende</th>
+        <th scope="col">Sensoren</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in ended_studies %}
+      <tr>
+        <th scope="row"><a href="/study/{{ s.id }}">{{ s.name }}</a></th>
+        <td>{{ s.description }}</td>
+        <td>{{ s.start }}</td>
+        <td>{{ s.end }}</td>
+        <td>{{ s.sensors }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

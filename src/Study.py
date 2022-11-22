@@ -74,8 +74,39 @@ class Study:
         """
         Liefere eine Liste aller Teilnehmer dieser Studie
         """
-        return [Participant.from_json(f"./data/{self.id}/pariticpants/{f}/participant.json")
-                for f in os.listdir(f"./data/{self.id}/pariticpants")]
+        if not os.path.exists(f"./data/{self.id}/participants"):
+            return []
+        else:
+            return [Participant.from_file(f"./data/{self.id}/participants/{f}/participant.json")
+                    for f in os.listdir(f"./data/{self.id}/participants")]
+    
+    def get_participant(self, participant_id: str) -> Participant:
+        """
+        Liefere den Teilnehmer mit der ID `participant_id`
+        """
+        return Participant.from_file(f"./data/{self.id}/participants/{participant_id}/participant.json")
+
+    def add_participant(self, participant: Participant):
+        """
+        Füge einen Teilnehmer dieser Studie hinzu
+        """
+        if not os.path.exists(f"./data/{self.id}/participants"):
+            os.mkdir(f"./data/{self.id}/participants")
+        participant.create(f"./data/{self.id}/participants")
+
+    def update_participant(self, participant: Participant):
+        """
+        Aktualisiere den Teilnehmer `participant` in der Datenbank
+        """
+        if not os.path.exists(f"./data/{self.id}/participants"):
+            os.mkdir(f"./data/{self.id}/participants")
+        participant.update(f"./data/{self.id}/participants")
+
+    def delete_participant(self, participant: Participant):
+        """
+        Lösche den Teilnehmer `participant` aus der Datenbank
+        """
+        participant.delete(f"./data/{self.id}/participants")
 
     def create(self):
         """
@@ -113,7 +144,7 @@ class Study:
         """
         Aktualisiere diese Studie in der Datenbank
         """
-        pass
+        self.create()
 
     def to_json(self):
         """

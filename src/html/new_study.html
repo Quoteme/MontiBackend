@@ -2,15 +2,16 @@
 
 {% block title %}Login{% endblock %}
 
-{% block content %}
-
+{% block breadcrumb %}
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/study_overview">Übersicht</a></li>
     <li class="breadcrumb-item active" aria-current="page">Neue Studie</li>
   </ol>
 </nav>
+{% endblock %}
 
+{% block content %}
 <h2>Neue Studie erstellen</h2>
 <form action="/new_study" method="post">
   <div class="form-group row">

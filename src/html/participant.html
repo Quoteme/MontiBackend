@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ study.name }} - Studie Einzelansicht{% endblock %}
+
+{% block breadcrumb %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/study_overview">Übersicht</a></li>
+    <li class="breadcrumb-item"><a href="/study/{{study.id}}">{{ study }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ participant }}</li>
+  </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="alert alert-warning" role="alert">
+    Hier QR-Code einfügen
+  </div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Teilnehmer bearbeiten</h2>
+    </div>
+    <div class="card-body">
+      <form action="/study/{{study.id}}/participant/{{participant.id}}/edit_participant" method="post">
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="surname">Nachname</label>
+            <input type="text" class="form-control" name="surname" placeholder="Nachname" value="{{ participant.surname }}" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="forename">Vorname</label>
+            <input type="text" class="form-control" name="forename" placeholder="Vorname" value="{{ participant.forename }}" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="birthday">Geburtsdatum</label>
+          <input type="date" class="form-control" name="birthday" value="{{ participant.birthday.strftime("%Y-%m-%d") }}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="participant_id">Teilnehmer-ID</label>
+          <div>
+            <input class="form-control" type="text" name="participant_id" placeholder="{{ participant.id }}" readonly>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Ab hier vorsichtig</h2>
+    </div>
+    <div class="card-body">
+      <form action="/study/{{study.id}}/participant/{{participant.id}}/delete_participant" method="post">
+        <div class="form-group">
+          <label for="participant_id">Teilnehmer-ID</label>
+          <input class="form-control" name="participant_id" type="text" value="{{participant.id}}" readonly>
+        </div>
+        <button type="submit" class="btn btn-danger">Teilnehmer löschen</button> 
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

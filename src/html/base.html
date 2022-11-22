@@ -53,7 +53,52 @@
     </div>
   </nav>
 
+  <div id="breadcrumb">{% block breadcrumb %}{% endblock %}</div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="container">
+      {% for category, message in messages %}
+        <!-- <li class="{{ category }}">{{ message }}</li> -->
+        {% if category == 'error' %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error:</strong>
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% elif category == 'success' %}
+          <div class="alert alert-success alert-dismissable fade show" role="alert">
+            <strong>Erfolg:</strong>
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% elif category == 'info' %}
+          <div class="alert alert-info alert-dismissable fade show" role="alert">
+            <strong>Info:</strong>
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% elif category == 'warning' %}
+          <div class="alert alert-warning alert-dismissable fade show" role="alert">
+            <strong>Warnung:</strong>
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        {% endif %}
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
   <div id="content">{% block content %}{% endblock %}</div>
+
   <footer>
     {% block footer %}
     &copy; Copyright 2022 by <a href="http://domain.invalid/">Remsys.ai</a>.
