@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/flake-utils";
     };
   };
@@ -19,6 +18,8 @@
             pandas
             qrcode
             matplotlib
+            sphinx
+            sphinx_rtd_theme
           ]));
       in
         rec {

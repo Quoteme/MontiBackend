@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="de" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study module &mdash; Monti Backend 0.1 Dokumentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Stichwortverzeichnis" href="genindex.html" />
+    <link rel="search" title="Suche" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Monti Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Dokumentation durchsuchen" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Study module</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Monti Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Study module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Study.rst.txt" rel="nofollow"> Quelltext anzeigen</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Study">
+<span id="study-module"></span><h1>Study module<a class="headerlink" href="#module-Study" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Study.Study">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Study.</span></span><span class="sig-name descname"><span class="pre">Study</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Sensor.html#Sensor.Sensor" title="Sensor.Sensor"><span class="pre">Sensor.Sensor</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Eine Studie kann erzeugt werden um Daten mehrerer Teilnehmer zu sammeln.</p>
+<p>Einige Fragen die durch eine Studie beantwortet werden sind:
+- Wessen…
+- Welche…
+- Von wan bis wann…
+- Wie oft…
+… Daten werden gesammelt?</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.add_participant">
+<span class="sig-name descname"><span class="pre">add_participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Participant.html#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.add_participant" title="Link zu dieser Definition"></a></dt>
+<dd><p>Füge einen Teilnehmer dieser Studie hinzu</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.create">
+<span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.create" title="Link zu dieser Definition"></a></dt>
+<dd><p>Erstelle diese Studie in der Datenbank</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.delete" title="Link zu dieser Definition"></a></dt>
+<dd><p>Lösche diese Studie aus der Datenbank</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.delete_participant">
+<span class="sig-name descname"><span class="pre">delete_participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Participant.html#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.delete_participant" title="Link zu dieser Definition"></a></dt>
+<dd><p>Lösche den Teilnehmer <cite>participant</cite> aus der Datenbank</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Study.Study.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Study.Study.description" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Study.Study.end">
+<span class="sig-name descname"><span class="pre">end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#Study.Study.end" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.from_id">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study</span></a></span></span><a class="headerlink" href="#Study.Study.from_id" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere die Studie mit der angegebenen ID.
+Dafür wird die Studie aus der Datenbank gelesen.
+Wir suchen den Ordner mit der ID und lesen die Studie aus der
+Datei <cite>study.json</cite> aus.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.from_json">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jsondata</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.from_json" title="Link zu dieser Definition"></a></dt>
+<dd><p>Erstelle eine Studie aus einem JSON-Objekt</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.get_participant">
+<span class="sig-name descname"><span class="pre">get_participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="Participant.html#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a></span></span><a class="headerlink" href="#Study.Study.get_participant" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere den Teilnehmer mit der ID <cite>participant_id</cite></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Study.Study.id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Study.Study.id" title="Link zu dieser Definition"></a></dt>
+<dd><p>Die ID einer Studie ist der Namen der Studie gefolgt von einem
+hash-Wert. Dieser hash-Wert wird aus dem Namen, der Beschreibung,
+dem Start- und Endzeitpunkt sowie den Sensoren berechnet.
+Dieser Wert wird in der <cite>_id</cite> Variable gechached.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.list_all_current_studies">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_all_current_studies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study.Study</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Study.Study.list_all_current_studies" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere eine Liste aller laufenden Studien</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.list_all_ended_studies">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_all_ended_studies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study.Study</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Study.Study.list_all_ended_studies" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere eine Liste aller Studien, die bereits beendet sind</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.list_all_pending_studies">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_all_pending_studies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study.Study</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Study.Study.list_all_pending_studies" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere eine Liste aller Studien, die noch nicht gestartet haben</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.list_all_studies">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_all_studies</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study.Study</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Study.Study.list_all_studies" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere eine Liste aller Studien in der Datenbank</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Study.Study.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Study.Study.name" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Study.Study.participants">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">participants</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Participant.html#Participant.Participant" title="Participant.Participant"><span class="pre">Participant.Participant</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#Study.Study.participants" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere eine Liste aller Teilnehmer dieser Studie</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.qrcode_participant_login">
+<span class="sig-name descname"><span class="pre">qrcode_participant_login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Participant.html#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Study.Study.qrcode_participant_login" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere den QR-Code für einen Teilnehmer <cite>participant</cite>.
+Hiermit kann sich der Teilnehmer in der App einloggen.
+Der QR-Code wird als base64-String zurückgegeben.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.read_from_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.read_from_file" title="Link zu dieser Definition"></a></dt>
+<dd><p>Lese eine Studie aus der Datenbank</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Study.Study.sensors">
+<span class="sig-name descname"><span class="pre">sensors</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Sensor.html#Sensor.Sensor" title="Sensor.Sensor"><span class="pre">Sensor.Sensor</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#Study.Study.sensors" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Study.Study.start">
+<span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#Study.Study.start" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.to_json">
+<span class="sig-name descname"><span class="pre">to_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.to_json" title="Link zu dieser Definition"></a></dt>
+<dd><p>Konvertiere diese Studie in ein JSON-Objekt</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.tracks_sensor">
+<span class="sig-name descname"><span class="pre">tracks_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Sensor.html#Sensor.Sensor" title="Sensor.Sensor"><span class="pre">Sensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#Study.Study.tracks_sensor" title="Link zu dieser Definition"></a></dt>
+<dd><p>Prüfe, ob diese Studie den Sensor <cite>sensor</cite> trackt</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.update" title="Link zu dieser Definition"></a></dt>
+<dd><p>Aktualisiere diese Studie in der Datenbank</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.update_participant">
+<span class="sig-name descname"><span class="pre">update_participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Participant.html#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Study.Study.update_participant" title="Link zu dieser Definition"></a></dt>
+<dd><p>Aktualisiere den Teilnehmer <cite>participant</cite> in der Datenbank</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1980, Luca Leon Happel.</p>
+  </div>
+
+  Erstellt mit <a href="https://www.sphinx-doc.org/">Sphinx</a> mit einem
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    bereitgestellt von <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

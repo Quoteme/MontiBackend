@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="de" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sensor module &mdash; Monti Backend 0.1 Dokumentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Stichwortverzeichnis" href="genindex.html" />
+    <link rel="search" title="Suche" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Monti Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Dokumentation durchsuchen" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Sensor module</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Monti Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Sensor module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Sensor.rst.txt" rel="nofollow"> Quelltext anzeigen</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Sensor">
+<span id="sensor-module"></span><h1>Sensor module<a class="headerlink" href="#module-Sensor" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">CorsanoMetricPPGSensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">345307)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CorsanoMetricPPGSensor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Ein</span> <span class="pre">CorsanoMetricPPGSensor</span> <span class="pre">zeichnet</span> <span class="pre">die</span> <span class="pre">Herzfrequenz</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">ein</span> <span class="pre">Corsano-Messgerät</span> <span class="pre">aufweist.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Sensor.CorsanoMetricPPGSensorData" title="Sensor.CorsanoMetricPPGSensorData"><span class="pre">CorsanoMetricPPGSensorData</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">CorsanoMetricPPGSensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987),</span> <span class="pre">acc=0,</span> <span class="pre">ppg=0,</span> <span class="pre">bpm=0,</span> <span class="pre">bpmQ=0,</span> <span class="pre">crc=0,</span> <span class="pre">accX=0,</span> <span class="pre">accY=0,</span> <span class="pre">accZ=0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensor" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Sensor.Sensor" title="Sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>Ein CorsanoMetricPPG zeichnet die Herzfrequenz auf, welche ein
+Corsano-Messgerät aufweist.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensor.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#Sensor.CorsanoMetricPPGSensorData" title="Sensor.CorsanoMetricPPGSensorData"><span class="pre">CorsanoMetricPPGSensorData</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">CorsanoMetricPPGSensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987),</span> <span class="pre">acc=0,</span> <span class="pre">ppg=0,</span> <span class="pre">bpm=0,</span> <span class="pre">bpmQ=0,</span> <span class="pre">crc=0,</span> <span class="pre">accX=0,</span> <span class="pre">accY=0,</span> <span class="pre">accZ=0)</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensor.data" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensor.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ein</span> <span class="pre">CorsanoMetricPPGSensor</span> <span class="pre">zeichnet</span> <span class="pre">die</span> <span class="pre">Herzfrequenz</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">ein</span> <span class="pre">Corsano-Messgerät</span> <span class="pre">aufweist.'</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensor.description" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensor.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CorsanoMetricPPGSensor'</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensor.name" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">CorsanoMetricPPGSensorData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ppg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bpm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bpmQ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accX</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accY</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accZ</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Sensor.SensorData" title="Sensor.SensorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorData</span></code></a></p>
+<p>Pulsdaten</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData.acc">
+<span class="sig-name descname"><span class="pre">acc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData.acc" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData.accX">
+<span class="sig-name descname"><span class="pre">accX</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData.accX" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData.accY">
+<span class="sig-name descname"><span class="pre">accY</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData.accY" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData.accZ">
+<span class="sig-name descname"><span class="pre">accZ</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData.accZ" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData.bpm">
+<span class="sig-name descname"><span class="pre">bpm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData.bpm" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData.bpmQ">
+<span class="sig-name descname"><span class="pre">bpmQ</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData.bpmQ" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData.crc">
+<span class="sig-name descname"><span class="pre">crc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData.crc" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.CorsanoMetricPPGSensorData.ppg">
+<span class="sig-name descname"><span class="pre">ppg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#Sensor.CorsanoMetricPPGSensorData.ppg" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.MobileAccelerometerSensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">MobileAccelerometerSensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">345307)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'MobileAccelerometerSensor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Ein</span> <span class="pre">MobileAccelerometer</span> <span class="pre">zeichnet</span> <span class="pre">die</span> <span class="pre">Beschleunigung</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">ein</span> <span class="pre">Smartphone</span> <span class="pre">aufweist.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Sensor.MobileAccelerometerSensorData" title="Sensor.MobileAccelerometerSensorData"><span class="pre">MobileAccelerometerSensorData</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MobileAccelerometerSensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987),</span> <span class="pre">x=0.0,</span> <span class="pre">y=0.0,</span> <span class="pre">z=0.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.MobileAccelerometerSensor" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Sensor.Sensor" title="Sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>Ein MobileAccelerometer zeichnet die Beschleunigung auf, welche ein
+Smartphone aufweist.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileAccelerometerSensor.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#Sensor.MobileAccelerometerSensorData" title="Sensor.MobileAccelerometerSensorData"><span class="pre">MobileAccelerometerSensorData</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MobileAccelerometerSensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987),</span> <span class="pre">x=0.0,</span> <span class="pre">y=0.0,</span> <span class="pre">z=0.0)</span></em><a class="headerlink" href="#Sensor.MobileAccelerometerSensor.data" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileAccelerometerSensor.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ein</span> <span class="pre">MobileAccelerometer</span> <span class="pre">zeichnet</span> <span class="pre">die</span> <span class="pre">Beschleunigung</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">ein</span> <span class="pre">Smartphone</span> <span class="pre">aufweist.'</span></em><a class="headerlink" href="#Sensor.MobileAccelerometerSensor.description" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileAccelerometerSensor.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MobileAccelerometerSensor'</span></em><a class="headerlink" href="#Sensor.MobileAccelerometerSensor.name" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.MobileAccelerometerSensorData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">MobileAccelerometerSensorData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.MobileAccelerometerSensorData" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Sensor.SensorData" title="Sensor.SensorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorData</span></code></a></p>
+<p>Beschleinigungssensor rohdaten</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileAccelerometerSensorData.x">
+<span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileAccelerometerSensorData.x" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileAccelerometerSensorData.y">
+<span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileAccelerometerSensorData.y" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileAccelerometerSensorData.z">
+<span class="sig-name descname"><span class="pre">z</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileAccelerometerSensorData.z" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.MobileGyroscopeSensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">MobileGyroscopeSensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">345307)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'MobileGyroscopeSensor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Ein</span> <span class="pre">MobileGyroscope</span> <span class="pre">zeichnet</span> <span class="pre">die</span> <span class="pre">Drehung</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">ein</span> <span class="pre">Smartphone</span> <span class="pre">aufweist.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Sensor.MobileGyroscopeSensorData" title="Sensor.MobileGyroscopeSensorData"><span class="pre">MobileGyroscopeSensorData</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MobileGyroscopeSensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987),</span> <span class="pre">x=0.0,</span> <span class="pre">y=0.0,</span> <span class="pre">z=0.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.MobileGyroscopeSensor" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Sensor.Sensor" title="Sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>Ein MobileGyroscope zeichnet die Drehung auf, welche ein Smartphone aufweist.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileGyroscopeSensor.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#Sensor.MobileGyroscopeSensorData" title="Sensor.MobileGyroscopeSensorData"><span class="pre">MobileGyroscopeSensorData</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MobileGyroscopeSensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987),</span> <span class="pre">x=0.0,</span> <span class="pre">y=0.0,</span> <span class="pre">z=0.0)</span></em><a class="headerlink" href="#Sensor.MobileGyroscopeSensor.data" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileGyroscopeSensor.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ein</span> <span class="pre">MobileGyroscope</span> <span class="pre">zeichnet</span> <span class="pre">die</span> <span class="pre">Drehung</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">ein</span> <span class="pre">Smartphone</span> <span class="pre">aufweist.'</span></em><a class="headerlink" href="#Sensor.MobileGyroscopeSensor.description" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileGyroscopeSensor.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MobileGyroscopeSensor'</span></em><a class="headerlink" href="#Sensor.MobileGyroscopeSensor.name" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.MobileGyroscopeSensorData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">MobileGyroscopeSensorData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.MobileGyroscopeSensorData" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Sensor.SensorData" title="Sensor.SensorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorData</span></code></a></p>
+<p>Gyroskopsensor rohdaten</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileGyroscopeSensorData.x">
+<span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileGyroscopeSensorData.x" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileGyroscopeSensorData.y">
+<span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileGyroscopeSensorData.y" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileGyroscopeSensorData.z">
+<span class="sig-name descname"><span class="pre">z</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileGyroscopeSensorData.z" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.MobileMagnetometerSensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">MobileMagnetometerSensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">345307)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'MobileMagnetometerSensor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Ein</span> <span class="pre">MobileMagnetometer</span> <span class="pre">zeichnet</span> <span class="pre">die</span> <span class="pre">Magnetfeldstärke</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">ein</span> <span class="pre">Smartphone</span> <span class="pre">aufweist.</span> <span class="pre">Wichtig</span> <span class="pre">für</span> <span class="pre">die</span> <span class="pre">Kompassfunktion.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Sensor.MobileMagnetometerSensorData" title="Sensor.MobileMagnetometerSensorData"><span class="pre">MobileMagnetometerSensorData</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">MobileMagnetometerSensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987),</span> <span class="pre">x=0.0,</span> <span class="pre">y=0.0,</span> <span class="pre">z=0.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.MobileMagnetometerSensor" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Sensor.Sensor" title="Sensor.Sensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sensor</span></code></a></p>
+<p>Ein MobileMagnetometer zeichnet die Magnetfeldstärke auf, welche ein
+Smartphone aufweist. Wichtig für die Kompassfunktion.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileMagnetometerSensor.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#Sensor.MobileMagnetometerSensorData" title="Sensor.MobileMagnetometerSensorData"><span class="pre">MobileMagnetometerSensorData</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MobileMagnetometerSensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987),</span> <span class="pre">x=0.0,</span> <span class="pre">y=0.0,</span> <span class="pre">z=0.0)</span></em><a class="headerlink" href="#Sensor.MobileMagnetometerSensor.data" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileMagnetometerSensor.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ein</span> <span class="pre">MobileMagnetometer</span> <span class="pre">zeichnet</span> <span class="pre">die</span> <span class="pre">Magnetfeldstärke</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">ein</span> <span class="pre">Smartphone</span> <span class="pre">aufweist.</span> <span class="pre">Wichtig</span> <span class="pre">für</span> <span class="pre">die</span> <span class="pre">Kompassfunktion.'</span></em><a class="headerlink" href="#Sensor.MobileMagnetometerSensor.description" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileMagnetometerSensor.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MobileMagnetometerSensor'</span></em><a class="headerlink" href="#Sensor.MobileMagnetometerSensor.name" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.MobileMagnetometerSensorData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">MobileMagnetometerSensorData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.MobileMagnetometerSensorData" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#Sensor.SensorData" title="Sensor.SensorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SensorData</span></code></a></p>
+<p>Magnetometer rohdaten.
+Wichtig für Kompass</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileMagnetometerSensorData.x">
+<span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileMagnetometerSensorData.x" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileMagnetometerSensorData.y">
+<span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileMagnetometerSensorData.y" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.MobileMagnetometerSensorData.z">
+<span class="sig-name descname"><span class="pre">z</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#Sensor.MobileMagnetometerSensorData.z" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.Sensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">Sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">345307)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Sensor'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Ein</span> <span class="pre">Sensor</span> <span class="pre">zeichnet</span> <span class="pre">stetig</span> <span class="pre">Daten</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">automatisch</span> <span class="pre">an</span> <span class="pre">den</span> <span class="pre">Server</span> <span class="pre">übermittelt</span> <span class="pre">werden.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#Sensor.SensorData" title="Sensor.SensorData"><span class="pre">SensorData</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">SensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987))</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.Sensor" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server
+übermittelt werden.
+Genauere Informationen und die Implementation wie diese Daten übermittelt
+werden finden sich in den Unterklassen dieser Klasse.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.Sensor.data">
+<span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#Sensor.SensorData" title="Sensor.SensorData"><span class="pre">SensorData</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SensorData(timestamp=datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987))</span></em><a class="headerlink" href="#Sensor.Sensor.data" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.Sensor.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ein</span> <span class="pre">Sensor</span> <span class="pre">zeichnet</span> <span class="pre">stetig</span> <span class="pre">Daten</span> <span class="pre">auf,</span> <span class="pre">welche</span> <span class="pre">automatisch</span> <span class="pre">an</span> <span class="pre">den</span> <span class="pre">Server</span> <span class="pre">übermittelt</span> <span class="pre">werden.'</span></em><a class="headerlink" href="#Sensor.Sensor.description" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Sensor.Sensor.from_name">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#Sensor.Sensor" title="Sensor.Sensor"><span class="pre">Sensor</span></a></span></span><a class="headerlink" href="#Sensor.Sensor.from_name" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Sensor.Sensor.list_all_sensors">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">list_all_sensors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#Sensor.Sensor" title="Sensor.Sensor"><span class="pre">Sensor.Sensor</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Sensor.Sensor.list_all_sensors" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefert eine Liste aller verfügbaren Sensoren.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.Sensor.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Sensor'</span></em><a class="headerlink" href="#Sensor.Sensor.name" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.Sensor.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">345307)</span></em><a class="headerlink" href="#Sensor.Sensor.timestamp" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Sensor.SensorData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Sensor.</span></span><span class="sig-name descname"><span class="pre">SensorData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Sensor.SensorData" title="Link zu dieser Definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Ein SensorData-Objekt enthält die Daten eines Sensors.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Sensor.SensorData.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">22,</span> <span class="pre">23,</span> <span class="pre">22,</span> <span class="pre">17,</span> <span class="pre">344987)</span></em><a class="headerlink" href="#Sensor.SensorData.timestamp" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1980, Luca Leon Happel.</p>
+  </div>
+
+  Erstellt mit <a href="https://www.sphinx-doc.org/">Sphinx</a> mit einem
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    bereitgestellt von <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
