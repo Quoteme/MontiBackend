@@ -160,3 +160,6 @@ def delete_participant(study_id, participant_id):
 @app.route('/api', methods=['POST'])
 def api():
     return 'API'
+
+if __name__ == '__main__':
+    app.run(debug=True)
