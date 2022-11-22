@@ -16,7 +16,7 @@ class Sensor:
     Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server
     übermittelt werden.
     """
-    timestamp: datetime
+    timestamp: datetime = datetime.now()
 
     name: str = "Sensor"
     description: str = "Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server übermittelt werden."

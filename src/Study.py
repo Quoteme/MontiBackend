@@ -44,6 +44,12 @@ class Study:
     def id(self, value: str):
         self._id = value
 
+    def tracks_sensor(self, sensor: Sensor) -> bool:
+        """
+        Prüfe, ob diese Studie den Sensor `sensor` trackt
+        """
+        return sensor.name in [s.name for s in self.sensors]
+
     @staticmethod
     def list_all_studies() -> list[Study]:
         """
@@ -171,7 +177,8 @@ class Study:
         """
         Aktualisiere diese Studie in der Datenbank
         """
-        self.create()
+        with open(f"./data/{self.id}/study.json", "w") as f:
+            f.write(self.to_json())
 
     def to_json(self):
         """

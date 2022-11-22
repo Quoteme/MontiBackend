@@ -80,6 +80,22 @@ def new_study():
         return redirect('/study_overview')
 
 @require_login
+@app.route('/edit_study/<study_id>', methods=['POST'])
+def edit_study(study_id):
+    study = Study.from_id(study_id)
+    study.name = request.form.get('name') or "no name"
+    study.description = request.form.get('description') or "no description"
+    study.start = datetime.strptime(request.form.get('start_time') or str(datetime.now()), '%Y-%m-%dT%H:%M:%S')
+    study.end = datetime.strptime(request.form.get('end_time') or str(datetime.now()), '%Y-%m-%dT%H:%M:%S')
+    study.sensors = [ Sensor.from_name(sensor.name)
+                   for sensor in Sensor.list_all_sensors()
+                   if request.form.get(f"sensor.{sensor.name}")=="on"
+                   ]
+    study.update()
+    flash("Die Studie wurde erfolgreich bearbeitet", "success")
+    return redirect(f'/study/{study_id}')
+
+@require_login
 @app.route('/study/<study_id>')
 def inspect_study(study_id):
     study = Study.from_id(study_id)
