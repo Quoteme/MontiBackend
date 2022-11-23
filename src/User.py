@@ -45,6 +45,10 @@ class User:
             return userdata["userrole"][0]
 
     def is_valid(self) -> bool:
+        """
+        Prüfe ob die Kombination aus username und password in der
+        Datenbank vorhanden ist.
+        """
         db = pd.read_csv('./cfg/user.csv')
         return db[["user", "password"]].isin([self.username, self.password]).any().all()
 

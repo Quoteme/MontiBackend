@@ -113,6 +113,10 @@
             <span class="k">return</span> <span class="n">userdata</span><span class="p">[</span><span class="s2">&quot;userrole&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="User.is_valid"><a class="viewcode-back" href="../User.html#User.User.is_valid">[Doku]</a>    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prüfe ob die Kombination aus username und password in der</span>
+<span class="sd">        Datenbank vorhanden ist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./cfg/user.csv&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">db</span><span class="p">[[</span><span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">])</span><span class="o">.</span><span class="n">any</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div></div>
 
