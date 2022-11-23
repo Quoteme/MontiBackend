@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="de" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study &mdash; Monti Backend 0.1 Dokumentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Monti Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Dokumentation durchsuchen" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Monti Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Modul-Quellcode</a> &raquo;</li>
+      <li>Study</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Quellcode für Study</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">Sensor</span> <span class="kn">import</span> <span class="n">Sensor</span>
+<span class="kn">from</span> <span class="nn">Participant</span> <span class="kn">import</span> <span class="n">Participant</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">qrcode</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+
+<div class="viewcode-block" id="Study"><a class="viewcode-back" href="../Study.html#Study.Study">[Doku]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Study</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Eine Studie kann erzeugt werden um Daten mehrerer Teilnehmer zu sammeln.</span>
+
+<span class="sd">    Einige Fragen die durch eine Studie beantwortet werden sind:</span>
+<span class="sd">    - Wessen...</span>
+<span class="sd">    - Welche...</span>
+<span class="sd">    - Von wan bis wann...</span>
+<span class="sd">    - Wie oft...</span>
+<span class="sd">    ... Daten werden gesammelt?</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">sensors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Sensor</span><span class="p">]</span>
+    <span class="n">_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Die ID einer Studie ist der Namen der Studie gefolgt von einem</span>
+<span class="sd">        hash-Wert. Dieser hash-Wert wird aus dem Namen, der Beschreibung,</span>
+<span class="sd">        dem Start- und Endzeitpunkt sowie den Sensoren berechnet.</span>
+<span class="sd">        Dieser Wert wird in der `_id` Variable gechached.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">hashstr</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">sensors</span><span class="si">}</span><span class="s1">&#39;</span>
+                    <span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">hashstr</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+
+    <span class="nd">@id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="Study.tracks_sensor"><a class="viewcode-back" href="../Study.html#Study.Study.tracks_sensor">[Doku]</a>    <span class="k">def</span> <span class="nf">tracks_sensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sensor</span><span class="p">:</span> <span class="n">Sensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prüfe, ob diese Studie den Sensor `sensor` trackt</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">sensor</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensors</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Study.list_all_studies"><a class="viewcode-back" href="../Study.html#Study.Study.list_all_studies">[Doku]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">list_all_studies</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Study</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere eine Liste aller Studien in der Datenbank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Study</span><span class="o">.</span><span class="n">read_from_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">/study.json&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;./data&#39;</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="Study.list_all_current_studies"><a class="viewcode-back" href="../Study.html#Study.Study.list_all_current_studies">[Doku]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">list_all_current_studies</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Study</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere eine Liste aller laufenden Studien</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">Study</span><span class="o">.</span><span class="n">list_all_studies</span><span class="p">()</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="ow">and</span> <span class="n">s</span><span class="o">.</span><span class="n">end</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()]</span></div>
+
+<div class="viewcode-block" id="Study.list_all_pending_studies"><a class="viewcode-back" href="../Study.html#Study.Study.list_all_pending_studies">[Doku]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">list_all_pending_studies</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Study</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere eine Liste aller Studien, die noch nicht gestartet haben</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">Study</span><span class="o">.</span><span class="n">list_all_studies</span><span class="p">()</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">start</span> <span class="o">&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()]</span></div>
+
+<div class="viewcode-block" id="Study.list_all_ended_studies"><a class="viewcode-back" href="../Study.html#Study.Study.list_all_ended_studies">[Doku]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">list_all_ended_studies</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Study</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere eine Liste aller Studien, die bereits beendet sind</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">Study</span><span class="o">.</span><span class="n">list_all_studies</span><span class="p">()</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">end</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">participants</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Participant</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere eine Liste aller Teilnehmer dieser Studie</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">Participant</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants/</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">/participant.json&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">)]</span>
+    
+<div class="viewcode-block" id="Study.get_participant"><a class="viewcode-back" href="../Study.html#Study.Study.get_participant">[Doku]</a>    <span class="k">def</span> <span class="nf">get_participant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">participant_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Participant</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere den Teilnehmer mit der ID `participant_id`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Participant</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants/</span><span class="si">{</span><span class="n">participant_id</span><span class="si">}</span><span class="s2">/participant.json&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Study.add_participant"><a class="viewcode-back" href="../Study.html#Study.Study.add_participant">[Doku]</a>    <span class="k">def</span> <span class="nf">add_participant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">participant</span><span class="p">:</span> <span class="n">Participant</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Füge einen Teilnehmer dieser Studie hinzu</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">)</span>
+        <span class="n">participant</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Study.update_participant"><a class="viewcode-back" href="../Study.html#Study.Study.update_participant">[Doku]</a>    <span class="k">def</span> <span class="nf">update_participant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">participant</span><span class="p">:</span> <span class="n">Participant</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aktualisiere den Teilnehmer `participant` in der Datenbank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">)</span>
+        <span class="n">participant</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Study.delete_participant"><a class="viewcode-back" href="../Study.html#Study.Study.delete_participant">[Doku]</a>    <span class="k">def</span> <span class="nf">delete_participant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">participant</span><span class="p">:</span> <span class="n">Participant</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lösche den Teilnehmer `participant` aus der Datenbank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">participant</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/participants&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Study.qrcode_participant_login"><a class="viewcode-back" href="../Study.html#Study.Study.qrcode_participant_login">[Doku]</a>    <span class="k">def</span> <span class="nf">qrcode_participant_login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">participant</span><span class="p">:</span> <span class="n">Participant</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere den QR-Code für einen Teilnehmer `participant`.</span>
+<span class="sd">        Hiermit kann sich der Teilnehmer in der App einloggen.</span>
+<span class="sd">        Der QR-Code wird als base64-String zurückgegeben.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># return f&quot;study://{self.id}/participant/{participant.id}&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+            <span class="s2">&quot;study_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s2">&quot;participant_id&quot;</span><span class="p">:</span> <span class="n">participant</span><span class="o">.</span><span class="n">id</span>
+        <span class="p">})</span>
+        <span class="n">qr</span> <span class="o">=</span> <span class="n">qrcode</span><span class="o">.</span><span class="n">QRCode</span><span class="p">(</span>
+            <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">error_correction</span><span class="o">=</span><span class="n">qrcode</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">ERROR_CORRECT_L</span><span class="p">,</span>
+            <span class="n">box_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">border</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">qr</span><span class="o">.</span><span class="n">add_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">qr</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">fit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">qr</span><span class="o">.</span><span class="n">make_image</span><span class="p">(</span><span class="n">fill_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">back_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+        <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;PNG&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Study.create"><a class="viewcode-back" href="../Study.html#Study.Study.create">[Doku]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Erstelle diese Studie in der Datenbank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/study.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Study.from_id"><a class="viewcode-back" href="../Study.html#Study.Study.from_id">[Doku]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_id</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Study</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere die Studie mit der angegebenen ID.</span>
+<span class="sd">        Dafür wird die Studie aus der Datenbank gelesen.</span>
+<span class="sd">        Wir suchen den Ordner mit der ID und lesen die Studie aus der</span>
+<span class="sd">        Datei `study.json` aus.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Study</span><span class="o">.</span><span class="n">read_from_file</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s2">/study.json&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Study.read_from_file"><a class="viewcode-back" href="../Study.html#Study.Study.read_from_file">[Doku]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_file</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lese eine Studie aus der Datenbank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Study</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Study.delete"><a class="viewcode-back" href="../Study.html#Study.Study.delete">[Doku]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lösche diese Studie aus der Datenbank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Study.update"><a class="viewcode-back" href="../Study.html#Study.Study.update">[Doku]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aktualisiere diese Studie in der Datenbank</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">/study.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Study.to_json"><a class="viewcode-back" href="../Study.html#Study.Study.to_json">[Doku]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Konvertiere diese Studie in ein JSON-Objekt</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+            <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">),</span>
+            <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">end</span><span class="p">),</span>
+            <span class="s2">&quot;sensors&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensors</span><span class="p">]),</span>
+            <span class="s2">&quot;_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="Study.from_json"><a class="viewcode-back" href="../Study.html#Study.Study.from_json">[Doku]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="n">jsondata</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Erstelle eine Studie aus einem JSON-Objekt</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">jsondata</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Study</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
+            <span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">),</span>
+            <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">),</span>
+            <span class="n">sensors</span><span class="o">=</span><span class="p">[</span><span class="n">Sensor</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">))],</span>
+            <span class="n">_id</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1980, Luca Leon Happel.</p>
+  </div>
+
+  Erstellt mit <a href="https://www.sphinx-doc.org/">Sphinx</a> mit einem
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    bereitgestellt von <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

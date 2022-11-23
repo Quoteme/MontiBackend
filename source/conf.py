@@ -14,7 +14,7 @@ release = '0.1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon", "sphinx.ext.viewcode"]
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -31,4 +31,4 @@ html_static_path = ['_static']
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, os.path.abspath('../src/'))

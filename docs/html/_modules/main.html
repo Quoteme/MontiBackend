@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="de" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>main &mdash; Monti Backend 0.1 Dokumentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Monti Backend
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Dokumentation durchsuchen" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Monti Backend</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Modul-Quellcode</a> &raquo;</li>
+      <li>main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Quellcode für main</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Startpoint of the flask app.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">flash</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">util</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">User</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">Study</span> <span class="kn">import</span> <span class="n">Study</span>
+<span class="kn">from</span> <span class="nn">Sensor</span> <span class="kn">import</span> <span class="n">Sensor</span>
+<span class="kn">from</span> <span class="nn">Participant</span> <span class="kn">import</span> <span class="n">Participant</span><span class="p">,</span> <span class="n">Gender</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">dateutil.relativedelta</span> <span class="kn">import</span> <span class="n">relativedelta</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">template_folder</span><span class="o">=</span><span class="s1">&#39;./html/&#39;</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="s1">&#39;./static/&#39;</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">secret_key</span> <span class="o">=</span> <span class="s2">&quot;hier ist ein geheimer Schlüssel, der verwendet wird, um sessions zu verschlüsseln&quot;</span>
+
+<div class="viewcode-block" id="landing_page"><a class="viewcode-back" href="../main.html#main.landing_page">[Doku]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">landing_page</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;landing_page.html&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="login"><a class="viewcode-back" href="../main.html#main.login">[Doku]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;Benutzername oder Passwort falsch&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span>
+            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">password</span>
+            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;logged_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;login_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+            <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;Sie haben sich erfolgreich angemeldet&quot;</span><span class="p">,</span> <span class="s2">&quot;success&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/study_overview&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;login.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="logout"><a class="viewcode-back" href="../main.html#main.logout">[Doku]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
+    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;logged_in&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;Sie wurden erfolgreich ausgeloggt&quot;</span><span class="p">,</span> <span class="s2">&quot;success&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span></div>
+
+<span class="nd">@require_login</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/study_overview&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">study_overview</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span>
+            <span class="s1">&#39;study_overview.html&#39;</span><span class="p">,</span>
+            <span class="n">pending_studies</span> <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">list_all_pending_studies</span><span class="p">(),</span>
+            <span class="n">current_studies</span> <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">list_all_current_studies</span><span class="p">(),</span>
+            <span class="n">ended_studies</span>   <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">list_all_ended_studies</span><span class="p">()</span>
+            <span class="p">)</span>
+
+<span class="nd">@require_login</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/new_study&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">new_study</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+        <span class="c1"># give the user a form to fill out what the new study should be</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span>
+                <span class="s1">&#39;new_study.html&#39;</span><span class="p">,</span>
+                <span class="n">sensors</span> <span class="o">=</span> <span class="n">Sensor</span><span class="o">.</span><span class="n">list_all_sensors</span><span class="p">(),</span>
+                <span class="n">start_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">),</span>
+                <span class="n">end_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">months</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+                <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># read the input which the user sent and create a new study</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="n">end_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="n">sensors</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Sensor</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="n">sensor</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">sensor</span> <span class="ow">in</span> <span class="n">Sensor</span><span class="o">.</span><span class="n">list_all_sensors</span><span class="p">()</span>
+                   <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sensor.</span><span class="si">{</span><span class="n">sensor</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">==</span><span class="s2">&quot;on&quot;</span>
+                   <span class="p">]</span>
+        <span class="n">study</span> <span class="o">=</span> <span class="n">Study</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">,</span> <span class="n">sensors</span><span class="p">)</span>
+        <span class="n">study</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/study_overview&#39;</span><span class="p">)</span>
+
+<span class="nd">@require_login</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/edit_study/&lt;study_id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">edit_study</span><span class="p">(</span><span class="n">study_id</span><span class="p">):</span>
+    <span class="n">study</span> <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">study_id</span><span class="p">)</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;no name&quot;</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;no description&quot;</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;start_time&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;end_time&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">sensors</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Sensor</span><span class="o">.</span><span class="n">from_name</span><span class="p">(</span><span class="n">sensor</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                   <span class="k">for</span> <span class="n">sensor</span> <span class="ow">in</span> <span class="n">Sensor</span><span class="o">.</span><span class="n">list_all_sensors</span><span class="p">()</span>
+                   <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sensor.</span><span class="si">{</span><span class="n">sensor</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">==</span><span class="s2">&quot;on&quot;</span>
+                   <span class="p">]</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;Die Studie wurde erfolgreich bearbeitet&quot;</span><span class="p">,</span> <span class="s2">&quot;success&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/study/</span><span class="si">{</span><span class="n">study_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nd">@require_login</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/study/&lt;study_id&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">inspect_study</span><span class="p">(</span><span class="n">study_id</span><span class="p">):</span>
+    <span class="n">study</span> <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">study_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span>
+            <span class="s1">&#39;study.html&#39;</span><span class="p">,</span>
+            <span class="n">study</span> <span class="o">=</span> <span class="n">study</span><span class="p">,</span>
+            <span class="n">sensors</span> <span class="o">=</span> <span class="n">Sensor</span><span class="o">.</span><span class="n">list_all_sensors</span><span class="p">(),</span>
+            <span class="p">)</span>
+
+<span class="nd">@require_login</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/study/&lt;study_id&gt;/add_participant&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">add_participant</span><span class="p">(</span><span class="n">study_id</span><span class="p">):</span>
+    <span class="n">study</span> <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">study_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span>
+            <span class="s1">&#39;add_participant.html&#39;</span><span class="p">,</span>
+            <span class="n">study</span> <span class="o">=</span> <span class="n">study</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">participant</span> <span class="o">=</span> <span class="n">Participant</span><span class="p">(</span>
+               <span class="n">surname</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;surname&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+               <span class="n">forename</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span> <span class="s1">&#39;forename&#39;</span> <span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+               <span class="n">birthday</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s1">&#39;birthday&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">),</span>
+               <span class="n">gender</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;gender&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;other&quot;</span>
+               <span class="p">)</span>
+        <span class="n">study</span><span class="o">.</span><span class="n">add_participant</span><span class="p">(</span><span class="n">participant</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/study/</span><span class="si">{</span><span class="n">study_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nd">@require_login</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/study/&lt;study_id&gt;/participant/&lt;participant_id&gt;&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">inspect_participant</span><span class="p">(</span><span class="n">study_id</span><span class="p">,</span> <span class="n">participant_id</span><span class="p">):</span>
+    <span class="n">study</span> <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">study_id</span><span class="p">)</span>
+    <span class="n">participant</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">get_participant</span><span class="p">(</span><span class="n">participant_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span>
+            <span class="s1">&#39;participant.html&#39;</span><span class="p">,</span>
+            <span class="n">study</span> <span class="o">=</span> <span class="n">study</span><span class="p">,</span>
+            <span class="n">participant</span> <span class="o">=</span> <span class="n">participant</span><span class="p">,</span>
+            <span class="p">)</span>
+
+<span class="nd">@require_login</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/study/&lt;study_id&gt;/participant/&lt;participant_id&gt;/edit_participant&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">edit_participant</span><span class="p">(</span><span class="n">study_id</span><span class="p">,</span> <span class="n">participant_id</span><span class="p">):</span>
+    <span class="n">study</span> <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">study_id</span><span class="p">)</span>
+    <span class="n">participant</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">get_participant</span><span class="p">(</span><span class="n">participant_id</span><span class="p">)</span>
+    <span class="n">participant</span><span class="o">.</span><span class="n">surname</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">participant</span><span class="o">.</span><span class="n">forename</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;forename&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">participant</span><span class="o">.</span><span class="n">birthday</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;birthday&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()),</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">participant</span><span class="o">.</span><span class="n">gender</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;gender&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;other&quot;</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">update_participant</span><span class="p">(</span><span class="n">participant</span><span class="p">)</span>
+    <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Benutzer wurde erfolgreich bearbeitet&#39;</span><span class="p">,</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/study/</span><span class="si">{</span><span class="n">study_id</span><span class="si">}</span><span class="s1">/participant/</span><span class="si">{</span><span class="n">participant_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="nd">@require_login</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/study/&lt;study_id&gt;/participant/&lt;participant_id&gt;/delete_participant&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">delete_participant</span><span class="p">(</span><span class="n">study_id</span><span class="p">,</span> <span class="n">participant_id</span><span class="p">):</span>
+    <span class="n">study</span> <span class="o">=</span> <span class="n">Study</span><span class="o">.</span><span class="n">from_id</span><span class="p">(</span><span class="n">study_id</span><span class="p">)</span>
+    <span class="n">participant</span> <span class="o">=</span> <span class="n">study</span><span class="o">.</span><span class="n">get_participant</span><span class="p">(</span><span class="n">participant_id</span><span class="p">)</span>
+    <span class="n">study</span><span class="o">.</span><span class="n">delete_participant</span><span class="p">(</span><span class="n">participant</span><span class="p">)</span>
+    <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Benutzer wurde erfolgreich gelöscht&#39;</span><span class="p">,</span> <span class="s1">&#39;success&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;/study/</span><span class="si">{</span><span class="n">study_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="api"><a class="viewcode-back" href="../main.html#main.api">[Doku]</a><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">api</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">&#39;API&#39;</span></div>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 1980, Luca Leon Happel.</p>
+  </div>
+
+  Erstellt mit <a href="https://www.sphinx-doc.org/">Sphinx</a> mit einem
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    bereitgestellt von <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
