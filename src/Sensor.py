@@ -1,7 +1,8 @@
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 import importlib, inspect
+from typing import List
 
 @dataclass
 class SensorData:
@@ -22,7 +23,7 @@ class Sensor:
 
     name: str = "Sensor"
     description: str = "Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server übermittelt werden."
-    data: SensorData = SensorData()
+    data: List[SensorData] = field(default_factory=list)
 
     def __str__(self):
         return self.name
@@ -69,7 +70,7 @@ class MobileAccelerometerSensor(Sensor):
     """
     name: str = "MobileAccelerometerSensor"
     description: str = "Ein MobileAccelerometer zeichnet die Beschleunigung auf, welche ein Smartphone aufweist."
-    data: MobileAccelerometerSensorData = MobileAccelerometerSensorData()
+    data: List[MobileAccelerometerSensorData] = field(default_factory=list)
 
     def __str__(self):
         return self.name
@@ -93,7 +94,7 @@ class MobileGyroscopeSensor(Sensor):
     """
     name: str = "MobileGyroscopeSensor"
     description: str = "Ein MobileGyroscope zeichnet die Drehung auf, welche ein Smartphone aufweist."
-    data: MobileGyroscopeSensorData = MobileGyroscopeSensorData()
+    data: List[MobileGyroscopeSensorData] = field(default_factory=list)
 
     def __str__(self):
         return self.name
@@ -120,7 +121,7 @@ class MobileMagnetometerSensor(Sensor):
     """
     name: str = "MobileMagnetometerSensor"
     description: str = "Ein MobileMagnetometer zeichnet die Magnetfeldstärke auf, welche ein Smartphone aufweist. Wichtig für die Kompassfunktion."
-    data: MobileMagnetometerSensorData = MobileMagnetometerSensorData()
+    data: List[MobileMagnetometerSensorData] = field(default_factory=list)
 
     def __str__(self):
         return self.name
@@ -151,7 +152,7 @@ class CorsanoMetricPPGSensor(Sensor):
     """
     name: str = "CorsanoMetricPPGSensor"
     description: str = "Ein CorsanoMetricPPGSensor zeichnet die Herzfrequenz auf, welche ein Corsano-Messgerät aufweist."
-    data: CorsanoMetricPPGSensorData = CorsanoMetricPPGSensorData()
+    data: List[CorsanoMetricPPGSensorData] = field(default_factory=list)
 
     def __str__(self):
         return self.name
