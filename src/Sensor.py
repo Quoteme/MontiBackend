@@ -20,7 +20,6 @@ class Sensor:
     werden finden sich in den Unterklassen dieser Klasse.
     """
 
-    timestamp: datetime = datetime.now()
     name: str = "Sensor"
     description: str = "Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server übermittelt werden."
     data: List[SensorData] = field(default_factory=list)
@@ -43,15 +42,15 @@ class Sensor:
     def from_name(name: str) -> Sensor:
         match name:
             case "MobileAccelerometerSensor":
-                return MobileAccelerometerSensor(None)
+                return MobileAccelerometerSensor()
             case "MobileGyroscopeSensor":
-                return MobileGyroscopeSensor(None)
+                return MobileGyroscopeSensor()
             case "MobileMagnetometerSensor":
-                return MobileMagnetometerSensor(None)
+                return MobileMagnetometerSensor()
             case "CorsanoMetricPPGSensor":
-                return CorsanoMetricPPGSensor(None)
+                return CorsanoMetricPPGSensor()
             case _:
-                return Sensor(None)
+                return Sensor()
 
 @dataclass
 class MobileAccelerometerSensorData(SensorData):
@@ -158,5 +157,5 @@ class CorsanoMetricPPGSensor(Sensor):
         return self.name
 
     def __repr__(self):
+        print(self)
         return str(self)
-
