@@ -2,9 +2,20 @@
   description = "Monti (remote monitoring system) backend restful API";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils = {
       url = "github:numtide/flake-utils";
+    };
+    pypi-deps-db = {
+      url = "github:DavHau/pypi-deps-db";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.mach-nix.follows = "mach-nix";
+    };
+    mach-nix = {
+      url = "github:DavHau/mach-nix/3.5.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.pypi-deps-db.follows = "pypi-deps-db";
     };
   };
 
@@ -27,6 +38,19 @@
             buildInputs = with pkgs; [
               customPython
               git
+            ];
+          };
+          devShells.documentation = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              # See: https://github.com/Quoteme/mach-nix-template
+              ( inputs.mach-nix.lib.${system}.mkPython {
+                python = "python310";
+                requirements = ''
+                  # Sphinx
+                  # sphinx-rtd-theme
+                  # sphinx-autodoc-annotation
+                '';
+              })
             ];
           };
         }
