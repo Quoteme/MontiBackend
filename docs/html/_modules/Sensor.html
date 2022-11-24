@@ -87,7 +87,6 @@
 <span class="sd">    Genauere Informationen und die Implementation wie diese Daten übermittelt</span>
 <span class="sd">    werden finden sich in den Unterklassen dieser Klasse.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Sensor&quot;</span>
     <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server übermittelt werden.&quot;</span>
@@ -111,15 +110,15 @@
     <span class="k">def</span> <span class="nf">from_name</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sensor</span><span class="p">:</span>
         <span class="k">match</span> <span class="n">name</span><span class="p">:</span>
             <span class="k">case</span> <span class="s2">&quot;MobileAccelerometerSensor&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">MobileAccelerometerSensor</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">MobileAccelerometerSensor</span><span class="p">()</span>
             <span class="k">case</span> <span class="s2">&quot;MobileGyroscopeSensor&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">MobileGyroscopeSensor</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">MobileGyroscopeSensor</span><span class="p">()</span>
             <span class="k">case</span> <span class="s2">&quot;MobileMagnetometerSensor&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">MobileMagnetometerSensor</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">MobileMagnetometerSensor</span><span class="p">()</span>
             <span class="k">case</span> <span class="s2">&quot;CorsanoMetricPPGSensor&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">CorsanoMetricPPGSensor</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">CorsanoMetricPPGSensor</span><span class="p">()</span>
             <span class="k">case</span> <span class="k">_</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">Sensor</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span></div></div>
+                <span class="k">return</span> <span class="n">Sensor</span><span class="p">()</span></div></div>
 
 <div class="viewcode-block" id="MobileAccelerometerSensorData"><a class="viewcode-back" href="../Sensor.html#Sensor.MobileAccelerometerSensorData">[Doku]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">MobileAccelerometerSensorData</span><span class="p">(</span><span class="n">SensorData</span><span class="p">):</span>
@@ -226,8 +225,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
-
 </pre></div>
 
            </div>
