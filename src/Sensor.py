@@ -19,8 +19,8 @@ class Sensor:
     Genauere Informationen und die Implementation wie diese Daten übermittelt
     werden finden sich in den Unterklassen dieser Klasse.
     """
-    timestamp: datetime = datetime.now()
 
+    timestamp: datetime = datetime.now()
     name: str = "Sensor"
     description: str = "Ein Sensor zeichnet stetig Daten auf, welche automatisch an den Server übermittelt werden."
     data: List[SensorData] = field(default_factory=list)
