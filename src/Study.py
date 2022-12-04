@@ -10,6 +10,7 @@ import shutil
 import qrcode
 import io
 import base64
+import flask
 
 @dataclass
 class Study:
@@ -136,7 +137,8 @@ class Study:
         # return f"study://{self.id}/participant/{participant.id}"
         data = json.dumps({
             "study_id": self.id,
-            "participant_id": participant.id
+            "participant_id": participant.id,
+            "server": flask.request.host_url
         })
         qr = qrcode.QRCode(
             version=1,
