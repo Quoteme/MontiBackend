@@ -1,7 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from Sensor import Sensor
-from typing import List
+from Smartphone import Smartphone
+from typing import List, Optional
 import json
 import uuid
 import os
@@ -102,7 +103,8 @@ class Participant:
                 forename = data.get("forename"),
                 birthday = datetime.strptime(data.get("birthday"), "%Y-%m-%d"),
                 gender = data.get("gender"),
-                _id = data.get("id")
+                _id = data.get("id"),
+                smartphone = Smartphone.from_json(data.get("smartphone")) if data.get("smartphone") else None
                 )
 
     def to_json(self) -> str:
@@ -114,5 +116,6 @@ class Participant:
             "forename": self.forename,
             "birthday": self.birthday.strftime("%Y-%m-%d"),
             "gender": self.gender,
-            "id": self.id
+            "id": self.id,
+            "smartphone": self.smartphone.to_json() if self.smartphone else None
         })
