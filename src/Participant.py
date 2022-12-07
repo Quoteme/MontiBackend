@@ -15,11 +15,23 @@ Gender = Literal['male', 'female', 'other']
 class Participant:
     """
     Datentyp für Teilnehmer von Studien.
+    Ein Teilnehmer wird immer in einer Studie erstellt.
+    Studien werden als Ordner unter dem Ordner `data/` gespeichert.
+    Genau so, werden Teilnehmer in Unterordnern von Studien gespeichert.
+    Der zugehörige Ordnername ist die ID des Teilnehmers.
+    In diesem Ordner befindet sich auch eine Datei `participant.json`,
+    welche feste Daten des Teilnehmers enthält (siehe: Geburtsdatum, ...).
+
+    Der QR-Code zum Registrieren eines Teilnehmers wird von der Studie
+    generiert. Wenn sich ein Teilnehmer registriert, wird sein Smartphone
+    mit dem Konto verknüft. Aus Sicherheitsgründen kann nur ein Smartphone
+    pro Teilnehmer registriert werden.
     """
     surname: str = ""
     forename: str = ""
     birthday: datetime = datetime.now()
     gender: Gender = 'other'
+    smartphone: Optional[Smartphone] = None
     _id: str = ""
 
     def __str__(self) -> str:
@@ -32,6 +44,10 @@ class Participant:
     def id(self) -> str:
         """
         Liefere die ID dieses Teilnehmers
+        Die ID ist eine UUID, die beim Erstellen des Teilnehmers generiert wird
+        und danach nicht mehr verändert wird. Sie dient als eindeutige Kennung
+        und da nur der Partizipant selbst, sowie Administratoren diese
+        kennen, ist sie auch zur Authentifizierung sicher.
         """
         if self._id != "":
             return self._id
