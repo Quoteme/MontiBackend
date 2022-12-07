@@ -20,6 +20,7 @@
             matplotlib
             sphinx
             sphinx_rtd_theme
+            pytest
           ]));
       in
         rec {
