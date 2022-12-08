@@ -20,7 +20,8 @@ class Smartphone:
     """
     brand: str = ""
     model: str = ""
-    software_version: str = ""
+    operating_system: str = ""
+    monti_version: str = ""
     id: str = ""
 
     def to_json(self) -> str:
