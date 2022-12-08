@@ -165,9 +165,17 @@ def create_app():
     @app.route('/api/studies/<study_id>/participants/<participant_id>/devices', methods=['POST'])
     def api(study_id, participant_id):
         study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
         participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
         smartphone = Smartphone.from_request_form(request.form)
         # participant.register_smartphone(smartphone)
+        return ''
+
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/devices', methods=['GET'])
+    def api_get(study_id, participant_id):
         return 'OK'
 
     return app
