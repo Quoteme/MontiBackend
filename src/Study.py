@@ -136,9 +136,9 @@ class Study:
         """
         # return f"study://{self.id}/participant/{participant.id}"
         data = json.dumps({
-            "study_id": self.id,
-            "participant_id": participant.id,
-            "server": flask.request.host_url
+            "study": json.loads(self.to_json()),
+            "participant": json.loads(participant.to_json()),
+            "address": flask.request.host_url
         })
         qr = qrcode.QRCode(
             version=1,

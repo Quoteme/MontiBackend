@@ -3,6 +3,8 @@ Startpoint of the flask app.
 """
 from flask import Flask, render_template, request, redirect, session, flash
 import pandas as pd
+
+from Smartphone import Smartphone
 from util import *
 from User import User
 from Study import Study
@@ -10,6 +12,7 @@ from Sensor import Sensor
 from Participant import Participant, Gender
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+
 
 def create_app():
     app = Flask(__name__, template_folder='./html/', static_folder='./static/')
@@ -49,11 +52,11 @@ def create_app():
     @app.route('/study_overview')
     def study_overview():
         return render_template(
-                'study_overview.html',
-                pending_studies = Study.list_all_pending_studies(),
-                current_studies = Study.list_all_current_studies(),
-                ended_studies   = Study.list_all_ended_studies()
-                )
+            'study_overview.html',
+            pending_studies=Study.list_all_pending_studies(),
+            current_studies=Study.list_all_current_studies(),
+            ended_studies=Study.list_all_ended_studies()
+        )
 
     @require_login
     @app.route('/new_study', methods=['GET', 'POST'])
@@ -61,20 +64,21 @@ def create_app():
         if request.method == 'GET':
             # give the user a form to fill out what the new study should be
             return render_template(
-                    'new_study.html',
-                    sensors = Sensor.list_all_sensors(),
-                    start_time = (datetime.now() + relativedelta(hours=1)).strftime("%Y-%m-%d %H:%M:%S"),
-                    end_time = (datetime.now() + relativedelta(hours=1) + relativedelta(months=1)).strftime("%Y-%m-%d %H:%M:%S")
-                    )
+                'new_study.html',
+                sensors=Sensor.list_all_sensors(),
+                start_time=(datetime.now() + relativedelta(hours=1)).strftime("%Y-%m-%d %H:%M:%S"),
+                end_time=(datetime.now() + relativedelta(hours=1) + relativedelta(months=1)).strftime(
+                    "%Y-%m-%d %H:%M:%S")
+            )
         else:
             # read the input which the user sent and create a new study
             name = request.form['name']
             description = request.form['description']
             start_time = datetime.strptime(request.form['start_time'], '%Y-%m-%dT%H:%M:%S')
             end_time = datetime.strptime(request.form['end_time'], '%Y-%m-%dT%H:%M:%S')
-            sensors = [ Sensor.from_name(sensor.name)
+            sensors = [Sensor.from_name(sensor.name)
                        for sensor in Sensor.list_all_sensors()
-                       if request.form.get(f"sensor.{sensor.name}")=="on"
+                       if request.form.get(f"sensor.{sensor.name}") == "on"
                        ]
             study = Study(name, description, start_time, end_time, sensors)
             study.create()
@@ -88,10 +92,10 @@ def create_app():
         study.description = request.form.get('description') or "no description"
         study.start = datetime.strptime(request.form.get('start_time') or str(datetime.now()), '%Y-%m-%dT%H:%M:%S')
         study.end = datetime.strptime(request.form.get('end_time') or str(datetime.now()), '%Y-%m-%dT%H:%M:%S')
-        study.sensors = [ Sensor.from_name(sensor.name)
-                       for sensor in Sensor.list_all_sensors()
-                       if request.form.get(f"sensor.{sensor.name}")=="on"
-                       ]
+        study.sensors = [Sensor.from_name(sensor.name)
+                         for sensor in Sensor.list_all_sensors()
+                         if request.form.get(f"sensor.{sensor.name}") == "on"
+                         ]
         study.update()
         flash("Die Studie wurde erfolgreich bearbeitet", "success")
         return redirect(f'/study/{study_id}')
@@ -101,10 +105,10 @@ def create_app():
     def inspect_study(study_id):
         study = Study.from_id(study_id)
         return render_template(
-                'study.html',
-                study = study,
-                sensors = Sensor.list_all_sensors(),
-                )
+            'study.html',
+            study=study,
+            sensors=Sensor.list_all_sensors(),
+        )
 
     @require_login
     @app.route('/study/<study_id>/add_participant', methods=['GET', 'POST'])
@@ -113,15 +117,15 @@ def create_app():
         if request.method == 'GET':
             return render_template(
                 'add_participant.html',
-                study = study,
-                )
+                study=study,
+            )
         else:
             participant = Participant(
-                   surname = request.form.get("surname") or "",
-                   forename = request.form.get( 'forename' ) or "",
-                   birthday = datetime.strptime(request.form['birthday'], '%Y-%m-%d'),
-                   gender = request.form.get("gender") or "other"
-                   )
+                surname=request.form.get("surname") or "",
+                forename=request.form.get('forename') or "",
+                birthday=datetime.strptime(request.form['birthday'], '%Y-%m-%d'),
+                gender=request.form.get("gender") or "other"
+            )
             study.add_participant(participant)
             return redirect(f'/study/{study_id}')
 
@@ -131,10 +135,10 @@ def create_app():
         study = Study.from_id(study_id)
         participant = study.get_participant(participant_id)
         return render_template(
-                'participant.html',
-                study = study,
-                participant = participant,
-                )
+            'participant.html',
+            study=study,
+            participant=participant,
+        )
 
     @require_login
     @app.route('/study/<study_id>/participant/<participant_id>/edit_participant', methods=['POST'])
@@ -158,12 +162,17 @@ def create_app():
         flash(f'Benutzer wurde erfolgreich gelöscht', 'success')
         return redirect(f'/study/{study_id}')
 
-    @app.route('/api', methods=['POST'])
-    def api():
-        return 'API'
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/devices', methods=['POST'])
+    def api(study_id, participant_id):
+        study = Study.from_id(study_id)
+        participant = study.get_participant(participant_id)
+        smartphone = Smartphone.from_request_form(request.form)
+        # participant.register_smartphone(smartphone)
+        return 'OK'
 
     return app
 
+
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    app.run()

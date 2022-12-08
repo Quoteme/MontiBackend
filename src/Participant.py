@@ -12,6 +12,7 @@ from typing import Literal
 
 Gender = Literal['male', 'female', 'other']
 
+
 @dataclass
 class Participant:
     """
@@ -63,13 +64,26 @@ class Participant:
         """
         return f"{self.forename} {self.surname}"
 
-    def create(self, url: str) -> None:
+    @property
+    def age(self) -> int:
         """
-        Erstelle einen neuen Teilnehmer
+        Liefere das Alter des Teilnehmers
         """
-        os.mkdir(f"{url}/{self.id}")
-        with open(f"{url}/{self.id}/participant.json", "w") as f:
-            f.write(self.to_json())
+        return (datetime.now() - self.birthday).days // 365
+
+    @property
+    def is_registered(self) -> bool:
+        """
+        Liefere, ob dieser Teilnehmer mit einem Smartphone registriert ist
+        """
+        return self.smartphone is not None
+
+    def register_smartphone(self, smartphone: Smartphone) -> None:
+        """
+        Registriere ein Smartphone für diesen Teilnehmer
+        """
+        self.smartphone = smartphone
+        self.update(self.url)
 
     def update(self, url: str) -> None:
         """
@@ -83,6 +97,16 @@ class Participant:
         Lösche diesen Teilnehmer aus der Datenbank
         """
         shutil.rmtree(f"{url}/{self.id}")
+
+    def create(self, url: str) -> None:
+        """
+        Erstelle einen neuen Teilnehmer.
+        Nachdem ein Participant erstellt wurde, kann er mittels `from_file`
+        wiederhergestellt werden.
+        """
+        os.mkdir(f"{url}/{self.id}")
+        with open(f"{url}/{self.id}/participant.json", "w") as f:
+            f.write(self.to_json())
 
     @staticmethod
     def from_file(url: str) -> Participant:
@@ -99,13 +123,13 @@ class Participant:
         """
         data = json.loads(json_string)
         return Participant(
-                surname = data.get("surname"),
-                forename = data.get("forename"),
-                birthday = datetime.strptime(data.get("birthday"), "%Y-%m-%d"),
-                gender = data.get("gender"),
-                _id = data.get("id"),
-                smartphone = Smartphone.from_json(data.get("smartphone")) if data.get("smartphone") else None
-                )
+            surname=data.get("surname"),
+            forename=data.get("forename"),
+            birthday=datetime.strptime(data.get("birthday"), "%Y-%m-%d"),
+            gender=data.get("gender"),
+            _id=data.get("id"),
+            smartphone=Smartphone.from_json(data.get("smartphone")) if data.get("smartphone") else None
+        )
 
     def to_json(self) -> str:
         """
