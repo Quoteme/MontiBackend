@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Flask (src.main)" type="Python.FlaskServer" nameIsGenerated="true">
+  <configuration default="false" name="Flask (app)" type="Python.FlaskServer" nameIsGenerated="true">
     <module name="MontiBackend" />
-    <option name="target" value="src.main" />
+    <option name="target" value="app" />
     <option name="targetType" value="PYTHON" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
