@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-flask --app src/main run
+flask --app src/app run
