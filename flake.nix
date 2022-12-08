@@ -21,6 +21,7 @@
             sphinx
             sphinx_rtd_theme
             pytest
+            pytest-mock
           ]));
       in
         rec {
