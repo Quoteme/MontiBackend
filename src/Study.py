@@ -1,6 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Optional
 
 from Sensor import Sensor
 from Participant import Participant
@@ -162,24 +163,27 @@ class Study:
             f.write(self.to_json())
 
     @staticmethod
-    def from_id(id: str) -> Study:
+    def from_id(id: str) -> Optional[Study]:
         """
         Liefere die Studie mit der angegebenen ID.
         Dafür wird die Studie aus der Datenbank gelesen.
         Wir suchen den Ordner mit der ID und lesen die Studie aus der
         Datei `study.json` aus.
-        Falls keine Studie mit der ID gefunden wird, wird eine Exception geworfen.
+        Falls keine Studie mit der ID gefunden wird, wird `None` zurückgegeben.
         """
         return Study.read_from_file(f"./data/{id}/study.json")
 
     @staticmethod
-    def read_from_file(url: str) -> Study:
+    def read_from_file(url: str) -> Optional[Study]:
         """
         Lese eine Studie aus der Datenbank.
-        Sollte die Studie nicht existieren, wird eine Exception geworfen.
+        Sollte die Studie nicht existieren, wird `None` zurückgegeben.
         """
-        with open(url, "r") as f:
-            return Study.from_json(f.read())
+        if os.path.exists(url):
+            with open(url, "r") as f:
+                return Study.from_json(f.read())
+        else:
+            return None
 
     def delete(self):
         """

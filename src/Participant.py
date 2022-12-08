@@ -109,13 +109,16 @@ class Participant:
             f.write(self.to_json())
 
     @staticmethod
-    def from_file(url: str) -> Participant:
+    def from_file(url: str) -> Optional[Participant]:
         """
         Lade einen Teilnehmer aus einer JSON-Datei.
-        Sollte die Datei nicht existieren, wird eine Exception geworfen.
+        Sollte die Datei nicht existieren, wird `None` zurückgegeben.
         """
-        with open(url, 'r') as f:
-            return Participant.from_json(f.read())
+        if os.path.exists(f"{url}/participant.json"):
+            with open(url, 'r') as f:
+                return Participant.from_json(f.read())
+        else:
+            return None
 
     @staticmethod
     def from_json(json_string: str) -> Participant:
