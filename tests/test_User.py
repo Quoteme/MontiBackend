@@ -34,7 +34,7 @@ def test_can_find_userrole_by_name_admin(mocker):
     # Create a mock for the `pandas.read_csv()` function using the `mocker` fixture
     mock_read_csv = mocker.patch('pandas.read_csv', return_value=EXAMPLE_USER_CFG_ONE_ADMIN)
     role = User.find_role("test")
-    assert role == "admin"
+    assert role == "administrator"
 
 @pytest.mark.mock
 def test_can_find_userrole_by_name_guest(mocker):
