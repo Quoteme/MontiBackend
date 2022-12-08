@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Flask (app)" type="Python.FlaskServer" nameIsGenerated="true">
+    <option name="additionalOptions" value="--host=0.0.0.0 --port=8008" />
     <module name="MontiBackend" />
     <option name="target" value="app" />
     <option name="targetType" value="PYTHON" />
