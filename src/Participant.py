@@ -114,7 +114,7 @@ class Participant:
         Lade einen Teilnehmer aus einer JSON-Datei.
         Sollte die Datei nicht existieren, wird `None` zurückgegeben.
         """
-        if os.path.exists(f"{url}/participant.json"):
+        if os.path.exists(f"{url}"):
             with open(url, 'r') as f:
                 return Participant.from_json(f.read())
         else:
