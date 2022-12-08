@@ -44,11 +44,10 @@ class Study:
         Dieser Wert wird in der `_id` Variable gechached.
         """
         if self._id == "":
-            hashstr = hashlib.sha256(
+            return hashlib.sha256(
                     f'{self.name}{self.description}{self.start}{self.end}{self.sensors}'
                     .encode('utf-8')
                 ).hexdigest()
-            return f"{self.name}-{hashstr}"
         else:
             return self._id
 
