@@ -22,6 +22,7 @@
             sphinx_rtd_theme
             pytest
             pytest-mock
+            pytest-flask
           ]));
       in
         rec {
