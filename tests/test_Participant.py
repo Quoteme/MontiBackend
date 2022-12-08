@@ -10,6 +10,9 @@ def test_participant_init():
     assert participant is not None
 
 def test_create_new_participant(mocker, tmp_path):
+    """
+    Teste ob ein Teilnehmer erstellt werden kann und ob seine Daten korrekt eingespeichert werden
+    """
     # Set up the mock
     mocker.patch.object(os, 'mkdir', return_value=None)
     mock_file = io.StringIO()
