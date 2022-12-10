@@ -20,7 +20,7 @@
 
   <div class="card">
     <div class="card-header">
-      <h3>Studien informationen</h3>
+      <h3>Studieninformationen</h3>
     </div>
     <div class="card-body">
       <form action="/edit_study/{{study.id}}" method="post">
@@ -102,6 +102,21 @@
         </tbody>
       </table>
       <a class="btn btn-primary" href="/study/{{study.id}}/add_participant" role="button">Teilnehmer hinzufügen</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Ab hier vorsichtig</h2>
+    </div>
+    <div class="card-body">
+      <form action="/delete_study/{{study.id}}" method="post">
+        <div class="form-group">
+          <label for="study_id">Study-ID</label>
+          <input class="form-control" name="participant_id" type="text" value="{{study.id}}" readonly>
+        </div>
+        <button type="submit" class="btn btn-danger">Studie löschen</button>
+      </form>
     </div>
   </div>
   

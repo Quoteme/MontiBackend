@@ -101,6 +101,14 @@ def create_app():
         return redirect(f'/study/{study_id}')
 
     @require_login
+    @app.route('/delete_study/<study_id>', methods=['POST'])
+    def delete_study(study_id):
+        study = Study.from_id(study_id)
+        study.delete()
+        flash("Die Studie wurde erfolgreich gelöscht", "success")
+        return redirect('/study_overview')
+
+    @require_login
     @app.route('/study/<study_id>')
     def inspect_study(study_id):
         study = Study.from_id(study_id)
