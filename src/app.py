@@ -171,12 +171,8 @@ def create_app():
         if participant is None:
             raise Exception(f"Participant {participant_id} not found")
         smartphone = Smartphone.from_request_form(request.form)
-        # participant.register_smartphone(smartphone)
+        study.register_smartphone_to_participant(participant, smartphone)
         return ''
-
-    @app.route('/api/studies/<study_id>/participants/<participant_id>/devices', methods=['GET'])
-    def api_get(study_id, participant_id):
-        return 'OK'
 
     return app
 

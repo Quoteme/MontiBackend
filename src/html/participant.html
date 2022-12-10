@@ -39,6 +39,52 @@
   </div>
   <div class="card">
     <div class="card-header">
+      <h2>App Status</h2>
+    </div>
+    <div class="card-body">
+      <p>
+        In dieser Ansicht können Sie den Status der App für den Teilnehmer einsehen.
+        Die Daten wurden beim Registrieren des Teilnehmers durch das Scannen des QR-Codes gesammelt.
+        Diese Daten können nicht mehr geändert werden.
+      </p>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Wert</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">Registriert</th>
+          <td>{{ "registriert" if participant.is_registered else "nicht registriert"}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Marke</th>
+          <td>{{ participant.smartphone.brand }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Modell</th>
+          <td>{{ participant.smartphone.model }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Betriebssystem</th>
+          <td>{{ participant.smartphone.operating_system }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Monti-Version</th>
+          <td>{{ participant.smartphone.monti_version }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Smartphone-ID</th>
+          <td>{{ participant.smartphone.id }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
       <h2>Teilnehmer bearbeiten</h2>
     </div>
     <div class="card-body">

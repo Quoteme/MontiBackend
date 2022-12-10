@@ -78,12 +78,12 @@ class Participant:
         """
         return self.smartphone is not None
 
-    def register_smartphone(self, smartphone: Smartphone) -> None:
+    def register_smartphone(self, url, smartphone: Smartphone) -> None:
         """
         Registriere ein Smartphone für diesen Teilnehmer
         """
         self.smartphone = smartphone
-        self.update(self.url)
+        self.update(url)
 
     def update(self, url: str) -> None:
         """

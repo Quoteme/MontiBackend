@@ -14,6 +14,9 @@ import io
 import base64
 import flask
 
+from Smartphone import Smartphone
+
+
 @dataclass
 class Study:
     """
@@ -62,6 +65,13 @@ class Study:
         """
         return sensor.name in [s.name for s in self.sensors]
 
+    @property
+    def storage_directory(self):
+        """
+        Liefere den Speicherort dieser Studie
+        """
+        return f"./data/{self.id}"
+
     @staticmethod
     def list_all_studies() -> list[Study]:
         """
@@ -95,39 +105,45 @@ class Study:
         """
         Liefere eine Liste aller Teilnehmer dieser Studie
         """
-        if not os.path.exists(f"./data/{self.id}/participants"):
+        if not os.path.exists(f"{self.storage_directory}/participants"):
             return []
         else:
-            return [Participant.from_file(f"./data/{self.id}/participants/{f}/participant.json")
-                    for f in os.listdir(f"./data/{self.id}/participants")]
+            return [Participant.from_file(f"{self.storage_directory}/participants/{f}/participant.json")
+                    for f in os.listdir(f"{self.storage_directory}/participants")]
     
     def get_participant(self, participant_id: str) -> Participant:
         """
         Liefere den Teilnehmer mit der ID `participant_id`
         """
-        return Participant.from_file(f"./data/{self.id}/participants/{participant_id}/participant.json")
+        return Participant.from_file(f"{self.storage_directory}/participants/{participant_id}/participant.json")
 
     def add_participant(self, participant: Participant):
         """
         Füge einen Teilnehmer dieser Studie hinzu
         """
-        if not os.path.exists(f"./data/{self.id}/participants"):
-            os.mkdir(f"./data/{self.id}/participants")
-        participant.create(f"./data/{self.id}/participants")
+        if not os.path.exists(f"{self.storage_directory}/participants"):
+            os.mkdir(f"{self.storage_directory}/participants")
+        participant.create(f"{self.storage_directory}/participants")
+
+    def register_smartphone_to_participant(self, participant: Participant, smartphone: Smartphone):
+        """
+        Registriere das Smartphone `smartphone` für den Teilnehmer `participant`
+        """
+        participant.register_smartphone(f"{self.storage_directory}/participants", smartphone)
 
     def update_participant(self, participant: Participant):
         """
         Aktualisiere den Teilnehmer `participant` in der Datenbank
         """
-        if not os.path.exists(f"./data/{self.id}/participants"):
-            os.mkdir(f"./data/{self.id}/participants")
-        participant.update(f"./data/{self.id}/participants")
+        if not os.path.exists(f"{self.storage_directory}/participants"):
+            os.mkdir(f"{self.storage_directory}/participants")
+        participant.update(f"{self.storage_directory}/participants")
 
     def delete_participant(self, participant: Participant):
         """
         Lösche den Teilnehmer `participant` aus der Datenbank
         """
-        participant.delete(f"./data/{self.id}/participants")
+        participant.delete(f"{self.storage_directory}/participants")
 
     def qrcode_participant_login(self, participant: Participant) -> str:
         """
@@ -158,8 +174,8 @@ class Study:
         """
         Erstelle diese Studie in der Datenbank
         """
-        os.mkdir(f"./data/{self.id}")
-        with open(f"./data/{self.id}/study.json", "w") as f:
+        os.mkdir(f"{self.storage_directory}")
+        with open(f"{self.storage_directory}/study.json", "w") as f:
             f.write(self.to_json())
 
     @staticmethod
@@ -189,13 +205,13 @@ class Study:
         """
         Lösche diese Studie aus der Datenbank
         """
-        shutil.rmtree(f"./data/{self.id}")
+        shutil.rmtree(f"{self.storage_directory}")
 
     def update(self):
         """
         Aktualisiere diese Studie in der Datenbank
         """
-        with open(f"./data/{self.id}/study.json", "w") as f:
+        with open(f"{self.storage_directory}/study.json", "w") as f:
             f.write(self.to_json())
 
     def to_json(self) -> str:
