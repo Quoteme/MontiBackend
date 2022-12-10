@@ -18,6 +18,7 @@
 
 
 <div class="container">
+  {% if not participant.is_registered %}
   <div class="jumbotron">
     <h1 class="display-4">App Integration</h1>
     <p class="lead">
@@ -37,6 +38,7 @@
     <a class="btn btn-primary btn-lg" href="#" role="button">Mehr erfahren</a>
     </p>
   </div>
+  {% endif %}
   <div class="card">
     <div class="card-header">
       <h2>App Status</h2>
@@ -55,9 +57,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr {{ "class=table-success" if participant.is_registered else "class=table-warning" }}>
           <th scope="row">Registriert</th>
           <td>{{ "registriert" if participant.is_registered else "nicht registriert"}}</td>
+        </tr>
+        <tr>
+          <th scope="row">Betriebssystem</th>
+          <td>{{ participant.smartphone.operating_system }}</td>
         </tr>
         <tr>
           <th scope="row">Marke</th>
@@ -66,10 +72,6 @@
         <tr>
           <th scope="row">Modell</th>
           <td>{{ participant.smartphone.model }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Betriebssystem</th>
-          <td>{{ participant.smartphone.operating_system }}</td>
         </tr>
         <tr>
           <th scope="row">Monti-Version</th>
