@@ -1,7 +1,7 @@
 """
 Startpoint of the flask app.
 """
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, render_template, request, redirect, session, flash, jsonify
 import pandas as pd
 
 from Smartphone import Smartphone
@@ -171,7 +171,12 @@ def create_app():
         return redirect(f'/study/{study_id}')
 
     @app.route('/api/studies/<study_id>/participants/<participant_id>/devices', methods=['POST'])
-    def api(study_id, participant_id):
+    def api_devices(study_id, participant_id):
+        """
+        Füge ein Smartphone zu einem Teilnehmer hinzu. Das Smartphone wird bekommt die nötigen Informationen,
+        also <study_id> und <participant_id> übergeben und wird daraufhin mit allen Informationen über sich,
+        welche benötigt sind, eine Anfrage an diese Funktion stellen.
+        """
         study = Study.from_id(study_id)
         if study is None:
             raise Exception(f"Study {study_id} not found")
@@ -181,6 +186,21 @@ def create_app():
         smartphone = Smartphone.from_request_form(request.form)
         study.register_smartphone_to_participant(participant, smartphone)
         return ''
+
+    @app.route('/api/studies/<study_id>/duration', methods=['POST', 'get'])
+    def api_study_duration(study_id):
+        """
+        Gebe die Start- und Endzeit einer Studie zurück.
+        Das ist nützlich, damit Teilnehmer in der Monti App sehen können, wie lange Sie noch an Ihrer Studie teilnehmen
+        müssen.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        return jsonify({
+            'start': study.start,
+            'end': study.end,
+        })
 
     return app
 
