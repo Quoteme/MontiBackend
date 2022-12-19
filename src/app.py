@@ -205,8 +205,20 @@ def create_app():
             'end': study.end,
         })
 
-    return app
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/upload_sensor_data', methods=['POST'])
+    def api_upload_sensor_data(study_id, participant_id):
+        """
+        Lade die aufgenommenen Sensordaten eines Teilnehmers hoch.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        return ''
 
+    return app
 
 if __name__ == '__main__':
     app = create_app()
