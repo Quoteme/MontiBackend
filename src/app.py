@@ -164,6 +164,9 @@ def create_app():
     @require_login
     @app.route('/study/<study_id>/participant/<participant_id>/delete_participant', methods=['POST'])
     def delete_participant(study_id, participant_id):
+        """
+        Lösche einen Teilnehmer aus einer Studie.
+        """
         study = Study.from_id(study_id)
         participant = study.get_participant(participant_id)
         study.delete_participant(participant)
@@ -171,7 +174,7 @@ def create_app():
         return redirect(f'/study/{study_id}')
 
     @app.route('/api/studies/<study_id>/participants/<participant_id>/devices', methods=['POST'])
-    def api_devices(study_id, participant_id):
+    def api_register_devices(study_id, participant_id):
         """
         Füge ein Smartphone zu einem Teilnehmer hinzu. Das Smartphone wird bekommt die nötigen Informationen,
         also <study_id> und <participant_id> übergeben und wird daraufhin mit allen Informationen über sich,
