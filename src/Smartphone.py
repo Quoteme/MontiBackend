@@ -9,10 +9,10 @@ class Smartphone:
     """
     Ein Teilnehmer einer Studie kann sich mit einem Smartphone registrieren.
     Daten wie:
-        - Marke
-        - Softwareversion
-        - ID
-        - ...
+    - Marke
+    - Softwareversion
+    - ID
+    - ...
     Werden in dieser Klasse gespeichert.
     Das wichtigste ist die ID, da diese zur Authentifizierung des Teilnehmers
     verwendet wird.
