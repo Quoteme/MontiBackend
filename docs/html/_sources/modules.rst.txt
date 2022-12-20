@@ -6,7 +6,8 @@ src
 
    Participant
    Sensor
+   Smartphone
    Study
    User
-   main
+   app
    util

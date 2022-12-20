@@ -20,7 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Stichwortverzeichnis" href="genindex.html" />
     <link rel="search" title="Suche" href="search.html" />
-    <link rel="next" title="main module" href="main.html" />
+    <link rel="next" title="app module" href="app.html" />
     <link rel="prev" title="Study module" href="Study.html" /> 
 </head>
 
@@ -44,9 +44,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Participant.html">Participant module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Sensor.html">Sensor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Smartphone.html">Smartphone module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Study.html">Study module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">User module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html">app module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html">util module</a></li>
 </ul>
 </li>
@@ -87,10 +88,10 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="User.Benutzer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">User.</span></span><span class="sig-name descname"><span class="pre">Benutzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/User.html#Benutzer"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#User.Benutzer" title="Link zu dieser Definition"></a></dt>
+<dt class="sig sig-object py" id="User.Guest">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">User.</span></span><span class="sig-name descname"><span class="pre">Guest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/User.html#Guest"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#User.Guest" title="Link zu dieser Definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#User.User" title="User.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a></p>
-<p>Ein Benutzer kann nur Studien einsehen.</p>
+<p>Dieser Benutzertyp ist für Gäste gedacht, welche nur beschränkt Zugriff auf die Website haben.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -101,17 +102,17 @@
 Verschiedene Benutzer haben unterschiedliche Rechte.
 Nur mit einem Benutzer kann man sich auf der Website einloggen.
 Welche Konten und mit welchem Passwort existieren, wird in der Datei
-<cite>cfg/user.csv</cite> gespeichert.</p>
+<cite>User.user_file()</cite>, bzw. <cite>./cfg/user.csv</cite> gespeichert.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="User.User.find_role">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'benutzer'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'administrator'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/User.html#User.find_role"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#User.User.find_role" title="Link zu dieser Definition"></a></dt>
-<dd><p>Finde die Benutzerrolle, nur von dem Namen eines potentiellen Benutzers</p>
+<dd><p>Finde die Benutzerrolle, nur von dem Namen eines potenziellen Benutzers</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="User.User.is_valid">
 <span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/User.html#User.is_valid"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#User.User.is_valid" title="Link zu dieser Definition"></a></dt>
-<dd><p>Prüfe ob die Kombination aus username und password in der
+<dd><p>Prüfe, ob die Kombination aus username und password in der
 Datenbank vorhanden ist.</p>
 </dd></dl>
 
@@ -121,13 +122,19 @@ Datenbank vorhanden ist.</p>
 <dd><p>Wird ein username und ein password gegeben, so prüfe ob diese
 Kombination in unserer Datenbank vorhanden ist.
 Wenn nein: gib nichts zurück
-Wenn ja:   gib ein Administrator/Benutzer/…-Objekt zurück</p>
+Wenn ja: gib ein Administrator/Benutzer/…-Objekt zurück</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="User.User.password">
 <span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#User.User.password" title="Link zu dieser Definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="User.User.user_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/User.html#User.user_file"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#User.User.user_file" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere den Pfad zur Datei, in der die Benutzer gespeichert sind.</p>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="User.User.username">
@@ -143,7 +150,7 @@ Wenn ja:   gib ein Administrator/Benutzer/…-Objekt zurück</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="Study.html" class="btn btn-neutral float-left" title="Study module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Zurück</a>
-        <a href="main.html" class="btn btn-neutral float-right" title="main module" accesskey="n" rel="next">Weiter <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="app.html" class="btn btn-neutral float-right" title="app module" accesskey="n" rel="next">Weiter <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

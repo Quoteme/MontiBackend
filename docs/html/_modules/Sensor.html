@@ -77,7 +77,13 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Ein SensorData-Objekt enthält die Daten eines Sensors.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span></div>
+    <span class="n">timestamp</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SensorData.to_csv"><a class="viewcode-back" href="../Sensor.html#Sensor.SensorData.to_csv">[Doku]</a>    <span class="k">def</span> <span class="nf">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere eine CSV-Repräsentation dieses SensorData-Objekts</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
 
 <div class="viewcode-block" id="Sensor"><a class="viewcode-back" href="../Sensor.html#Sensor.Sensor">[Doku]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Sensor</span><span class="p">:</span>
@@ -97,6 +103,19 @@
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Sensor.parse_csv"><a class="viewcode-back" href="../Sensor.html#Sensor.Sensor.parse_csv">[Doku]</a>    <span class="k">def</span> <span class="nf">parse_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse CSV-String zu SensorData.</span>
+<span class="sd">        Diese Methode muss in den Unterklassen implementiert werden.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Sensor.to_csv"><a class="viewcode-back" href="../Sensor.html#Sensor.Sensor.to_csv">[Doku]</a>    <span class="k">def</span> <span class="nf">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere eine CSV-Repräsentation dieses Sensors</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 <div class="viewcode-block" id="Sensor.list_all_sensors"><a class="viewcode-back" href="../Sensor.html#Sensor.Sensor.list_all_sensors">[Doku]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">list_all_sensors</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Sensor</span><span class="p">]:</span>
@@ -209,7 +228,15 @@
     <span class="n">crc</span><span class="p">:</span> <span class="nb">int</span>  <span class="o">=</span> <span class="mi">0</span>
     <span class="n">accX</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">accY</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">accZ</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span></div>
+    <span class="n">accZ</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="CorsanoMetricPPGSensorData.to_csv"><a class="viewcode-back" href="../Sensor.html#Sensor.CorsanoMetricPPGSensorData.to_csv">[Doku]</a>    <span class="k">def</span> <span class="nf">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Liefere eine CSV-Repräsentation dieses SensorData-Objekts.</span>
+<span class="sd">        Diese Methode wird von der Methode to_csv() der Klasse MetricPPGSensor verwendet.</span>
+<span class="sd">        Hiermit wird jeweils eine Zeile der CSV-Datei erzeugt.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">acc</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ppg</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bpm</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bpmQ</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">crc</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">accX</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">accY</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">accZ</span><span class="si">}</span><span class="s2">&quot;</span></div></div>
 
 <div class="viewcode-block" id="CorsanoMetricPPGSensor"><a class="viewcode-back" href="../Sensor.html#Sensor.CorsanoMetricPPGSensor">[Doku]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">CorsanoMetricPPGSensor</span><span class="p">(</span><span class="n">Sensor</span><span class="p">):</span>
@@ -226,7 +253,52 @@
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CorsanoMetricPPGSensor.parse_csv"><a class="viewcode-back" href="../Sensor.html#Sensor.CorsanoMetricPPGSensor.parse_csv">[Doku]</a>    <span class="k">def</span> <span class="nf">parse_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parst einen CSV-String und fügt die Daten dem Sensor hinzu.</span>
+<span class="sd">        Die Daten der CSV Datei müssen dabei in folgendem Format vorliegen:</span>
+<span class="sd">        Diese Daten werden von unter /data/&lt;study_id&gt;/participants/&lt;sensor_id&gt;/CorsanoMetricPPGSensor/&lt;timestamp&gt;.csv gespeichert.</span>
+
+<span class="sd">        ```</span>
+<span class="sd">        timestamp,acc,ppg,bpm,bpmQ,crc,accX,accY,accZ</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        Beispiel:</span>
+<span class="sd">        ```</span>
+<span class="sd">        1671562522897,18,12431,170,1,0,124,132,-176</span>
+<span class="sd">        1671562522937,9,12412,170,1,0,128,140,-168</span>
+<span class="sd">        1671562522977,12,12428,170,1,0,136,136,-168</span>
+<span class="sd">        1671562523017,12,12434,170,1,0,140,124,-160</span>
+<span class="sd">        ```</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CorsanoMetricPPGSensorData</span><span class="p">(</span>
+                <span class="n">timestamp</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                <span class="n">acc</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="n">ppg</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                <span class="n">bpm</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                <span class="n">bpmQ</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+                <span class="n">crc</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span>
+                <span class="n">accX</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span>
+                <span class="n">accY</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">7</span><span class="p">]),</span>
+                <span class="n">accZ</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+            <span class="p">))</span></div>
+
+<div class="viewcode-block" id="CorsanoMetricPPGSensor.to_csv"><a class="viewcode-back" href="../Sensor.html#Sensor.CorsanoMetricPPGSensor.to_csv">[Doku]</a>    <span class="k">def</span> <span class="nf">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gibt die Daten des Sensors als CSV-String zurück.</span>
+<span class="sd">        Dies ist komplett analog zur Methode `parse_csv`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">csv</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+            <span class="n">csv</span> <span class="o">+=</span> <span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">csv</span></div></div>
 </pre></div>
 
            </div>

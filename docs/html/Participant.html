@@ -44,9 +44,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Participant module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Sensor.html">Sensor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Smartphone.html">Smartphone module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Study.html">Study module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="User.html">User module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html">app module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html">util module</a></li>
 </ul>
 </li>
@@ -81,18 +82,43 @@
 <span id="participant-module"></span><h1>Participant module<a class="headerlink" href="#module-Participant" title="Permalink to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="Participant.Participant">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Participant.</span></span><span class="sig-name descname"><span class="pre">Participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birthday</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">24,</span> <span class="pre">21,</span> <span class="pre">11,</span> <span class="pre">9,</span> <span class="pre">647605)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gender</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'male'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'female'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'other'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'other'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Participant.html#Participant"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Participant.Participant" title="Link zu dieser Definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Participant.</span></span><span class="sig-name descname"><span class="pre">Participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">birthday</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">datetime.datetime(2022,</span> <span class="pre">12,</span> <span class="pre">20,</span> <span class="pre">23,</span> <span class="pre">35,</span> <span class="pre">33,</span> <span class="pre">417097)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gender</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'male'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'female'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'other'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'other'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smartphone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Smartphone.html#Smartphone.Smartphone" title="Smartphone.Smartphone"><span class="pre">Smartphone</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Participant.html#Participant"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Participant.Participant" title="Link zu dieser Definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Datentyp für Teilnehmer von Studien.</p>
+<p>Datentyp für Teilnehmer von Studien.
+Ein Teilnehmer wird immer in einer Studie erstellt.
+Studien werden als Ordner unter dem Ordner <cite>data/</cite> gespeichert.
+Genau so, werden Teilnehmer in Unterordnern von Studien gespeichert.
+Der zugehörige Ordnername ist die ID des Teilnehmers.
+In diesem Ordner befindet sich auch eine Datei <cite>participant.json</cite>,
+welche feste Daten des Teilnehmers enthält (siehe: Geburtsdatum, …).</p>
+<p>Der QR-Code zum Registrieren eines Teilnehmers wird von der Studie
+generiert. Wenn sich ein Teilnehmer registriert, wird sein Smartphone
+mit dem Konto verknüft. Aus Sicherheitsgründen kann nur ein Smartphone
+pro Teilnehmer registriert werden.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Participant.Participant.add_sensor_data">
+<span class="sig-name descname"><span class="pre">add_sensor_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Sensor.html#Sensor.Sensor" title="Sensor.Sensor"><span class="pre">Sensor</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/Participant.html#Participant.add_sensor_data"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Participant.Participant.add_sensor_data" title="Link zu dieser Definition"></a></dt>
+<dd><p>Füge Sensordaten zu diesem Teilnehmer hinzu.
+In dem übergebenen Sensor <cite>sensor</cite> sind die Sensordaten enthalten.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Participant.Participant.age">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">age</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#Participant.Participant.age" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere das Alter des Teilnehmers</p>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Participant.Participant.birthday">
-<span class="sig-name descname"><span class="pre">birthday</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">datetime.datetime(2022,</span> <span class="pre">11,</span> <span class="pre">24,</span> <span class="pre">21,</span> <span class="pre">11,</span> <span class="pre">9,</span> <span class="pre">647605)</span></em><a class="headerlink" href="#Participant.Participant.birthday" title="Link zu dieser Definition"></a></dt>
+<span class="sig-name descname"><span class="pre">birthday</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">datetime.datetime(2022,</span> <span class="pre">12,</span> <span class="pre">20,</span> <span class="pre">23,</span> <span class="pre">35,</span> <span class="pre">33,</span> <span class="pre">417097)</span></em><a class="headerlink" href="#Participant.Participant.birthday" title="Link zu dieser Definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Participant.Participant.create">
 <span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/Participant.html#Participant.create"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Participant.Participant.create" title="Link zu dieser Definition"></a></dt>
-<dd><p>Erstelle einen neuen Teilnehmer</p>
+<dd><p>Erstelle einen neuen Teilnehmer.
+Nachdem ein Participant erstellt wurde, kann er mittels <cite>from_file</cite>
+wiederhergestellt werden.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -108,8 +134,9 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Participant.Participant.from_file">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a></span></span><a class="reference internal" href="_modules/Participant.html#Participant.from_file"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Participant.Participant.from_file" title="Link zu dieser Definition"></a></dt>
-<dd><p>Lade einen Teilnehmer aus einer JSON-Datei</p>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Participant.html#Participant.from_file"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Participant.Participant.from_file" title="Link zu dieser Definition"></a></dt>
+<dd><p>Lade einen Teilnehmer aus einer JSON-Datei.
+Sollte die Datei nicht existieren, wird <cite>None</cite> zurückgegeben.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -126,7 +153,17 @@
 <dl class="py property">
 <dt class="sig sig-object py" id="Participant.Participant.id">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Participant.Participant.id" title="Link zu dieser Definition"></a></dt>
-<dd><p>Liefere die ID dieses Teilnehmers</p>
+<dd><p>Liefere die ID dieses Teilnehmers
+Die ID ist eine UUID, die beim Erstellen des Teilnehmers generiert wird
+und danach nicht mehr verändert wird. Sie dient als eindeutige Kennung
+und da nur der Partizipant selbst, sowie Administratoren diese
+kennen, ist sie auch zur Authentifizierung sicher.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="Participant.Participant.is_registered">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_registered</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#Participant.Participant.is_registered" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere, ob dieser Teilnehmer mit einem Smartphone registriert ist</p>
 </dd></dl>
 
 <dl class="py property">
@@ -134,6 +171,17 @@
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#Participant.Participant.name" title="Link zu dieser Definition"></a></dt>
 <dd><p>Liefere den vollständigen Namen des Teilnehmers</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Participant.Participant.register_smartphone">
+<span class="sig-name descname"><span class="pre">register_smartphone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smartphone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Smartphone.html#Smartphone.Smartphone" title="Smartphone.Smartphone"><span class="pre">Smartphone</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/Participant.html#Participant.register_smartphone"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Participant.Participant.register_smartphone" title="Link zu dieser Definition"></a></dt>
+<dd><p>Registriere ein Smartphone für diesen Teilnehmer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Participant.Participant.smartphone">
+<span class="sig-name descname"><span class="pre">smartphone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="Smartphone.html#Smartphone.Smartphone" title="Smartphone.Smartphone"><span class="pre">Smartphone</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#Participant.Participant.smartphone" title="Link zu dieser Definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="Participant.Participant.surname">

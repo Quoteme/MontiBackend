@@ -8,12 +8,8 @@ from typing import Optional
 class Smartphone:
     """
     Ein Teilnehmer einer Studie kann sich mit einem Smartphone registrieren.
-    Daten wie:
-     - Marke
-     - Softwareversion
-     - ID
-     - ...
-    Werden in dieser Klasse gespeichert.
+    Daten wie: _Marke_, _Softwareversion_, _ID_, ...
+    werden in dieser Klasse gespeichert.
     Das wichtigste ist die ID, da diese zur Authentifizierung des Teilnehmers
     verwendet wird.
     Es dürfen somit nicht zwei Smartphones mit der gleichen ID registriert

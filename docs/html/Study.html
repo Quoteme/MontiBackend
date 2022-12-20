@@ -21,7 +21,7 @@
     <link rel="index" title="Stichwortverzeichnis" href="genindex.html" />
     <link rel="search" title="Suche" href="search.html" />
     <link rel="next" title="User module" href="User.html" />
-    <link rel="prev" title="Sensor module" href="Sensor.html" /> 
+    <link rel="prev" title="Smartphone module" href="Smartphone.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,9 +44,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Participant.html">Participant module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Sensor.html">Sensor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Smartphone.html">Smartphone module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Study module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="User.html">User module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app.html">app module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="util.html">util module</a></li>
 </ul>
 </li>
@@ -97,6 +98,13 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.add_sensor_data_to_participant">
+<span class="sig-name descname"><span class="pre">add_sensor_data_to_participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Participant.html#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Sensor.html#Sensor.Sensor" title="Sensor.Sensor"><span class="pre">Sensor</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Study.html#Study.add_sensor_data_to_participant"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.add_sensor_data_to_participant" title="Link zu dieser Definition"></a></dt>
+<dd><p>Füge die Sensordaten <cite>data</cite> für den Teilnehmer <cite>participant</cite> hinzu.
+<cite>data</cite> muss ein Sensor-Objekt sein, welches die Sensordaten enthält.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="Study.Study.create">
 <span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Study.html#Study.create"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.create" title="Link zu dieser Definition"></a></dt>
 <dd><p>Erstelle diese Studie in der Datenbank</p>
@@ -126,16 +134,17 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Study.Study.from_id">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study</span></a></span></span><a class="reference internal" href="_modules/Study.html#Study.from_id"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.from_id" title="Link zu dieser Definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Study.html#Study.from_id"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.from_id" title="Link zu dieser Definition"></a></dt>
 <dd><p>Liefere die Studie mit der angegebenen ID.
 Dafür wird die Studie aus der Datenbank gelesen.
 Wir suchen den Ordner mit der ID und lesen die Studie aus der
-Datei <cite>study.json</cite> aus.</p>
+Datei <cite>study.json</cite> aus.
+Falls keine Studie mit der ID gefunden wird, wird <cite>None</cite> zurückgegeben.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Study.Study.from_json">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jsondata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Study.html#Study.from_json"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.from_json" title="Link zu dieser Definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">jsondata</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study</span></a></span></span><a class="reference internal" href="_modules/Study.html#Study.from_json"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.from_json" title="Link zu dieser Definition"></a></dt>
 <dd><p>Erstelle eine Studie aus einem JSON-Objekt</p>
 </dd></dl>
 
@@ -199,8 +208,15 @@ Der QR-Code wird als base64-String zurückgegeben.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Study.Study.read_from_file">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Study.html#Study.read_from_file"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.read_from_file" title="Link zu dieser Definition"></a></dt>
-<dd><p>Lese eine Studie aus der Datenbank</p>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#Study.Study" title="Study.Study"><span class="pre">Study</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/Study.html#Study.read_from_file"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.read_from_file" title="Link zu dieser Definition"></a></dt>
+<dd><p>Lese eine Studie aus der Datenbank.
+Sollte die Studie nicht existieren, wird <cite>None</cite> zurückgegeben.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Study.Study.register_smartphone_to_participant">
+<span class="sig-name descname"><span class="pre">register_smartphone_to_participant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">participant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Participant.html#Participant.Participant" title="Participant.Participant"><span class="pre">Participant</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">smartphone</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Smartphone.html#Smartphone.Smartphone" title="Smartphone.Smartphone"><span class="pre">Smartphone</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Study.html#Study.register_smartphone_to_participant"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.register_smartphone_to_participant" title="Link zu dieser Definition"></a></dt>
+<dd><p>Registriere das Smartphone <cite>smartphone</cite> für den Teilnehmer <cite>participant</cite></p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -213,9 +229,15 @@ Der QR-Code wird als base64-String zurückgegeben.</p>
 <span class="sig-name descname"><span class="pre">start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#Study.Study.start" title="Link zu dieser Definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="Study.Study.storage_directory">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">storage_directory</span></span><a class="headerlink" href="#Study.Study.storage_directory" title="Link zu dieser Definition"></a></dt>
+<dd><p>Liefere den Speicherort dieser Studie</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="Study.Study.to_json">
-<span class="sig-name descname"><span class="pre">to_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Study.html#Study.to_json"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.to_json" title="Link zu dieser Definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/Study.html#Study.to_json"><span class="viewcode-link"><span class="pre">[Quellcode]</span></span></a><a class="headerlink" href="#Study.Study.to_json" title="Link zu dieser Definition"></a></dt>
 <dd><p>Konvertiere diese Studie in ein JSON-Objekt</p>
 </dd></dl>
 
@@ -245,7 +267,7 @@ Der QR-Code wird als base64-String zurückgegeben.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Sensor.html" class="btn btn-neutral float-left" title="Sensor module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Zurück</a>
+        <a href="Smartphone.html" class="btn btn-neutral float-left" title="Smartphone module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Zurück</a>
         <a href="User.html" class="btn btn-neutral float-right" title="User module" accesskey="n" rel="next">Weiter <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
