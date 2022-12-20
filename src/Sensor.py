@@ -11,6 +11,12 @@ class SensorData:
     """
     timestamp: datetime = datetime.now()
 
+    def to_csv(self) -> str:
+        """
+        Liefere eine CSV-Repräsentation dieses SensorData-Objekts
+        """
+        raise NotImplementedError
+
 @dataclass
 class Sensor:
     """
@@ -29,6 +35,19 @@ class Sensor:
 
     def __repr__(self):
         return str(self)
+
+    def parse_csv(self, csv: str):
+        """
+        Parse CSV-String zu SensorData.
+        Diese Methode muss in den Unterklassen implementiert werden.
+        """
+        raise NotImplementedError
+
+    def to_csv(self) -> str:
+        """
+        Liefere eine CSV-Repräsentation dieses Sensors
+        """
+        raise NotImplementedError
 
     @staticmethod
     def list_all_sensors() -> list[Sensor]:
@@ -143,6 +162,14 @@ class CorsanoMetricPPGSensorData(SensorData):
     accY: int = 0
     accZ: int = 0
 
+    def to_csv(self) -> str:
+        """
+        Liefere eine CSV-Repräsentation dieses SensorData-Objekts.
+        Diese Methode wird von der Methode to_csv() der Klasse MetricPPGSensor verwendet.
+        Hiermit wird jeweils eine Zeile der CSV-Datei erzeugt.
+        """
+        return f"{self.timestamp},{self.acc},{self.ppg},{self.bpm},{self.bpmQ},{self.crc},{self.accX},{self.accY},{self.accZ}"
+
 @dataclass
 class CorsanoMetricPPGSensor(Sensor):
     """
@@ -159,3 +186,47 @@ class CorsanoMetricPPGSensor(Sensor):
     def __repr__(self):
         print(self)
         return str(self)
+
+    def parse_csv(self, csv: str):
+        """
+        Parst einen CSV-String und fügt die Daten dem Sensor hinzu.
+        Die Daten der CSV Datei müssen dabei in folgendem Format vorliegen:
+
+        ```
+        timestamp,acc,ppg,bpm,bpmQ,crc,accX,accY,accZ
+        ```
+
+        Beispiel:
+        ```
+        1671562522897,18,12431,170,1,0,124,132,-176
+        1671562522937,9,12412,170,1,0,128,140,-168
+        1671562522977,12,12428,170,1,0,136,136,-168
+        1671562523017,12,12434,170,1,0,140,124,-160
+        ```
+        """
+        lines = csv.splitlines()
+        for line in lines:
+            if line == "":
+                continue
+            values = line.split(b",")
+            self.data.append(CorsanoMetricPPGSensorData(
+                timestamp=int(values[0]),
+                acc=int(values[1]),
+                ppg=int(values[2]),
+                bpm=int(values[3]),
+                bpmQ=int(values[4]),
+                crc=int(values[5]),
+                accX=int(values[6]),
+                accY=int(values[7]),
+                accZ=int(values[8])
+            ))
+
+    def to_csv(self) -> str:
+        """
+        Gibt die Daten des Sensors als CSV-String zurück.
+        Dies ist komplett analog zur Methode `parse_csv`.
+        """
+        csv = ""
+        for data in self.data:
+            csv += data.to_csv() + "\n"
+        return csv

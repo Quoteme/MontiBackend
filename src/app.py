@@ -209,6 +209,15 @@ def create_app():
     def api_upload_sensor_data(study_id, participant_id):
         """
         Lade die aufgenommenen Sensordaten eines Teilnehmers hoch.
+        Die Anfrage an den Server muss dabei folgende Daten enthalten:
+        - In der URL
+            - <study_id>: Die ID der Studie, zu der die Sensordaten gehören
+            - <participant_id>: Die ID des Teilnehmers, zu dem die Sensordaten gehören
+        - im Header
+            - 'Content-Type': 'application/csv'
+            - 'Authorisation': token # TODO: Muss noch implementiert werden
+        - im Body
+            - Die Sensordaten als CSV-Datei (siehe [Sensor.py])
         """
         study = Study.from_id(study_id)
         if study is None:
@@ -216,6 +225,11 @@ def create_app():
         participant = study.get_participant(participant_id)
         if participant is None:
             raise Exception(f"Participant {participant_id} not found")
+        sensor = Sensor.from_name(request.headers.get('sensor-type'))
+        print(f"Received {sensor.name}-data from {participant_id}")
+        sensor.parse_csv(request.data)
+        study.add_sensor_data_to_participant(participant, sensor)
+        print(f"Added {sensor.name}-data to {participant_id}")
         return ''
 
     return app

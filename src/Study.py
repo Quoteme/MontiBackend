@@ -145,6 +145,13 @@ class Study:
         """
         participant.delete(f"{self.storage_directory}/participants")
 
+    def add_sensor_data_to_participant(self, participant: Participant, data: Sensor):
+        """
+        Füge die Sensordaten `data` für den Teilnehmer `participant` hinzu.
+        `data` muss ein Sensor-Objekt sein, welches die Sensordaten enthält.
+        """
+        participant.add_sensor_data(f"{self.storage_directory}/participants", data)
+
     def qrcode_participant_login(self, participant: Participant) -> str:
         """
         Liefere den QR-Code für einen Teilnehmer `participant`.

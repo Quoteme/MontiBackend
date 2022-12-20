@@ -85,6 +85,24 @@ class Participant:
         self.smartphone = smartphone
         self.update(url)
 
+    def add_sensor_data(self, url: str, sensor: Sensor) -> None:
+        """
+        Füge Sensordaten zu diesem Teilnehmer hinzu.
+        In dem übergebenen Sensor `sensor` sind die Sensordaten enthalten.
+        """
+        # Falls der Ordner für die Sensordaten noch nicht existiert, erstelle ihn
+        directory = f"{url}/{self.id}/{sensor.name}"
+        if not os.path.exists(directory):
+            # Create the directory
+            os.makedirs(directory)
+        # Schreibe die Sensordaten in eine Datei
+        # Wir können annehmen, dass mindestens ein Wert in den Sensordaten ist.
+        # Daher können wir den Timestamp des ersten Wertes verwenden, um die datei zu benennen.
+        # Sollte kein erster Wert vorhanden sein, muss auch nichts gespeichert werden.
+        filename = f"{datetime.fromtimestamp(sensor.data[0].timestamp//1000).strftime('%Y-%m-%d_%H-%M-%S')}.csv"
+        with open(f"{url}/{self.id}/{sensor.name}/{filename}", "w") as f:
+            f.write(sensor.to_csv())
+
     def update(self, url: str) -> None:
         """
         Aktualisiere diesen Teilnehmer in der Datenbank
