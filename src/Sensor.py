@@ -191,6 +191,7 @@ class CorsanoMetricPPGSensor(Sensor):
         """
         Parst einen CSV-String und fügt die Daten dem Sensor hinzu.
         Die Daten der CSV Datei müssen dabei in folgendem Format vorliegen:
+        Diese Daten werden von unter /data/<study_id>/participants/<sensor_id>/CorsanoMetricPPGSensor/<timestamp>.csv gespeichert.
 
         ```
         timestamp,acc,ppg,bpm,bpmQ,crc,accX,accY,accZ
