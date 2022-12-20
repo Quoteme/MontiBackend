@@ -23,6 +23,7 @@
             pytest
             pytest-mock
             pytest-flask
+            waitress
           ]));
       in
         rec {
