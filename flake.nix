@@ -28,6 +28,7 @@
       in
         rec {
           devShells.default = pkgs.mkShell {
+            PYTHONPATH = "${self}/src";
             buildInputs = with pkgs; [
               customPython
               git
