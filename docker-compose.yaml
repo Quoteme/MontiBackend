@@ -4,7 +4,7 @@ services:
   web:
     build: .
     ports:
-     - "8008:5000"
+     - "8080:8080"
   mongodb:
     image: mongo
     command: --auth
