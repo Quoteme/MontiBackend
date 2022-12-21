@@ -77,6 +77,8 @@ class Study:
         """
         Liefere eine Liste aller Studien in der Datenbank
         """
+        if not os.path.exists("./data"):
+            os.mkdir("./data")
         return [Study.read_from_file(f"./data/{f}/study.json") for f in os.listdir('./data')]
 
     @staticmethod
