@@ -3,6 +3,8 @@ version: '3.8'
 services:
   web:
     build: .
+    volumes:
+      - ./data:/app/data
     ports:
      - "8080:8080"
   mongodb:

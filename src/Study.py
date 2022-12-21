@@ -79,7 +79,7 @@ class Study:
         """
         if not os.path.exists("./data"):
             os.mkdir("./data")
-        return [Study.read_from_file(f"./data/{f}/study.json") for f in os.listdir('./data')]
+        return [Study.read_from_file(f"./data/{f}/study.json") for f in os.listdir('./data') if os.path.isdir(f"./data/{f}")]
 
     @staticmethod
     def list_all_current_studies() -> list[Study]:

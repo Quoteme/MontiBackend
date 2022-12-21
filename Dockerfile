@@ -11,7 +11,8 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
-COPY . /app
+COPY app.py /app
+COPY src /app/src
 
 RUN ls
 
