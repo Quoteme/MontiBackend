@@ -205,6 +205,26 @@ def create_app():
             'end': study.end,
         })
 
+    @app.route('/api/studies/<study_id>/sensors', methods=['POST', 'get'])
+    def api_study_sensors(study_id):
+        """
+        Gebe die Liste von Sensoren aus, welche in der entsprechenden Studie getrackt werden sollen.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        return jsonify(study.sensors)
+
+    @app.route('/api/studies/<study_id>/sensor_names', methods=['POST', 'get'])
+    def api_study_sensor_names(study_id):
+        """
+        Gebe die Namensiste von Sensoren aus, welche in der entsprechenden Studie getrackt werden sollen.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        return jsonify([s.name for s in study.sensors])
+
     @app.route('/api/studies/<study_id>/participants/<participant_id>/upload_sensor_data', methods=['POST'])
     def api_upload_sensor_data(study_id, participant_id):
         """
