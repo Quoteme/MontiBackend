@@ -7,18 +7,13 @@ services:
       - ./data:/app/data
     ports:
      - "8080:8080"
-  mongodb:
-    image: mongo
-    command: --auth
-    volumes:
-      - ./mongodb.key:/etc/ssl/mongodb.key:ro
-      - ./data:/data/db
-      - ./src//mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpassword
-      MONGO_INITDB_ROOT_ROLE: root
-      MONGO_INITDB_ARGS: --encryption --encryptionKeyFile /etc/ssl/mongodb.key
-      MONGO_INITDB_DATABASE: studies
+  database:
+    image: postgres
     ports:
-    - 27017:27017
+      - "5433:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
