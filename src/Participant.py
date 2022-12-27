@@ -1,5 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass
+
+from werkzeug.datastructures import FileStorage
+
 from Sensor import Sensor
 from Smartphone import Smartphone
 from typing import List, Optional
@@ -84,6 +87,21 @@ class Participant:
         """
         self.smartphone = smartphone
         self.update(url)
+
+    def last_database_modification(self, url: str) -> Optional[datetime]:
+        """
+        Liefere das Datum der letzten Änderung an der Datenbank für diesen Teilnehmer
+        """
+        # prüfe ob der Teilnehmer eine Sensordatenbank hat
+        if not os.path.exists(f"{url}/{self.id}/database.realm"):
+            return None
+        return datetime.fromtimestamp(os.path.getmtime(f"{url}/{self.id}/database.realm"))
+
+    def upload_sensor_data(self, url: str, file: FileStorage, date: datetime) -> None:
+        """
+        Lade die Sensordaten dieses Teilnehmers für das Datum `date` hoch
+        """
+        file.save(f"{url}/{self.id}/database.realm")
 
     def add_sensor_data(self, url: str, sensor: Sensor) -> None:
         """

@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
+from werkzeug.datastructures import FileStorage
+
 from Sensor import Sensor
 from Participant import Participant
 import hashlib
@@ -118,6 +120,18 @@ class Study:
         Liefere den Teilnehmer mit der ID `participant_id`
         """
         return Participant.from_file(f"{self.storage_directory}/participants/{participant_id}/participant.json")
+
+    def get_participant_last_database_modification(self, participant: Participant) -> Optional[datetime]:
+        """
+        Liefere das Datum der letzten Änderung der Datenbank des Teilnehmers `participant`
+        """
+        return participant.last_database_modification(f"{self.storage_directory}/participants")
+
+    def upload_participant_sensor_data(self, participant: Participant, file: FileStorage, date: datetime):
+        """
+        Lade die Sensordaten `data` des Sensors `sensor` für den Teilnehmer `participant` hoch
+        """
+        participant.upload_sensor_data(f"{self.storage_directory}/participants", file, date)
 
     def add_participant(self, participant: Participant):
         """

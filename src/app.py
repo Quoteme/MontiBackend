@@ -236,8 +236,9 @@ def create_app():
         - im Header
             - 'Content-Type': 'application/csv'
             - 'Authorisation': token # TODO: Muss noch implementiert werden
+            - 'lastModifiedDate': timestamp, an welchem die Daten in der Handydatenbank gespeichert wurden
         - im Body
-            - Die Sensordaten als CSV-Datei (siehe [Sensor.py])
+            - Die Sensordaten als REALM-Datenbank
         """
         study = Study.from_id(study_id)
         if study is None:
@@ -245,12 +246,15 @@ def create_app():
         participant = study.get_participant(participant_id)
         if participant is None:
             raise Exception(f"Participant {participant_id} not found")
-        sensor = Sensor.from_name(request.headers.get('sensor-type'))
-        print(f"Received {sensor.name}-data from {participant_id}")
-        sensor.parse_csv(request.data)
-        study.add_sensor_data_to_participant(participant, sensor)
-        print(f"Added {sensor.name}-data to {participant_id}")
-        return ''
+        last_modified_date = datetime.strptime(request.headers.get('last_modified_date'), '%Y-%m-%d %H:%M:%S')
+        last_uploaded_modification = study.get_participant_last_database_modification(participant)
+        if last_modified_date is None :
+            raise ValueError(f"lastModifiedDate is None")
+        if last_uploaded_modification is not None and last_uploaded_modification >= last_modified_date:
+            raise ValueError(f"lastModifiedDate is not newer than last uploaded modification")
+        else:
+            study.upload_participant_sensor_data(participant, request.files['file'], last_modified_date)
+            return 'OK'
 
     return app
 
