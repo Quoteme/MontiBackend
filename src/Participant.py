@@ -202,10 +202,14 @@ class Participant:
         Erstelle einen Teilnehmer aus einem JSON-Objekt
         """
         data = json.loads(json_string)
+        try:
+            birthday = datetime.strptime(data.get("birthday"), "%Y-%m-%d")
+        except ValueError:
+            birthday = datetime.fromtimestamp(0)
         return Participant(
             surname=data.get("surname"),
             forename=data.get("forename"),
-            birthday=datetime.strptime(data.get("birthday"), "%Y-%m-%d"),
+            birthday=birthday,
             gender=data.get("gender"),
             _id=data.get("id"),
             smartphone=Smartphone.from_json(data.get("smartphone")) if data.get("smartphone") else None
