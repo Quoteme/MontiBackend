@@ -1,6 +1,7 @@
 """
 Startpoint of the flask app.
 """
+import bleach
 from flask import Flask, render_template, request, redirect, session, flash, jsonify
 import pandas as pd
 
@@ -72,8 +73,8 @@ def create_app():
             )
         else:
             # read the input which the user sent and create a new study
-            name = request.form['name']
-            description = request.form['description']
+            name = bleach.clean(request.form['name'])
+            description = bleach.clean(request.form['description'])
             start_time = datetime.strptime(request.form['start_time'], '%Y-%m-%dT%H:%M:%S')
             end_time = datetime.strptime(request.form['end_time'], '%Y-%m-%dT%H:%M:%S')
             sensors = [Sensor.from_name(sensor.name)
@@ -88,8 +89,8 @@ def create_app():
     @app.route('/edit_study/<study_id>', methods=['POST'])
     def edit_study(study_id):
         study = Study.from_id(study_id)
-        study.name = request.form.get('name') or "no name"
-        study.description = request.form.get('description') or "no description"
+        study.name = bleach.clean(request.form.get('name') or "no name")
+        study.description = bleach.clean(request.form.get('description') or "no description")
         study.start = datetime.strptime(request.form.get('start_time') or str(datetime.now()), '%Y-%m-%dT%H:%M:%S')
         study.end = datetime.strptime(request.form.get('end_time') or str(datetime.now()), '%Y-%m-%dT%H:%M:%S')
         study.sensors = [Sensor.from_name(sensor.name)
@@ -129,8 +130,8 @@ def create_app():
             )
         else:
             participant = Participant(
-                surname=request.form.get("surname") or "",
-                forename=request.form.get('forename') or "",
+                surname=bleach.clean(request.form.get("surname") or ""),
+                forename=bleach.clean(request.form.get('forename') or ""),
                 birthday=datetime.strptime(request.form['birthday'], '%Y-%m-%d'),
                 gender=request.form.get("gender") or "other"
             )

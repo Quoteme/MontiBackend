@@ -24,6 +24,7 @@
             pytest-mock
             pytest-flask
             waitress
+            bleach
           ]));
       in
         rec {
