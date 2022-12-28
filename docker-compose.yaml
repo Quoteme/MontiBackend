@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - ./data:/app/data
+      - ./cfg:/app/cfg
     ports:
      - "8080:8080"
     depends_on:
