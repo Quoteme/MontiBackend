@@ -96,7 +96,7 @@
             <th scope="row">{{ loop.index0+1 }}</th>
             <td><a href="/study/{{study.id}}/participant/{{participant.id}}">{{ participant.surname }}</a></td>
             <td>{{ participant.forename }}</td>
-            <td>TODO</td>
+            <td>{{ study.get_participant_last_database_modification(participant) }}</td>
           </tr>
           {% endfor %}
         </tbody>

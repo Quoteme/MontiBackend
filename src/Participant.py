@@ -95,9 +95,14 @@ class Participant:
         Liefere das Datum der letzten Änderung an der Datenbank für diesen Teilnehmer
         """
         # prüfe ob der Teilnehmer eine Sensordatenbank hat
-        if not os.path.exists(f"{url}/{self.id}/database.realm"):
+        if not os.path.exists(f"{url}/{self.id}/sensor_data"):
             return None
-        return datetime.fromtimestamp(os.path.getmtime(f"{url}/{self.id}/database.realm"))
+        # Liste alle Dateien in dem sensor_data Ordner auf
+        files = os.listdir(f"{url}/{self.id}/sensor_data")
+        # Ordne diese Dateien nach dem Datum der letzten Änderung
+        files.sort(key=lambda x: os.path.getmtime(f"{url}/{self.id}/sensor_data/{x}"))
+        # Liefere das Datum der letzten Änderung
+        return datetime.fromtimestamp(os.path.getmtime(f"{url}/{self.id}/sensor_data/{files[-1]}"))
 
     def upload_sensor_data(self, url: str, file: FileStorage, date: datetime) -> None:
         """
