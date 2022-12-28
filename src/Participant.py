@@ -95,21 +95,34 @@ class Participant:
         Liefere das Datum der letzten Änderung an der Datenbank für diesen Teilnehmer
         """
         # prüfe ob der Teilnehmer eine Sensordatenbank hat
-        if not os.path.exists(f"{url}/{self.id}/sensor_data"):
+        if not os.path.exists(self.get_database_directory(url)):
             return None
         # Liste alle Dateien in dem sensor_data Ordner auf
-        files = os.listdir(f"{url}/{self.id}/sensor_data")
+        files = os.listdir(self.get_database_directory(url))
         # Ordne diese Dateien nach dem Datum der letzten Änderung
-        files.sort(key=lambda x: os.path.getmtime(f"{url}/{self.id}/sensor_data/{x}"))
+        files.sort(key=lambda x: os.path.getmtime(f"{self.get_database_directory(url)}/{x}"))
         # Liefere das Datum der letzten Änderung
-        return datetime.fromtimestamp(os.path.getmtime(f"{url}/{self.id}/sensor_data/{files[-1]}"))
+        return datetime.fromtimestamp(os.path.getmtime(f"{self.get_database_directory(url)}/{files[-1]}"))
+
+    def get_all_sensor_data_files(self, url: str) -> list[str]:
+        """
+        Liefere alle hochgeladenen Sensordaten-Datein, welche zum Beispiel als `.realm` Dateien gespeichert sind, dieses Teilnehmers.
+        Gesammelte Daten sind keine Ordner
+        """
+        return [file for file in os.listdir(self.get_database_directory(url)) if not os.path.isdir(f"{self.get_database_directory(url)}/{file}")]
+
+    def get_database_directory(self, url: str) -> str:
+        """
+        Liefere den Ordner, in dem die Sensordaten dieses Teilnehmers gespeichert sind
+        """
+        return f"{url}/{self.id}/sensor_data"
 
     def upload_sensor_data(self, url: str, file: FileStorage, date: datetime) -> None:
         """
         Lade die Sensordaten dieses Teilnehmers für das Datum `date` hoch
         """
         # Prüfe ob der Ordner für die Sensordaten existiert
-        directory = f"{url}/{self.id}/sensor_data/"
+        directory = self.get_database_directory(url)
         if not os.path.exists(directory):
             # Erstelle den Ordner, falls er nicht existiert
             os.makedirs(directory)

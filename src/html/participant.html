@@ -41,6 +41,32 @@
   {% endif %}
   <div class="card">
     <div class="card-header">
+      <h2>Gesammelte Daten</h2>
+    </div>
+    <div class="card-body">
+      <p>
+        Hier finden Sie die gesammelten Rohdaten des Teilnehmers. Die Daten sind in <code>.realm</code> Datenbanken gespeichert,
+        weshalb Sie eine spezielle Anwensung wie Realm-Studio zum öffnen der Datenbank benötigen.
+      </p>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Downloadlink</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in study.get_participant_sensor_data_files(participant) %}
+        <tr>
+
+          <th scope="row"><a href="/download_realm/{{study.id}}/{{participant.id}}/{{file}}" download="{{file}}">{{ file }}</a></th>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
       <h2>App Status</h2>
     </div>
     <div class="card-body">

@@ -127,6 +127,18 @@ class Study:
         """
         return participant.last_database_modification(f"{self.storage_directory}/participants")
 
+    def get_participant_sensor_data_files(self, participant: Participant) -> list[str]:
+        """
+        Liefere eine Liste aller Dateien mit Sensordaten des Teilnehmers `participant`
+        """
+        return participant.get_all_sensor_data_files(f"{self.storage_directory}/participants")
+
+    def get_participant_database_directory(self, participant: Participant):
+        """
+        Liefere den Speicherort der Datenbank des Teilnehmers `participant`
+        """
+        return participant.get_database_directory(f"{self.storage_directory}/participants")
+
     def upload_participant_sensor_data(self, participant: Participant, file: FileStorage, date: datetime):
         """
         Lade die Sensordaten `data` des Sensors `sensor` für den Teilnehmer `participant` hoch
