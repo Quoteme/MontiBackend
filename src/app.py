@@ -247,6 +247,8 @@ def create_app():
         if participant is None:
             raise Exception(f"Participant {participant_id} not found")
         last_modified_date = datetime.strptime(request.headers.get('last_modified_date'), '%Y-%m-%d %H:%M:%S')
+        if last_modified_date is None:
+            last_modified_date = datetime.now()
         last_uploaded_modification = study.get_participant_last_database_modification(participant)
         if last_modified_date is None :
             raise ValueError(f"lastModifiedDate is None")
