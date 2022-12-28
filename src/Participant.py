@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+import subprocess
 from dataclasses import dataclass
 
 from werkzeug.datastructures import FileStorage
@@ -101,7 +103,45 @@ class Participant:
         """
         Lade die Sensordaten dieses Teilnehmers für das Datum `date` hoch
         """
-        file.save(f"{url}/{self.id}/database.realm")
+        # Prüfe ob der Ordner für die Sensordaten existiert
+        directory = f"{url}/{self.id}/sensor_data/"
+        if not os.path.exists(directory):
+            # Erstelle den Ordner, falls er nicht existiert
+            os.makedirs(directory)
+
+        # get the absolute path to our current pwd
+        base_path = os.path.abspath('.') # example /home/user/MontiBackend
+
+        # prüfe ob der exportordner existiert
+        export_directory = f"{base_path}/{directory}/json_export-{date.strftime('%Y-%m-%d-%H-%M-%S-%f')}/"
+        if not os.path.exists(export_directory):
+            # erstelle den exportordner
+            os.makedirs(export_directory)
+
+        # Speichere die Datei in den Teilnehmer-sensor-Ordner
+        file.save(f"{directory}/database-{date.strftime('%Y-%m-%d-%H-%M-%S-%f')}")
+
+        # Konvertiere die Sensordaten in JSON
+        # verwende dafür das programm `corsano-realm-convert`, welches in javascript geschrieben ist
+        # os.system(f"npm run start --prefix {base_path}/submodules/corsano-realm-converter {base_path}/{url}/{self.id}/database.realm {base_path}/{url}/{self.id}/sensor_data/{date.strftime('%Y-%m-%d')}.json")
+
+        # Konvertiere die Sensordaten in JSON
+        # TODO: momentan wird NPM nicht gefunden
+        # TODO: Wechsel auf eine schnellere Sprache als Javascript
+        # try:
+        #     sp = subprocess.Popen([
+        #         "npm ",
+        #         "run "
+        #         "start "
+        #         "--prefix "
+        #         f"{base_path}/submodules/corsano-realm-converter "
+        #         f"{base_path}/{directory}/database-{datetime}.realm"
+        #         f"{base_path}/{directory}/json_export-{date.strftime('%Y-%m-%d')}/"
+        #     ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'PATH': os.getenv('PATH')})
+        #     stdout, stderr = sp.communicate()
+        #     print(sp)
+        # except Exception as e:
+        #     print(e)
 
     def add_sensor_data(self, url: str, sensor: Sensor) -> None:
         """
