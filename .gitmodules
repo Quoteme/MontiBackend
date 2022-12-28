@@ -1,0 +1,3 @@
+[submodule "submodules/corsano-realm-converter"]
+	path = submodules/corsano-realm-converter
+	url = https://github.com/Quoteme/corsano-realm-converter.git
