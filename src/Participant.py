@@ -109,6 +109,10 @@ class Participant:
         Liefere alle hochgeladenen Sensordaten-Datein, welche zum Beispiel als `.realm` Dateien gespeichert sind, dieses Teilnehmers.
         Gesammelte Daten sind keine Ordner
         """
+        # prüfe ob der Teilnehmer eine Sensordatenbank hat
+        if not os.path.exists(self.get_database_directory(url)):
+            # wenn nicht, erstelle einen leeren Ordner
+            os.makedirs(self.get_database_directory(url))
         return [file for file in os.listdir(self.get_database_directory(url)) if not os.path.isdir(f"{self.get_database_directory(url)}/{file}")]
 
     def get_database_directory(self, url: str) -> str:
