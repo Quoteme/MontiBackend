@@ -2,7 +2,7 @@
 Startpoint of the flask app.
 """
 import bleach
-from flask import Flask, render_template, request, redirect, session, flash, jsonify
+from flask import Flask, render_template, request, redirect, session, flash, jsonify, send_from_directory
 import pandas as pd
 
 from Smartphone import Smartphone
@@ -259,6 +259,25 @@ def create_app():
         else:
             study.upload_participant_sensor_data(participant, request.files['file'], last_modified_date)
             return 'OK'
+
+    @app.route('/download_realm/<study_id>/<participant_id>/<file>', methods=['GET'])
+    def download_realm(study_id, participant_id, file):
+        """
+        Lade eine Realm Datenbank herunter.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        # get current path of this executable
+        return send_from_directory(
+            directory=study.get_participant_database_directory(participant),
+            path=file,
+            as_attachment=True,
+            cache_timeout=0
+        )
 
     return app
 
