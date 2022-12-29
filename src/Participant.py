@@ -117,7 +117,8 @@ class Participant:
         if not os.path.exists(self.get_database_directory(url)):
             # wenn nicht, erstelle einen leeren Ordner
             os.makedirs(self.get_database_directory(url))
-        return [file for file in os.listdir(self.get_database_directory(url)) if not os.path.isdir(f"{self.get_database_directory(url)}/{file}")]
+        # die Dateinamen müssen mit `.realm` enden
+        return [file for file in os.listdir(self.get_database_directory(url)) if not os.path.isdir(f"{self.get_database_directory(url)}/{file}") and file.endswith(".realm")]
 
     def get_database_directory(self, url: str) -> str:
         """
@@ -145,7 +146,7 @@ class Participant:
             os.makedirs(export_directory)
 
         # Speichere die Datei in den Teilnehmer-sensor-Ordner
-        filename = f"{directory}/database-{date.strftime('%Y-%m-%d-%H-%M-%S-%f')}.realm"
+        filename = f"{base_path}/{directory}/database-{date.strftime('%Y-%m-%d-%H-%M-%S-%f')}.realm"
         file.save(filename)
         process = multiprocessing.Process(target=self.convert_realm_to_json, args=(filename, export_directory))
         process.start()
