@@ -99,6 +99,9 @@ class Participant:
             return None
         # Liste alle Dateien in dem sensor_data Ordner auf
         files = os.listdir(self.get_database_directory(url))
+        # wenn keine Dateien vorhanden sind, ist die letzte Änderung auch None
+        if len(files) == 0:
+            return None
         # Ordne diese Dateien nach dem Datum der letzten Änderung
         files.sort(key=lambda x: os.path.getmtime(f"{self.get_database_directory(url)}/{x}"))
         # Liefere das Datum der letzten Änderung
