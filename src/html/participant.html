@@ -57,7 +57,6 @@
         <tbody>
         {% for file in study.get_participant_sensor_data_files(participant) %}
         <tr>
-
           <th scope="row"><a href="/download_realm/{{study.id}}/{{participant.id}}/{{file}}" download="{{file}}">{{ file }}</a></th>
         </tr>
         {% endfor %}

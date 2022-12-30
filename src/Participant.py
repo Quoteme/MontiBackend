@@ -118,7 +118,14 @@ class Participant:
             # wenn nicht, erstelle einen leeren Ordner
             os.makedirs(self.get_database_directory(url))
         # die Dateinamen müssen mit `.realm` enden
-        return [file for file in os.listdir(self.get_database_directory(url)) if not os.path.isdir(f"{self.get_database_directory(url)}/{file}") and file.endswith(".realm")]
+        # der Dateiname darf nicht mit `backup.realm` enden
+        list_of_files = [file
+            for file in os.listdir(self.get_database_directory(url))
+            if not os.path.isdir(f"{self.get_database_directory(url)}/{file}")
+            and file.endswith(".realm")
+            and not file.endswith("backup.realm")]
+        list_of_files.sort()
+        return list_of_files
 
     def get_database_directory(self, url: str) -> str:
         """
