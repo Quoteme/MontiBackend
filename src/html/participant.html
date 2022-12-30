@@ -39,6 +39,35 @@
     </p>
   </div>
   {% endif %}
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Patient reported outcomes</h2>
+    </div>
+    <div class="card-body">
+      <p>
+        Alle geplanten und vergangenen Patient-reported-outcomes (PROs) werden hier angezeigt.
+        Sie können außerdem neue PROs anlegen.
+      </p>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Datum</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in study.get_participant_sensor_data_files(participant) %}
+        <tr>
+          <th scope="row">Name der PRO</th>
+          <th>Datum der PRO</th>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <div class="card">
     <div class="card-header">
       <h2>Gesammelte Daten</h2>

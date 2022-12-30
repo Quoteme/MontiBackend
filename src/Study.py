@@ -74,6 +74,14 @@ class Study:
         """
         return f"./data/{self.id}"
 
+    @property
+    def list_all_patient_reported_outcomes(self):
+        """
+        Liefere eine Liste aller Patient Reported Outcomes (PROs)
+        Die PROs befinden sich in `
+        TODO: Implementieren
+        """
+
     @staticmethod
     def list_all_studies() -> list[Study]:
         """
