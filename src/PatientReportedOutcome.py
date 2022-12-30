@@ -4,8 +4,11 @@ import os
 from dataclasses import dataclass
 from typing import List
 
-from Study import Study
-
+try:
+    from Study import Study
+except ImportError:
+    import sys
+    Study = sys.modules[__package__ + 'Study']
 
 @dataclass
 class PatientReportedOutcomeQuestion:
