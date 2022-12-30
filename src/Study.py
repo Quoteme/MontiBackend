@@ -5,6 +5,7 @@ from typing import Optional
 
 from werkzeug.datastructures import FileStorage
 
+from PatientReportedOutcome import PatientReportedOutcome
 from Sensor import Sensor
 from Participant import Participant
 import hashlib
@@ -81,6 +82,11 @@ class Study:
         Die PROs befinden sich in `
         TODO: Implementieren
         """
+        directory = PatientReportedOutcome.directory(self)
+        # finde alle json Dateien in dem Ordner
+        files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and f.endswith(".json")]
+        # lese die Dateien ein und erstelle daraus PatientReportedOutcome Objekte
+        return [PatientReportedOutcome.from_json(os.path.join(directory, f)) for f in files]
 
     @staticmethod
     def list_all_studies() -> list[Study]:
