@@ -1,6 +1,8 @@
 """
 Startpoint of the flask app.
 """
+import os
+
 import bleach
 from flask import Flask, render_template, request, redirect, session, flash, jsonify, send_from_directory
 import pandas as pd
@@ -271,12 +273,15 @@ def create_app():
         participant = study.get_participant(participant_id)
         if participant is None:
             raise Exception(f"Participant {participant_id} not found")
+        # get the base directory of the application
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        # join the base directory with the relative path to the file
+        filedirectory = os.path.join(basedir, '..', study.get_participant_database_directory(participant))
         # get current path of this executable
         return send_from_directory(
-            directory=study.get_participant_database_directory(participant),
+            directory=filedirectory,
             path=file,
-            as_attachment=True,
-            cache_timeout=0
+            as_attachment=True
         )
 
     return app
