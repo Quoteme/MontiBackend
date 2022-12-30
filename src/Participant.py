@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import multiprocessing
 import subprocess
 from dataclasses import dataclass
 
@@ -99,6 +100,9 @@ class Participant:
             return None
         # Liste alle Dateien in dem sensor_data Ordner auf
         files = os.listdir(self.get_database_directory(url))
+        # wenn keine Dateien vorhanden sind, ist die letzte Änderung auch None
+        if len(files) == 0:
+            return None
         # Ordne diese Dateien nach dem Datum der letzten Änderung
         files.sort(key=lambda x: os.path.getmtime(f"{self.get_database_directory(url)}/{x}"))
         # Liefere das Datum der letzten Änderung
@@ -109,7 +113,12 @@ class Participant:
         Liefere alle hochgeladenen Sensordaten-Datein, welche zum Beispiel als `.realm` Dateien gespeichert sind, dieses Teilnehmers.
         Gesammelte Daten sind keine Ordner
         """
-        return [file for file in os.listdir(self.get_database_directory(url)) if not os.path.isdir(f"{self.get_database_directory(url)}/{file}")]
+        # prüfe ob der Teilnehmer eine Sensordatenbank hat
+        if not os.path.exists(self.get_database_directory(url)):
+            # wenn nicht, erstelle einen leeren Ordner
+            os.makedirs(self.get_database_directory(url))
+        # die Dateinamen müssen mit `.realm` enden
+        return [file for file in os.listdir(self.get_database_directory(url)) if not os.path.isdir(f"{self.get_database_directory(url)}/{file}") and file.endswith(".realm")]
 
     def get_database_directory(self, url: str) -> str:
         """
@@ -137,29 +146,42 @@ class Participant:
             os.makedirs(export_directory)
 
         # Speichere die Datei in den Teilnehmer-sensor-Ordner
-        file.save(f"{directory}/database-{date.strftime('%Y-%m-%d-%H-%M-%S-%f')}")
+        filename = f"{base_path}/{directory}/database-{date.strftime('%Y-%m-%d-%H-%M-%S-%f')}.realm"
+        file.save(filename)
+        process = multiprocessing.Process(target=self.convert_realm_to_json, args=(filename, export_directory))
+        process.start()
+        # self.convert_realm_to_json(filename, export_directory)
+
+    def convert_realm_to_json(self, realmfile: str, outfile: str) -> None:
+        """
+        Konvertiere die Sensordaten dieses Teilnehmers für das Datum `date` in JSON
+        """
+        # get the absolute path to our current pwd
+        base_path = os.path.abspath('.')
 
         # Konvertiere die Sensordaten in JSON
         # verwende dafür das programm `corsano-realm-convert`, welches in javascript geschrieben ist
-        # os.system(f"npm run start --prefix {base_path}/submodules/corsano-realm-converter {base_path}/{url}/{self.id}/database.realm {base_path}/{url}/{self.id}/sensor_data/{date.strftime('%Y-%m-%d')}.json")
+        # os.system(f"npm run start --prefix {base_path}/submodules/corsano-realm-converter {base_path}/{directory}/database-{datetime}.realm {base_path}/{directory}/json_export-{date.strftime('%Y-%m-%d')}/")
 
         # Konvertiere die Sensordaten in JSON
         # TODO: momentan wird NPM nicht gefunden
         # TODO: Wechsel auf eine schnellere Sprache als Javascript
-        # try:
-        #     sp = subprocess.Popen([
-        #         "npm ",
-        #         "run "
-        #         "start "
-        #         "--prefix "
-        #         f"{base_path}/submodules/corsano-realm-converter "
-        #         f"{base_path}/{directory}/database-{datetime}.realm"
-        #         f"{base_path}/{directory}/json_export-{date.strftime('%Y-%m-%d')}/"
-        #     ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'PATH': os.getenv('PATH')})
-        #     stdout, stderr = sp.communicate()
-        #     print(sp)
-        # except Exception as e:
-        #     print(e)
+        try:
+            cmd = [
+                "npm",
+                "run "
+                "start "
+                "--prefix "
+                f"{base_path}/submodules/corsano-realm-converter ",
+                realmfile+" ",
+                outfile+" "
+            ]
+            sp = subprocess.check_call(' '.join(cmd), shell=True)
+            # sp = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env={'PATH': os.getenv('PATH')}, shell=True)
+            # stdout, stderr = sp.communicate()
+            # print(stdout)
+        except Exception as e:
+            print(e)
 
     def add_sensor_data(self, url: str, sensor: Sensor) -> None:
         """

@@ -14,7 +14,11 @@ RUN pip install -r requirements.txt
 COPY app.py /app
 COPY src /app/src
 
-RUN ls
+COPY submodules /app/submodules
+RUN apt-get update || : && apt-get install npm -y
+# now installl all node dependencies in the package `app/submodules/corsano-realm-converter/`
+RUN cd /app/submodules/corsano-realm-converter && npm install
+RUN cd /app
 
 ENV PYTHONPATH "./src"
 

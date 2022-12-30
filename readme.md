@@ -1,11 +1,4 @@
 # Monti Backend
 
-Hier ist alles gespeichert
-
-## MongoDB
-
-Um MongoDB verwenden zu können, müssen folgende Befehle ausgeführt werden.
-
-```
-openssl rand -base64 32 > mongodb.key
-```
+1. in dem Ordner `./submodules/corsano-realm-converter` muss `npm install` ausgeführt werden
+2. in `./docker-compose.yaml` untder `web` den port auf `"80:8080"` setzen
