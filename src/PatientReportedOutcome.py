@@ -82,13 +82,20 @@ class PatientReportedOutcome:
             [PatientReportedOutcomeQuestion.from_json(question) for question in data["questions"]],
         )
 
+    @staticmethod
+    def directory(study):
+        """
+        Gibt den Ordner zurück, in dem die Patient Reported Outcomes gespeichert werden.
+        """
+        # stelle sicher, dass der Ordner existiert
+        if not os.path.exists(f"{ study.storage_directory }/patient_reported_outcomes"):
+            os.mkdir(f"{ study.storage_directory }/patient_reported_outcomes")
+        return f"{study.storage_directory}/patient_reported_outcomes/"
+
     def save(self):
         """
         Speichert das Patient Reported Outcome in der Datenbank.
         """
         # prüfe, ob der Ordner für die Studie und der Ordner für PROs existiert
-        if not os.path.exists(f"{ self.study.storage_directory }/patient_reported_outcomes"):
-            os.mkdir(f"{ self.study.storage_directory }/patient_reported_outcomes")
-
-        with open(f"{self.study.storage_directory}/patient_reported_outcomes/{self.id}.json", "w") as file:
+        with open(f"{PatientReportedOutcome.directory(self.study)}/{self.id}.json", "w") as file:
             file.write(self.to_json())
