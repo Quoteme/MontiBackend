@@ -293,7 +293,9 @@ def create_app():
         participant = study.get_participant(participant_id)
         if participant is None:
             raise Exception(f"Participant {participant_id} not found")
-        study.upload_participant_sleep_data(participant, request.files['file'])
+        # save all files of the request
+        for file in request.files:
+            study.upload_participant_sleep_data(participant, request.files[file])
         return 'OK'
 
     @app.route('/download_realm/<study_id>/<participant_id>/<file>', methods=['GET'])
