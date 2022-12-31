@@ -298,6 +298,23 @@ def create_app():
             study.upload_participant_sleep_data(participant, request.files[file])
         return 'OK'
 
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/upload_ppg2_data', methods=['POST'])
+    def api_upload_ppg2_data(study_id, participant_id):
+        """
+        Lade die aufgenommenen PPG2-Daten eines Teilnehmers hoch. Diese sind jeweils `.wiff` Datein und müssen
+        gesondert geparst werden.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        # save all files of the request
+        for file in request.files:
+            study.upload_participant_ppg2_data(participant, request.files[file])
+        return 'OK'
+
     @app.route('/download_realm/<study_id>/<participant_id>/<file>', methods=['GET'])
     def download_realm(study_id, participant_id, file):
         """

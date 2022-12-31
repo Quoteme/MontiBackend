@@ -296,3 +296,9 @@ class Study:
         Lade die Schlafdaten für den Teilnehmer `participant` hoch.
         """
         participant.upload_sleep_data(f"{self.storage_directory}/participants", file)
+
+    def upload_participant_ppg2_data(self, participant: Participant, file: FileStorage):
+        """
+        Lade die PPG2-Daten für den Teilnehmer `participant` hoch.
+        """
+        participant.upload_ppg2_data(f"{self.storage_directory}/participants", file)
