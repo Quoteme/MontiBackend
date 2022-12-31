@@ -301,7 +301,10 @@ class Participant:
         if not os.path.exists(self.get_sleep_database_directory(url)):
             os.mkdir(self.get_sleep_database_directory(url))
         # Speichere die Datei unter `self.get_sleep_database_directory(url)/file.filename`
-        file.save(self.get_sleep_database_directory(url) + "/" + file.filename)
+        # sollte die datei schon existieren, speichere die datei mit dem timestamp als suffix
+        if os.path.exists(f"{self.get_sleep_database_directory(url)}/{file.filename}"):
+            file.filename = f"{file.filename}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+        file.save(f"{self.get_sleep_database_directory(url)}/{file.filename}")
 
     def upload_ppg2_data(self, url: str, file: FileStorage):
         """
@@ -311,6 +314,9 @@ class Participant:
         if not os.path.exists(self.get_ppg2_database_directory(url)):
             os.mkdir(self.get_ppg2_database_directory(url))
         # Speichere die Datei unter `self.get_ppg2_database_directory(url)/file.filename`
+        # sollte die datei schon existieren, speichere die datei mit dem timestamp als suffix
+        if os.path.exists(f"{self.get_sleep_database_directory(url)}/{file.filename}"):
+            file.filename = f"{file.filename}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
         file.save(self.get_ppg2_database_directory(url) + "/" + file.filename)
 
     def upload_acc_data(self, url: str, file: FileStorage):
@@ -321,4 +327,7 @@ class Participant:
         if not os.path.exists(self.get_acc_database_directory(url)):
             os.mkdir(self.get_acc_database_directory(url))
         # Speichere die Datei unter `self.get_acc_database_directory(url)/file.filename`
+        # sollte die datei schon existieren, speichere die datei mit dem timestamp als suffix
+        if os.path.exists(f"{self.get_sleep_database_directory(url)}/{file.filename}"):
+            file.filename = f"{file.filename}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
         file.save(self.get_acc_database_directory(url) + "/" + file.filename)
