@@ -302,3 +302,9 @@ class Study:
         Lade die PPG2-Daten für den Teilnehmer `participant` hoch.
         """
         participant.upload_ppg2_data(f"{self.storage_directory}/participants", file)
+
+    def upload_participant_acc_data(self, participant: Participant, file: FileStorage):
+        """
+        Lade die ACC-Daten für den Teilnehmer `participant` hoch.
+        """
+        participant.upload_acc_data(f"{self.storage_directory}/participants", file)

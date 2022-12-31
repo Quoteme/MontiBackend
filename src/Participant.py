@@ -145,6 +145,12 @@ class Participant:
         """
         return f"{url}/{self.id}/ppg2_data"
 
+    def get_acc_database_directory(self, url: str) -> str:
+        """
+        Liefere den Ordner, in dem die ACC Daten dieses Teilnehmers gespeichert sind
+        """
+        return f"{url}/{self.id}/acc_data"
+
     def upload_sensor_data(self, url: str, file: FileStorage, date: datetime) -> None:
         """
         Lade die Sensordaten dieses Teilnehmers für das Datum `date` hoch
@@ -306,3 +312,13 @@ class Participant:
             os.mkdir(self.get_ppg2_database_directory(url))
         # Speichere die Datei unter `self.get_ppg2_database_directory(url)/file.filename`
         file.save(self.get_ppg2_database_directory(url) + "/" + file.filename)
+
+    def upload_acc_data(self, url: str, file: FileStorage):
+        """
+        Lade ACC Daten zu diesem Teilnehmer hoch.
+        """
+        # Prüfe, ob der `acc` Ordner unter `url` existiert
+        if not os.path.exists(self.get_acc_database_directory(url)):
+            os.mkdir(self.get_acc_database_directory(url))
+        # Speichere die Datei unter `self.get_acc_database_directory(url)/file.filename`
+        file.save(self.get_acc_database_directory(url) + "/" + file.filename)

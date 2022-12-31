@@ -315,6 +315,25 @@ def create_app():
             study.upload_participant_ppg2_data(participant, request.files[file])
         return 'OK'
 
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/upload_acc_data', methods=['POST'])
+    def api_upload_acc_data(study_id, participant_id):
+        """
+        Lade die aufgenommenen Accelerometer-Daten eines Teilnehmers hoch. Diese sind jeweils `.wiff` Datein und müssen
+        gesondert geparst werden.
+        Diese Funktionalität ist besonders an Version 2 der Corsano-Bänder, da ab dieser Version Accelerometer-Daten
+        nicht mehr über die Sensordatenbank (`.realm`) gespeichert werden, sondern als eigene `.wiff` Dateien.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        # save all files of the request
+        for file in request.files:
+            study.upload_participant_acc_data(participant, request.files[file])
+        return 'OK'
+
     @app.route('/download_realm/<study_id>/<participant_id>/<file>', methods=['GET'])
     def download_realm(study_id, participant_id, file):
         """
