@@ -290,3 +290,9 @@ class Study:
             sensors=[Sensor.from_name(s) for s in json.loads(data["sensors"].replace("'", '"'))],
             _id=data["_id"]
         )
+
+    def upload_participant_sleep_data(self, participant: Participant, file: FileStorage):
+        """
+        Lade die Schlafdaten für den Teilnehmer `participant` hoch.
+        """
+        participant.upload_sleep_data(f"{self.storage_directory}/participants", file)

@@ -257,7 +257,6 @@ def create_app():
             - <study_id>: Die ID der Studie, zu der die Sensordaten gehören
             - <participant_id>: Die ID des Teilnehmers, zu dem die Sensordaten gehören
         - im Header
-            - 'Content-Type': 'application/csv'
             - 'Authorisation': token # TODO: Muss noch implementiert werden
             - 'lastModifiedDate': timestamp, an welchem die Daten in der Handydatenbank gespeichert wurden
         - im Body
@@ -281,6 +280,21 @@ def create_app():
         else:
             study.upload_participant_sensor_data(participant, request.files['file'], last_modified_date)
             return 'OK'
+
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/upload_sleep_data', methods=['POST'])
+    def api_upload_sleep_data(study_id, participant_id):
+        """
+        Lade die aufgenommenen Schlafdaten eines Teilnehmers hoch. Diese sind jeweils `.wiff` Datein und müssen
+        gesondert geparst werden.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        study.upload_participant_sleep_data(participant, request.files['file'])
+        return 'OK'
 
     @app.route('/download_realm/<study_id>/<participant_id>/<file>', methods=['GET'])
     def download_realm(study_id, participant_id, file):

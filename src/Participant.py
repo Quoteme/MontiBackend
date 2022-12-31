@@ -133,6 +133,12 @@ class Participant:
         """
         return f"{url}/{self.id}/sensor_data"
 
+    def get_sleep_database_directory(self, url) -> str:
+        """
+        Liefere den Ordner, in dem die Schlafdaten dieses Teilnehmers gespeichert sind
+        """
+        return f"{url}/{self.id}/sleep_data"
+
     def upload_sensor_data(self, url: str, file: FileStorage, date: datetime) -> None:
         """
         Lade die Sensordaten dieses Teilnehmers für das Datum `date` hoch
@@ -274,3 +280,13 @@ class Participant:
             "id": self.id,
             "smartphone": self.smartphone.to_json() if self.smartphone else None
         })
+
+    def upload_sleep_data(self, url: str, file: FileStorage):
+        """
+        Lade Schlafdaten zu diesem Teilnehmer hoch.
+        """
+        # Prüfe, ob der `sleep` Ordner unter `url` existiert
+        if not os.path.exists(self.get_sleep_database_directory(url)):
+            os.mkdir(self.get_sleep_database_directory(url))
+        # Speichere die Datei unter `self.get_sleep_database_directory(url)/file.filename`
+        file.save(self.get_sleep_database_directory(url) + "/" + file.filename)
