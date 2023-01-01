@@ -9,3 +9,4 @@ pytest-mock==3.10.0
 pytest-flask==1.2.0
 waitress==2.1.2
 bleach==5.0.1
+scipy==1.9.3
