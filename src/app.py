@@ -124,6 +124,12 @@ def create_app():
         )
 
     @require_login
+    @app.route('/study/<study_id>/show_patient_reported_outcome/<pro_id>', methods=['GET'])
+    def show_patient_reported_outcome(study_id, pro_id):
+        study = Study.from_id(study_id)
+        pro = study.get_patient_reported_outcome_by_id(pro_id)
+        return str(pro)
+
     @app.route('/study/<study_id>/add_patient_reported_outcome', methods=['GET', 'POST'])
     def add_patient_reported_outcome(study_id):
         study = Study.from_id(study_id)
@@ -162,14 +168,7 @@ def create_app():
             pro = PatientReportedOutcome(pro_name, study, questions, start_date, end_date)
             pro.save()
             return ""
-            # participant = Participant(
-            #     surname=bleach.clean(request.form.get("surname") or ""),
-            #     forename=bleach.clean(request.form.get('forename') or ""),
-            #     birthday=datetime.strptime(request.form['birthday'], '%Y-%m-%d'),
-            #     gender=request.form.get("gender") or "other"
-            # )
-            # study.add_participant(participant)
-            # return redirect(f'/study/{study_id}')
+
 
     @require_login
     @app.route('/study/<study_id>/add_participant', methods=['GET', 'POST'])

@@ -88,6 +88,12 @@ class Study:
         # lese die Dateien ein und erstelle daraus PatientReportedOutcome Objekte
         return [PatientReportedOutcome.from_file(os.path.join(directory, f)) for f in files]
 
+    def get_patient_reported_outcome_by_id(self, id: str) -> PatientReportedOutcome:
+        """
+        Liefere das Patient Reported Outcome mit der ID `id`
+        """
+        return PatientReportedOutcome.from_file(f"{PatientReportedOutcome.directory(self)}/{id}.json")
+
     @staticmethod
     def list_all_studies() -> list[Study]:
         """

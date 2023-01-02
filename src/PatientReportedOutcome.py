@@ -27,6 +27,7 @@ class PatientReportedOutcome:
     questions: List[PatientReportedOutcomeQuestion]
     start_date: datetime
     end_date: datetime
+    _id: str = None
 
     def __repr__(self):
         return str(self)
@@ -41,9 +42,12 @@ class PatientReportedOutcome:
         gefolgt von einem hash-Wert. Dieser hash-Wert wird aus dem Namen
         der Studie und den Fragen berechnet.
         """
-        return hashlib.sha256(
-            f'{self.study.name}{self.questions}'.encode('utf-8')
-        ).hexdigest()
+        if self._id is None:
+            return hashlib.sha256(
+                f'{self.study.name}{self.questions}'.encode('utf-8')
+            ).hexdigest()
+        else:
+            return self._id
 
     def to_json(self) -> str:
         return json.dumps({
@@ -52,6 +56,7 @@ class PatientReportedOutcome:
             "questions": [question.__dict__ for question in self.questions],
             "start_date": self.start_date.timestamp(),
             "end_date": self.end_date.timestamp(),
+            "id": self.id
         })
 
     @staticmethod
@@ -59,13 +64,15 @@ class PatientReportedOutcome:
         data = json.loads(json_string)
         from Study import Study
         study = Study.from_id(data["study_id"])
-        return PatientReportedOutcome(
+        pro = PatientReportedOutcome(
             data["name"],
             Study.from_id(data["study_id"]),
             [PatientReportedOutcomeQuestion.from_json(str(question).replace("'", '"')) for question in data["questions"]],
             datetime.fromtimestamp(data["start_date"]),
             datetime.fromtimestamp(data["end_date"]),
         )
+        pro._id = data["id"]
+        return pro
 
     @staticmethod
     def from_file(path: str):
