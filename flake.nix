@@ -25,7 +25,7 @@
             pytest-flask
             waitress
             bleach
-            scypy
+            scipy
           ]));
       in
         rec {
