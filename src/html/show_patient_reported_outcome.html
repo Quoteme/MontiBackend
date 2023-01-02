@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ study.name }} - PRO hinzufügen{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/study_overview">Übersicht</a></li>
+        <li class="breadcrumb-item"><a href="/study/{{study.id}}">{{ study }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">PRO: {{patient_reported_outcome.name}}</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h2>{{patient_reported_outcome.name}}</h2>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Frage</th>
+      <th scope="col">Typ</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for question in patient_reported_outcome.questions %}
+    <tr>
+      <th scope="row">{{ loop.index0+1 }}</th>
+      <td>{{question.question}}</td>
+      <td>{{question.type}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

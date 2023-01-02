@@ -128,7 +128,11 @@ def create_app():
     def show_patient_reported_outcome(study_id, pro_id):
         study = Study.from_id(study_id)
         pro = study.get_patient_reported_outcome_by_id(pro_id)
-        return str(pro)
+        return render_template(
+            'show_patient_reported_outcome.html',
+            study=study,
+            patient_reported_outcome=pro,
+        )
 
     @app.route('/study/<study_id>/add_patient_reported_outcome', methods=['GET', 'POST'])
     def add_patient_reported_outcome(study_id):
@@ -167,7 +171,7 @@ def create_app():
             from PatientReportedOutcome import PatientReportedOutcome
             pro = PatientReportedOutcome(pro_name, study, questions, start_date, end_date)
             pro.save()
-            return ""
+            return redirect(f'/study/{study.id}/show_patient_reported_outcome/{pro.id}')
 
 
     @require_login
