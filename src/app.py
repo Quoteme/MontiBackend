@@ -174,6 +174,14 @@ def create_app():
             pro.save()
             return redirect(f'/study/{study.id}/show_patient_reported_outcome/{pro.id}')
 
+    @app.route('/study/<study_id>/get_current_pros', methods=['GET'])
+    def get_current_patient_reported_outcome(study_id):
+        """
+        Gib eine Liste mit allen Patient Reported Outcome zurück, die gerade aktiv sind
+        """
+        study = Study.from_id(study_id)
+        pros = study.list_all_patient_reported_outcomes
+        return jsonify([pro.__dict__ for pro in pros])
 
     @require_login
     @app.route('/study/<study_id>/add_participant', methods=['GET', 'POST'])

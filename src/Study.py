@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 from werkzeug.datastructures import FileStorage
 
@@ -87,6 +87,13 @@ class Study:
         files = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and f.endswith(".json")]
         # lese die Dateien ein und erstelle daraus PatientReportedOutcome Objekte
         return [PatientReportedOutcome.from_file(os.path.join(directory, f)) for f in files]
+
+    @property
+    def current_patient_reported_outcomes(self) -> List[PatientReportedOutcome]:
+        """
+        Liefere die momentan laufenden Patient Reported Outcomes, falls es solche gibt
+        """
+        return [pro for pro in self.list_all_patient_reported_outcomes if pro.is_running]
 
     def get_patient_reported_outcome_by_id(self, id: str) -> PatientReportedOutcome:
         """
