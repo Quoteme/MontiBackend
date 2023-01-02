@@ -1,11 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Patient-reported-outcome hinzufügen</title>
-</head>
-<body>
-Diese Seite ist noch nicht fertig.
-Sie können die Patient-reported-outcome hinzufügen, indem Sie die Daten in die Datenbank einfügen.
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}{{ study.name }} - PRO hinzufügen{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/study_overview">Übersicht</a></li>
+        <li class="breadcrumb-item"><a href="/study/{{study.id}}">{{ study }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">PRO hinzufügen</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <form action="/study/{{study.id}}/add_patient_reported_outcome" method="post">
+        <button type="button" class="btn btn-success">Frage hinzufügen</button>
+        <button type="button" class="btn btn-danger">Frage entfernen</button>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary">PRO hinzufügen</button>
+    </form>
+</div>
+
+{% endblock %}
