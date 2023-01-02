@@ -134,6 +134,7 @@ def create_app():
             patient_reported_outcome=pro,
         )
 
+    @require_login
     @app.route('/study/<study_id>/add_patient_reported_outcome', methods=['GET', 'POST'])
     def add_patient_reported_outcome(study_id):
         study = Study.from_id(study_id)
@@ -367,6 +368,7 @@ def create_app():
             study.upload_participant_acc_data(participant, request.files[file])
         return 'OK'
 
+    @require_login
     @app.route('/download_realm/<study_id>/<participant_id>/<file>', methods=['GET'])
     def download_realm(study_id, participant_id, file):
         """
