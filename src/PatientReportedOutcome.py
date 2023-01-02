@@ -4,37 +4,13 @@ import os
 from dataclasses import dataclass
 from typing import List
 
+from PatientReportedOutcomeQuestion import PatientReportedOutcomeQuestion
+
 try:
     from Study import Study
 except ImportError:
     import sys
     Study = sys.modules[__package__ + 'Study']
-
-@dataclass
-class PatientReportedOutcomeQuestion:
-    """
-    Diese Klasse repräsentiert eine Frage eines Patient Reported Outcome (PRO).
-    Ein Patient-reported outcome besteht aus mehreren Fragen, die der Patient beantworten muss.
-    Eine Frage, wie sie hier definiert ist, besteht aus:
-    - einem Fragetext
-    - einer Antwortmöglichkeit (z.B. Ja/Nein, 1-5, etc.)
-    """
-    question: str
-    answer: str
-
-    @property
-    def __dict__(self):
-        return {
-            "question": self.question,
-            "answer": self.answer,
-        }
-
-    def to_json(self):
-        return json.dumps(self.__dict__)
-
-    @staticmethod
-    def from_json(json_string: str):
-        return PatientReportedOutcomeQuestion(**json.loads(json_string))
 
 
 @dataclass
