@@ -103,7 +103,7 @@ class OneToTenQuestion(PatientReportedOutcomeQuestion):
 # A subclass of PatientReportedOutcomeQuestion for the text questions
 @dataclass
 class TextQuestion(PatientReportedOutcomeQuestion):
-    type = "Text Frage"
+    type = "Freitext Frage"
     def __init__(self, question: str, answer: str):
         super().__init__(question, answer)
 

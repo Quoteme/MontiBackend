@@ -18,7 +18,6 @@ from typing import Literal
 
 Gender = Literal['male', 'female', 'other']
 
-
 @dataclass
 class Participant:
     """

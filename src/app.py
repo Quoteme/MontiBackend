@@ -7,6 +7,7 @@ import bleach
 from flask import Flask, render_template, request, redirect, session, flash, jsonify, send_from_directory
 import pandas as pd
 
+from PatientReportedOutcomeQuestion import PatientReportedOutcomeQuestion
 from Smartphone import Smartphone
 from util import *
 from User import User
@@ -129,6 +130,12 @@ def create_app():
             return render_template(
                 'add_patient_reported_outcome.html',
                 study=study,
+                PatientReportedOutcomeQuestion = PatientReportedOutcomeQuestion,
+                # the value of start_time must be in a format for "datetime-local" input fields
+                # for example: 2018-06-12T19:30
+                start_date = datetime.now().strftime("%Y-%m-%dT%H:%M"),
+                # the value of end_date must be in a format for "datetime-local" input fields
+                end_date = (datetime.now() + relativedelta(hours=10)).strftime("%Y-%m-%dT%H:%M"),
             )
         else:
             return ""

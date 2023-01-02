@@ -15,13 +15,130 @@
 {% block content %}
 
 <div class="container">
-    <form action="/study/{{study.id}}/add_patient_reported_outcome" method="post">
-        <button type="button" class="btn btn-success">Frage hinzufügen</button>
-        <button type="button" class="btn btn-danger">Frage entfernen</button>
+    <form action="/study/{{study.id}}/add_patient_reported_outcome" id="pro" method="post">
+        <p>Hier können Sie Frage zu ihrem patient-reported-outcome hinzufpgen. Diese Fragen können verschiedene
+        Antworttypen zulassen, wie zum Beispiel „Ja/Nein-Fragen“. Die allgemeinste Antwortmöglichkeit ist Freitext.</p>
+        <span id="pro_last_question"></span>
+        <button type="button" id="add_question_button" class="btn btn-success">Frage hinzufügen</button>
+        <br>
+        <hr>
+        <p>
+            Hier können Sie einen Startzeitpunkt für Ihren PRO angeben. Sobald dieses Datum erreicht ist, können
+            Teilnehmer die PRO beantworten.
+        </p>
+        <div class="form-group">
+            <label for="start_date">Startdatum</label>
+            <input type="datetime-local" class="form-control" id="start_date" name="start_date" value="{{start_date}}">
+        </div>
+        <hr>
+        <p>
+            Hier können Sie einen Endzeitpunkt für Ihren PRO angeben. Sobald dieses Datum erreicht ist, können
+            Teilnehmer die PRO nicht mehr beantworten.
+        </p>
+        <div class="form-group">
+            <label for="end_date">Enddatum</label>
+            <input type="datetime-local" class="form-control" id="end_date" name="end_date" value="{{end_date}}">
+        </div>
         <br>
         <br>
         <button type="submit" class="btn btn-primary">PRO hinzufügen</button>
     </form>
 </div>
+
+<script>
+    function getQuestionNumber() {
+        // return the number of elements with class "question"
+        return document.getElementsByClassName("question").length;
+    }
+
+    function add_question() {
+        console.log("add_question");
+        var question_number = getQuestionNumber();
+        pro = document.getElementById("pro");
+        pro_last_question = document.getElementById("pro_last_question");
+
+        // add a div above the `pro_last_question` element
+        var div = document.createElement("div");
+        // add the class `form-group` and `question` to the div
+        div.classList.add("form-group");
+        div.classList.add("question");
+        pro_last_question.parentNode.insertBefore(div, pro_last_question);
+
+        // add a label to the div
+        var label = document.createElement("label");
+        label.innerHTML = `Frage ${question_number + 1}`;
+        div.appendChild(label);
+        // add a `for` attribute to the label
+        label.setAttribute("for", "question_" + question_number);
+
+        // add an input to the div for the question text
+        var input = document.createElement("input");
+        input.type = "text";
+        // make this a `form-control` and a `form-control-lg`
+        input.classList.add("form-control");
+        input.name = "question" + question_number;
+        input.placeholder = "Fragentext";
+        input.required = true;
+        input.id = "question" + question_number;
+        div.appendChild(input);
+
+        // add a `select` element to the div for the question type
+        var select = document.createElement("select");
+        select.classList.add("form-control");
+        select.name = "question_type" + question_number;
+        select.id = "question_type" + question_number;
+        div.appendChild(select);
+
+        // add the options to the `select` element
+        // for each subclass of the `PatientReportedOutcomeQuestion` class, add an option
+        {% for subclass in PatientReportedOutcomeQuestion.__subclasses__() %}
+        var option = document.createElement("option");
+        option.value = "{{subclass.type}}";
+        option.innerHTML = "{{subclass.type}}";
+        select.appendChild(option);
+        {% endfor %}
+
+        // add a `remove question` button
+        var remove_question_button = document.createElement("button");
+        remove_question_button.type = "button";
+        remove_question_button.className = "btn btn-danger";
+        remove_question_button.innerHTML = "Frage entfernen";
+        remove_question_button.onclick = () => remove_question(question_number);
+        div.appendChild(remove_question_button);
+
+        // add the div to the form
+        // pro.appendChild(div);
+    }
+
+    function remove_question(question_number) {
+        console.log("remove_question");
+        var question = document.getElementById("question" + question_number);
+        question.parentNode.remove();
+        update_question_numbers();
+    }
+
+    function update_question_numbers() {
+        console.log("update_question_numbers");
+        var questions = document.getElementsByClassName("question");
+        for (var i = 0; i < questions.length; i++) {
+            var question = questions[i];
+            // change the label text
+            var label = question.getElementsByTagName("label")[0];
+            label.innerHTML = `Frage ${i + 1}`;
+            // change the `for` attribute of the label
+            label.setAttribute("for", "question_" + i);
+            // change the `name` attribute of the input
+            var input = question.getElementsByTagName("input")[0];
+            input.name = "question" + i;
+            input.id = "question" + i;
+            // change the `name` attribute of the select
+            var select = question.getElementsByTagName("select")[0];
+            select.name = "question_type" + i;
+            select.id = "question_type" + i;
+        }
+    }
+
+    document.getElementById("add_question_button").addEventListener("click", add_question);
+</script>
 
 {% endblock %}
