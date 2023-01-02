@@ -120,6 +120,7 @@ def create_app():
             'study.html',
             study=study,
             sensors=Sensor.list_all_sensors(),
+            pros=study.list_all_patient_reported_outcomes
         )
 
     @require_login
@@ -138,6 +139,28 @@ def create_app():
                 end_date = (datetime.now() + relativedelta(hours=10)).strftime("%Y-%m-%dT%H:%M"),
             )
         else:
+            # Read all the questions from the form and create a new PatientReportedOutcome
+            # questions are given in the form of "result.form['question'+number]"
+            # where number is the number of the question
+            # the type of the question is given in the form of "result.form['question_type'+number]"
+            # where number is the number of the question
+            questions = []
+            questionNumber = 0
+            while request.form.get(f"question{questionNumber}") is not None:
+                question = PatientReportedOutcomeQuestion.from_type(
+                    bleach.clean(request.form.get(f"question{questionNumber}")),
+                    "",
+                    request.form.get(f"question_type{questionNumber}"),
+                )
+                questions.append(question)
+                questionNumber += 1
+            start_date = datetime.strptime(request.form.get('start_date') or str(datetime.now()), '%Y-%m-%dT%H:%M')
+            end_date = datetime.strptime(request.form.get('end_date') or str(datetime.now()), '%Y-%m-%dT%H:%M')
+            pro_name = bleach.clean(request.form.get('pro_name') or "no name")
+            study = Study.from_id(study_id)
+            from PatientReportedOutcome import PatientReportedOutcome
+            pro = PatientReportedOutcome(pro_name, study, questions, start_date, end_date)
+            pro.save()
             return ""
             # participant = Participant(
             #     surname=bleach.clean(request.form.get("surname") or ""),

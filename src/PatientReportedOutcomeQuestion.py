@@ -11,9 +11,9 @@ class PatientReportedOutcomeQuestion:
     - einem Fragetext
     - einer Antwortmöglichkeit (z.B. Ja/Nein, 1-5, etc.)
     """
-    type = "PatientReportedOutcomeQuestion"
     question: str
     answer: str
+    type = "PatientReportedOutcomeQuestion"
 
     @property
     def __dict__(self):
@@ -28,15 +28,32 @@ class PatientReportedOutcomeQuestion:
 
     @staticmethod
     def from_json(json_string: str):
-        return PatientReportedOutcomeQuestion(**json.loads(json_string))
+        return PatientReportedOutcomeQuestion.from_type(**json.loads(json_string))
+
+    @staticmethod
+    def from_type(question: str, answer: str, type: str):
+        """
+        Erzeuge eine neue Instanz einer Unterklasse von PatientReportedOutcomeQuestion mit dem angegebenen Typ.
+        """
+        match type:
+            case PatientReportedOutcomeQuestion.type:
+                return PatientReportedOutcomeQuestion(question, answer)
+            case YesNoQuestion.type:
+                return YesNoQuestion(question, answer)
+            case OneToFiveQuestion.type:
+                return OneToFiveQuestion(question, answer)
+            case OneToTenQuestion.type:
+                return OneToTenQuestion(question, answer)
+            case TextQuestion.type:
+                return TextQuestion(question, answer)
 
 
 # A subclass of PatientReportedOutcomeQuestion for the "yes/no" questions
 @dataclass
 class YesNoQuestion(PatientReportedOutcomeQuestion):
+    question: str
+    answer: str
     type = "Ja oder Nein Frage"
-    def __init__(self, question: str, answer: bool):
-        super().__init__(question, answer)
 
     @property
     def __dict__(self):
@@ -57,9 +74,9 @@ class YesNoQuestion(PatientReportedOutcomeQuestion):
 # A subclass of PatientReportedOutcomeQuestion for the "1-5" questions
 @dataclass
 class OneToFiveQuestion(PatientReportedOutcomeQuestion):
+    question: str
+    answer: str
     type = "1-5 Frage"
-    def __init__(self, question: str, answer: int):
-        super().__init__(question, answer)
 
     @property
     def __dict__(self):
@@ -80,9 +97,9 @@ class OneToFiveQuestion(PatientReportedOutcomeQuestion):
 # A subclass of PatientReportedOutcomeQuestion for the "1-10" questions
 @dataclass
 class OneToTenQuestion(PatientReportedOutcomeQuestion):
+    question: str
+    answer: str
     type = "1-10 Frage"
-    def __init__(self, question: str, answer: int):
-        super().__init__(question, answer)
 
     @property
     def __dict__(self):
@@ -103,9 +120,9 @@ class OneToTenQuestion(PatientReportedOutcomeQuestion):
 # A subclass of PatientReportedOutcomeQuestion for the text questions
 @dataclass
 class TextQuestion(PatientReportedOutcomeQuestion):
+    question: str
+    answer: str
     type = "Freitext Frage"
-    def __init__(self, question: str, answer: str):
-        super().__init__(question, answer)
 
     @property
     def __dict__(self):

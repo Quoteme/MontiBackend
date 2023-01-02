@@ -2,6 +2,7 @@ import hashlib
 import json
 import os
 from dataclasses import dataclass
+from datetime import datetime
 from typing import List
 
 from PatientReportedOutcomeQuestion import PatientReportedOutcomeQuestion
@@ -24,6 +25,8 @@ class PatientReportedOutcome:
     name: str
     study: Study
     questions: List[PatientReportedOutcomeQuestion]
+    start_date: datetime
+    end_date: datetime
 
     def __repr__(self):
         return str(self)
@@ -46,17 +49,31 @@ class PatientReportedOutcome:
         return json.dumps({
             "name": self.name,
             "study_id": self.study.id,
-            "questions": [question.to_json() for question in self.questions],
+            "questions": [question.__dict__ for question in self.questions],
+            "start_date": self.start_date.timestamp(),
+            "end_date": self.end_date.timestamp(),
         })
 
     @staticmethod
     def from_json(json_string: str):
         data = json.loads(json_string)
-        return PatientReportedOutcomeQuestion(
+        from Study import Study
+        study = Study.from_id(data["study_id"])
+        return PatientReportedOutcome(
             data["name"],
             Study.from_id(data["study_id"]),
-            [PatientReportedOutcomeQuestion.from_json(question) for question in data["questions"]],
+            [PatientReportedOutcomeQuestion.from_json(str(question).replace("'", '"')) for question in data["questions"]],
+            datetime.fromtimestamp(data["start_date"]),
+            datetime.fromtimestamp(data["end_date"]),
         )
+
+    @staticmethod
+    def from_file(path: str):
+        """
+        Lese ein Patient Reported Outcome aus einer JSON Datei.
+        """
+        with open(path, "r") as file:
+            return PatientReportedOutcome.from_json(file.read())
 
     @staticmethod
     def directory(study):

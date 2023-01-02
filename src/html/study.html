@@ -115,15 +115,17 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
-          <th scope="col">Datum</th>
+          <th scope="col">Startzeitpunkg</th>
+          <th scope="col">Endzeitpunkt</th>
         </tr>
         </thead>
         <tbody>
         {% for patient_reported_outcome in study.list_all_patient_reported_outcomes %}
         <tr>
-          <th scope="row">loop.index0+1</th>
-          <td><a href="">name des PRO</a></td>
-          <td>Datum des PRO</td>
+          <th scope="row">{{ loop.index0+1 }}</th>
+          <td><a href="">{{patient_reported_outcome.name}}</a></td>
+          <td>{{patient_reported_outcome.start_date.strftime('%Y-%m-%d-%H-%M-%S')}}</td>
+          <td>{{patient_reported_outcome.end_date.strftime('%Y-%m-%d-%H-%M-%S')}}</td>
         </tr>
         {% endfor %}
         </tbody>

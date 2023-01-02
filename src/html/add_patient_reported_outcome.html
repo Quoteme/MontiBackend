@@ -16,6 +16,9 @@
 
 <div class="container">
     <form action="/study/{{study.id}}/add_patient_reported_outcome" id="pro" method="post">
+        <label for="pro_name">Name des Patient-reported-outcomes</label>
+        <input type="text" name="pro_name" id="pro_name" class="form-control form-control-lg" placeholder="Beispiel-PRO-name" required>
+        <hr>
         <p>Hier können Sie Frage zu ihrem patient-reported-outcome hinzufpgen. Diese Fragen können verschiedene
         Antworttypen zulassen, wie zum Beispiel „Ja/Nein-Fragen“. Die allgemeinste Antwortmöglichkeit ist Freitext.</p>
         <span id="pro_last_question"></span>
