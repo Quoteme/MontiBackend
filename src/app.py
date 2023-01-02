@@ -174,8 +174,8 @@ def create_app():
             pro.save()
             return redirect(f'/study/{study.id}/show_patient_reported_outcome/{pro.id}')
 
-    @app.route('/study/<study_id>/get_current_pros', methods=['GET'])
-    def get_current_patient_reported_outcome(study_id):
+    @app.route('/study/<study_id>/get_running_pros', methods=['GET'])
+    def get_running_patient_reported_outcome(study_id):
         """
         Gib eine Liste mit allen Patient Reported Outcome zurück, die gerade aktiv sind
         """
