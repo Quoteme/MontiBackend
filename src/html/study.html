@@ -110,6 +110,12 @@
       <h3>Patient reported outcomes</h3>
     </div>
     <div class="card-body">
+      <p>
+        Hier ist eine Übersicht über alle Patient reported outcomes, die in dieser Studie verwendet werden.
+        Die grün markierten Patient reported outcomes werden momentan abgefragt.
+        Gelb markierte Patient reported outcomes sind abgelaufen.
+        Weiß markierte Patient reported outcomes sind noch nicht gestartet.
+      </p>
       <table class="table">
         <thead>
         <tr>
@@ -121,7 +127,7 @@
         </thead>
         <tbody>
         {% for patient_reported_outcome in study.list_all_patient_reported_outcomes %}
-        <tr>
+        <tr {{ "class=table-success" if patient_reported_outcome.is_running else "class=table-warning" if patient_reported_outcome.is_finished}}>
           <th scope="row">{{ loop.index0+1 }}</th>
           <td><a href="/study/{{study.id}}/show_patient_reported_outcome/{{patient_reported_outcome.id}}">{{patient_reported_outcome.name}}</a></td>
           <td>{{patient_reported_outcome.start_date.strftime('%Y-%m-%d-%H-%M-%S')}}</td>

@@ -29,6 +29,20 @@ class PatientReportedOutcome:
     end_date: datetime
     _id: str = None
 
+    @property
+    def is_running(self) -> bool:
+        """
+        Gibt zurück, ob das Patient Reported Outcome gerade läuft.
+        """
+        return self.start_date <= datetime.now() <= self.end_date
+
+    @property
+    def is_finished(self) -> bool:
+        """
+        Gibt zurück, ob das Patient Reported Outcome schon beendet wurde.
+        """
+        return datetime.now() > self.end_date
+
     def __repr__(self):
         return str(self)
 
