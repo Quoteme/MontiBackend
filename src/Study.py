@@ -147,6 +147,42 @@ class Study:
         """
         return participant.get_all_sensor_data_files(f"{self.storage_directory}/participants")
 
+    def get_participant_sleep_data_files(self, participant: Participant) -> list[str]:
+        """
+        Liefere eine Liste aller Dateien mit Schlafdaten des Teilnehmers `participant`
+        """
+        return participant.get_all_sleep_data_files(f"{self.storage_directory}/participants")
+
+    def get_participant_ppg2_data_files(self, participant: Participant) -> list[str]:
+        """
+        Liefere eine Liste aller Dateien mit PPG2-Daten des Teilnehmers `participant`
+        """
+        return participant.get_all_ppg2_data_files(f"{self.storage_directory}/participants")
+
+    def get_participant_acc_data_files(self, participant: Participant) -> list[str]:
+        """
+        Liefere eine Liste aller Dateien mit Accelerometer-Daten des Teilnehmers `participant`
+        """
+        return participant.get_all_acc_data_files(f"{self.storage_directory}/participants")
+
+    def get_participant_sleep_directory(self, participant: Participant) -> str:
+        """
+        Liefere das Verzeichnis mit den Sleep Daten des Teilnehmers `participant`
+        """
+        return participant.get_sleep_database_directory(f"{self.storage_directory}/participants")
+
+    def get_participant_ppg2_directory(self, participant: Participant) -> str:
+        """
+        Liefere das Verzeichnis mit den PPG2 Daten des Teilnehmers `participant`
+        """
+        return participant.get_ppg2_database_directory(f"{self.storage_directory}/participants")
+
+    def get_participant_acc_directory(self, participant: Participant) -> str:
+        """
+        Liefere das Verzeichnis mit den Accelerometer Daten des Teilnehmers `participant`
+        """
+        return participant.get_acc_database_directory(f"{self.storage_directory}/participants")
+
     def get_participant_database_directory(self, participant: Participant):
         """
         Liefere den Speicherort der Datenbank des Teilnehmers `participant`

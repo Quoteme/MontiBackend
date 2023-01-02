@@ -126,6 +126,54 @@ class Participant:
         list_of_files.sort()
         return list_of_files
 
+    def get_all_sleep_data_files(self, url: str) -> List[str]:
+        """
+        Liefere alle hochgeladenen Sleep-Datein, welche als `.wiff` Dateien gespeichert sind, dieses Teilnehmers.
+        """
+        # prüfe ob der Teilnehmer eine Sleep Datenbank hat
+        if not os.path.exists(self.get_sleep_database_directory(url)):
+            # wenn nicht, erstelle einen leeren Ordner
+            os.makedirs(self.get_sleep_database_directory(url))
+        # die Dateinamen müssen mit `.wiff` enden
+        list_of_files = [file
+            for file in os.listdir(self.get_sleep_database_directory(url))
+            if not os.path.isdir(f"{self.get_sleep_database_directory(url)}/{file}")
+            and file.endswith(".wiff")]
+        list_of_files.sort()
+        return list_of_files
+
+    def get_all_ppg2_data_files(self, url: str) -> List[str]:
+        """
+        Liefere alle hochgeladenen PPG2-Datein, welche als `.wiff` Dateien gespeichert sind, dieses Teilnehmers.
+        """
+        # prüfe ob der Teilnehmer eine Sleep Datenbank hat
+        if not os.path.exists(self.get_ppg2_database_directory(url)):
+            # wenn nicht, erstelle einen leeren Ordner
+            os.makedirs(self.get_ppg2_database_directory(url))
+        # die Dateinamen müssen mit `.wiff` enden
+        list_of_files = [file
+            for file in os.listdir(self.get_ppg2_database_directory(url))
+            if not os.path.isdir(f"{self.get_ppg2_database_directory(url)}/{file}")
+            and file.endswith(".wiff")]
+        list_of_files.sort()
+        return list_of_files
+
+    def get_all_acc_data_files(self, url: str) -> List[str]:
+        """
+        Liefere alle hochgeladenen Accelerometer-Datein, welche als `.wiff` Dateien gespeichert sind, dieses Teilnehmers.
+        """
+        # prüfe ob der Teilnehmer eine Sleep Datenbank hat
+        if not os.path.exists(self.get_acc_database_directory(url)):
+            # wenn nicht, erstelle einen leeren Ordner
+            os.makedirs(self.get_acc_database_directory(url))
+        # die Dateinamen müssen mit `.wiff` enden
+        list_of_files = [file
+            for file in os.listdir(self.get_acc_database_directory(url))
+            if not os.path.isdir(f"{self.get_acc_database_directory(url)}/{file}")
+            and file.endswith(".wiff")]
+        list_of_files.sort()
+        return list_of_files
+
     def get_database_directory(self, url: str) -> str:
         """
         Liefere den Ordner, in dem die Sensordaten dieses Teilnehmers gespeichert sind

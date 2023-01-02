@@ -78,11 +78,54 @@
       <table class="table">
         <thead>
         <tr>
-          <th scope="col">Downloadlink</th>
+          <th scope="col">Sensordaten</th>
         </tr>
         </thead>
         <tbody>
         {% for file in study.get_participant_sensor_data_files(participant) %}
+        <tr>
+          <th scope="row"><a href="/download_realm/{{study.id}}/{{participant.id}}/{{file}}" download="{{file}}">{{ file }}</a></th>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Schlafdaten</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in study.get_participant_sleep_data_files(participant) %}
+        <tr>
+          <th scope="row"><a href="/download_realm/{{study.id}}/{{participant.id}}/{{file}}" download="{{file}}">{{ file }}</a></th>
+        </tr>
+        {% endfor %}
+        <hr>
+        </tbody>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">PPG2-Daten</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in study.get_participant_ppg2_data_files(participant) %}
+        <tr>
+          <th scope="row"><a href="/download_realm/{{study.id}}/{{participant.id}}/{{file}}" download="{{file}}">{{ file }}</a></th>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Accelerometerdaten</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in study.get_participant_acc_data_files(participant) %}
         <tr>
           <th scope="row"><a href="/download_realm/{{study.id}}/{{participant.id}}/{{file}}" download="{{file}}">{{ file }}</a></th>
         </tr>
