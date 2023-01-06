@@ -1,6 +1,7 @@
 """
 Startpoint of the flask app.
 """
+import json
 import os
 
 import bleach
@@ -181,7 +182,8 @@ def create_app():
         """
         study = Study.from_id(study_id)
         pros = study.list_all_patient_reported_outcomes
-        return jsonify([pro.__dict__ for pro in pros])
+        data = [pro.to_json() for pro in pros if pro.is_running]
+        return "[" + ', '.join(data) + "]"
 
     @require_login
     @app.route('/study/<study_id>/add_participant', methods=['GET', 'POST'])
@@ -375,6 +377,13 @@ def create_app():
         for file in request.files:
             study.upload_participant_acc_data(participant, request.files[file])
         return 'OK'
+
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/upload_pro/<pro_id>', methods=['POST'])
+    def api_upload_pro(study_id, participant_id, pro_id):
+        """
+        Lade den beantwortete Patient-Reported-Outcome des Teilnehmers hoch.
+        """
+        pass
 
     @require_login
     @app.route('/download_realm/<study_id>/<participant_id>/<file>', methods=['GET'])
