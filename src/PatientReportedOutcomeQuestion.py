@@ -53,7 +53,7 @@ class PatientReportedOutcomeQuestion:
 class YesNoQuestion(PatientReportedOutcomeQuestion):
     question: str
     answer: str
-    type = "Ja oder Nein Frage"
+    type = "YesNoQuestion"
 
     @property
     def __dict__(self):
@@ -76,7 +76,7 @@ class YesNoQuestion(PatientReportedOutcomeQuestion):
 class OneToFiveQuestion(PatientReportedOutcomeQuestion):
     question: str
     answer: str
-    type = "1-5 Frage"
+    type = "OneToFiveQuestion"
 
     @property
     def __dict__(self):
@@ -99,7 +99,7 @@ class OneToFiveQuestion(PatientReportedOutcomeQuestion):
 class OneToTenQuestion(PatientReportedOutcomeQuestion):
     question: str
     answer: str
-    type = "1-10 Frage"
+    type = "OneToTenQuestion"
 
     @property
     def __dict__(self):
@@ -122,7 +122,7 @@ class OneToTenQuestion(PatientReportedOutcomeQuestion):
 class TextQuestion(PatientReportedOutcomeQuestion):
     question: str
     answer: str
-    type = "Freitext Frage"
+    type = "TextQuestion"
 
     @property
     def __dict__(self):
