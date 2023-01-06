@@ -198,6 +198,12 @@ class Participant:
         """
         return f"{url}/{self.id}/acc_data"
 
+    def get_pro_data_directory(self, url: str) -> str:
+        """
+        Liefere den Ordner, in dem die Patient reported outcomes dieses Teilnehmers gespeichert sind
+        """
+        return f"{url}/{self.id}/patient_reported_outcomes"
+
     def upload_sensor_data(self, url: str, file: FileStorage, date: datetime) -> None:
         """
         Lade die Sensordaten dieses Teilnehmers für das Datum `date` hoch
@@ -378,3 +384,9 @@ class Participant:
         if os.path.exists(f"{self.get_sleep_database_directory(url)}/{file.filename}"):
             file.filename = f"{file.filename}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
         file.save(self.get_acc_database_directory(url) + "/" + file.filename)
+
+    def upload_patient_reported_outcome(self, url: str, pro: src.PatientReportedOutcome, json):
+        """
+        Lade Patient Reported Outcome Daten zu diesem Teilnehmer hoch.
+        """
+        pass

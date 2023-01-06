@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List
 
+from Participant import Participant
 from PatientReportedOutcomeQuestion import PatientReportedOutcomeQuestion
 
 try:
@@ -113,3 +114,13 @@ class PatientReportedOutcome:
         # prüfe, ob der Ordner für die Studie und der Ordner für PROs existiert
         with open(f"{PatientReportedOutcome.directory(self.study)}/{self.id}.json", "w") as file:
             file.write(self.to_json())
+
+    def is_completed_by(self, participant: Participant) -> bool:
+        """
+        Gibt zurück, ob das Patient Reported Outcome von dem Teilnehmer bereits ausgefüllt wurde.
+        """
+        # check if the participant has a folder for patient reported outcomes
+        if not os.path.exists(f"{participant.get_pro_data_directory(f'{self.study.storage_directory}/participants')}/"):
+            return False
+        # if the participant has a folder for patient reported outcomes, check if the pro is in it
+        return os.path.exists(f"{participant.get_pro_data_directory(f'{self.study.storage_directory}/participants')}/{self.id}.json")

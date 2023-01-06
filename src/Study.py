@@ -95,6 +95,13 @@ class Study:
         """
         return [pro for pro in self.list_all_patient_reported_outcomes if pro.is_running]
 
+    def get_open_running_pros(self, participant):
+        """
+        Liefere alle laufenden PROs, die noch nicht abgeschlossen sind
+        und die der Teilnehmer `participant` noch nicht ausgefüllt hat
+        """
+        return [pro for pro in self.current_patient_reported_outcomes if not pro.is_completed_by(participant)]
+
     def get_patient_reported_outcome_by_id(self, id: str) -> PatientReportedOutcome:
         """
         Liefere das Patient Reported Outcome mit der ID `id`
@@ -357,3 +364,9 @@ class Study:
         Lade die ACC-Daten für den Teilnehmer `participant` hoch.
         """
         participant.upload_acc_data(f"{self.storage_directory}/participants", file)
+
+    def upload_participant_patient_reported_outcome(self, participant: Participant, pro: PatientReportedOutcome, json):
+        """
+        Lade die Patient Reported Outcome für den Teilnehmer `participant` hoch.
+        """
+        participant.upload_patient_reported_outcome(f"{self.storage_directory}/participants", pro, json)
