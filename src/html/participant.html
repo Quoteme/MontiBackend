@@ -53,14 +53,18 @@
         <thead>
         <tr>
           <th scope="col">Name</th>
-          <th scope="col">Datum</th>
+          <th scope="col">Anfangsdatum</th>
+          <th scope="col">Enddatum</th>
         </tr>
         </thead>
         <tbody>
+        {% for pro in study.get_closed_pros(participant) %}
         <tr>
-          <th scope="row">Name der PRO</th>
-          <th>Datum der PRO</th>
+          <th scope="row">{{pro.name}}</th>
+          <th>{{pro.start_date}}</th>
+          <th>{{pro.end_date}}</th>
         </tr>
+        {% endfor %}
         </tbody>
       </table>
     </div>
