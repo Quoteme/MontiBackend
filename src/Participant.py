@@ -16,6 +16,12 @@ import shutil
 from datetime import datetime
 from typing import Literal
 
+try:
+    from PatientReportedOutcome import PatientReportedOutcome
+except ImportError:
+    import sys
+    Study = sys.modules[__package__ + 'PatientReportedOutcome']
+
 Gender = Literal['male', 'female', 'other']
 
 @dataclass
@@ -385,8 +391,16 @@ class Participant:
             file.filename = f"{file.filename}_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
         file.save(self.get_acc_database_directory(url) + "/" + file.filename)
 
-    def upload_patient_reported_outcome(self, url: str, pro: src.PatientReportedOutcome, json):
+    def upload_patient_reported_outcome(self, url: str, pro: PatientReportedOutcome, jsonData: dict):
         """
         Lade Patient Reported Outcome Daten zu diesem Teilnehmer hoch.
         """
-        pass
+        # Prüfe, ob der `pro` Ordner unter `url` existiert
+        if not os.path.exists(self.get_pro_data_directory(url)):
+            os.mkdir(self.get_pro_data_directory(url))
+        # Speichere die Datei unter `self.get_pro_database_directory(url)/{pro.id}.json`
+        # sollte die Datei schon existieren, werfe eine Exception
+        if os.path.exists(f"{self.get_pro_data_directory(url)}/{pro.id}.json"):
+            raise Exception("Patient Reported Outcome already exists")
+        with open(f"{self.get_pro_data_directory(url)}/{pro.id}.json", "w") as f:
+            f.write(json.dumps(jsonData))
