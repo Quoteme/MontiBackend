@@ -185,6 +185,85 @@ def create_app():
         data = [pro.to_json() for pro in pros if pro.is_running]
         return "[" + ', '.join(data) + "]"
 
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/get_open_running_pros', methods=['GET', 'POST'])
+    def api_get_open_running_pros(study_id, participant_id):
+        """
+        Zeige alle offenen und momentan laufenden PROs eines Teilnehmers an.
+        Offene PROs sind Patient Reported Outcomes, die der Teilnehmer noch nicht beantwortet hat.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        pros = study.get_open_running_pros(participant)
+        data = [pro.to_json() for pro in pros]
+        return "[" + ', '.join(data) + "]"
+
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/has_running_pros', methods=['GET', 'POST'])
+    def api_has_running_pros(study_id, participant_id):
+        """
+        Gibt `true` zurück, wenn der Teilnehmer noch offene Patient Reported Outcomes hat.
+        `false` wird zurück gegeben, wenn der Teilnehmer keine offenen Patient Reported Outcomes hat.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        pros = study.get_open_running_pros(participant)
+        return "true" if len(pros) > 0 else "false"
+
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/get_closed_running_pros', methods=['GET', 'POST'])
+    def api_get_closed_running_pros(study_id, participant_id):
+        """
+        Zeige alle beantworteten PROs eines Teilnehmers an.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        pros = study.get_closed_running_pros(participant)
+        data = [pro.to_json() for pro in pros]
+        return "[" + ', '.join(data) + "]"
+
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/get_closed_pros', methods=['GET', 'POST'])
+    def api_get_closed_pros(study_id, participant_id):
+        """
+        Zeige alle beantworteten PROs eines Teilnehmers an.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        pros = study.get_closed_pros(participant)
+        data = [pro.to_json() for pro in pros]
+        return "[" + ', '.join(data) + "]"
+
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/upload_pro/<pro_id>', methods=['POST'])
+    def api_upload_pro(study_id, participant_id, pro_id):
+        """
+        Lade den beantwortete Patient-Reported-Outcome des Teilnehmers hoch.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        pro = study.get_patient_reported_outcome_by_id(pro_id)
+        if pro is None:
+            raise Exception(f"PRO {pro_id} not found")
+        study.upload_participant_patient_reported_outcome(participant, pro, request.json)
+        return 'OK'
+
+
     @require_login
     @app.route('/study/<study_id>/add_participant', methods=['GET', 'POST'])
     def add_participant(study_id):
@@ -376,37 +455,6 @@ def create_app():
         # save all files of the request
         for file in request.files:
             study.upload_participant_acc_data(participant, request.files[file])
-        return 'OK'
-
-    @app.route('/api/studies/<study_id>/participants/<participant_id>/get_open_running_pros', methods=['POST'])
-    def api_get_open_running_pros(study_id, participant_id):
-        """
-        Zeige alle offenen und momentan laufenden PROs eines Teilnehmers an.
-        Offene PROs sind Patient Reported Outcomes, die der Teilnehmer noch nicht beantwortet hat.
-        """
-        study = Study.from_id(study_id)
-        if study is None:
-            raise Exception(f"Study {study_id} not found")
-        participant = study.get_participant(participant_id)
-        if participant is None:
-            raise Exception(f"Participant {participant_id} not found")
-        return jsonify(study.get_open_running_pros(participant))
-
-    @app.route('/api/studies/<study_id>/participants/<participant_id>/upload_pro/<pro_id>', methods=['POST'])
-    def api_upload_pro(study_id, participant_id, pro_id):
-        """
-        Lade den beantwortete Patient-Reported-Outcome des Teilnehmers hoch.
-        """
-        study = Study.from_id(study_id)
-        if study is None:
-            raise Exception(f"Study {study_id} not found")
-        participant = study.get_participant(participant_id)
-        if participant is None:
-            raise Exception(f"Participant {participant_id} not found")
-        pro = study.get_patient_reported_outcome_by_id(pro_id)
-        if pro is None:
-            raise Exception(f"PRO {pro_id} not found")
-        study.upload_participant_patient_reported_outcome(participant, pro, request.json)
         return 'OK'
 
     @require_login

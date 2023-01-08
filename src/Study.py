@@ -102,6 +102,18 @@ class Study:
         """
         return [pro for pro in self.current_patient_reported_outcomes if not pro.is_completed_by(participant)]
 
+    def get_closed_running_pros(self, participant):
+        """
+        Liefere alle laufenden PROs, die bereits vom Teilnehmer abgeschlossen sind
+        """
+        return [pro for pro in self.current_patient_reported_outcomes if pro.is_completed_by(participant)]
+
+    def get_closed_pros(self, participant):
+        """
+        Liefere alle abgeschlossenen (also beantwroteten) PROs des Teilnehmers `participant`
+        """
+        return [pro for pro in self.list_all_patient_reported_outcomes if pro.is_completed_by(participant)]
+
     def get_patient_reported_outcome_by_id(self, id: str) -> PatientReportedOutcome:
         """
         Liefere das Patient Reported Outcome mit der ID `id`
