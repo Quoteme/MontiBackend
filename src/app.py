@@ -160,7 +160,7 @@ def create_app():
             questionNumber = 0
             while request.form.get(f"question{questionNumber}") is not None:
                 question = PatientReportedOutcomeQuestion.from_type(
-                    bleach.clean(request.form.get(f"question{questionNumber}")),
+                    bleach.clean(request.form.get(f"question{questionNumber}").replace('"', "``").replace("'", '`')),
                     "",
                     request.form.get(f"question_type{questionNumber}"),
                 )
