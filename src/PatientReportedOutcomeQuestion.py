@@ -44,6 +44,8 @@ class PatientReportedOutcomeQuestion:
                 return OneToFiveQuestion(question, answer)
             case OneToTenQuestion.type:
                 return OneToTenQuestion(question, answer)
+            case SmileyGoodToBadQuestion.type:
+                return SmileyGoodToBadQuestion(question, answer)
             case TextQuestion.type:
                 return TextQuestion(question, answer)
 
@@ -100,6 +102,29 @@ class OneToTenQuestion(PatientReportedOutcomeQuestion):
     question: str
     answer: str
     type = "OneToTenQuestion"
+
+    @property
+    def __dict__(self):
+        return {
+            "question": self.question,
+            "type": self.type,
+            "answer": self.answer,
+        }
+
+    @staticmethod
+    def from_json(json_string: str):
+        data = json.loads(json_string)
+        return OneToTenQuestion(data["question"], data["answer"])
+
+    def to_json(self):
+        return json.dumps(self.__dict__)
+
+# A subclass of PatientReportedOutcomeQuestion for the "How well are you?" questions
+@dataclass
+class SmileyGoodToBadQuestion(PatientReportedOutcomeQuestion):
+    question: str
+    answer: str
+    type = "SmileyGoodToBadQuestion"
 
     @property
     def __dict__(self):
