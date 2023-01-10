@@ -216,6 +216,20 @@ def create_app():
         pros = study.get_open_running_pros(participant)
         return "true" if len(pros) > 0 else "false"
 
+    @app.route('/api/studies/<study_id>/participants/<participant_id>/has_open_pros', methods=['GET', 'POST'])
+    def api_has_open_pros(study_id, participant_id):
+        """
+        Gibt `true` zurück, wenn der Teilnehmer noch offene Patient Reported Outcomes hat.
+        """
+        study = Study.from_id(study_id)
+        if study is None:
+            raise Exception(f"Study {study_id} not found")
+        participant = study.get_participant(participant_id)
+        if participant is None:
+            raise Exception(f"Participant {participant_id} not found")
+        pros = study.get_open_running_pros(participant)
+        return "true" if len(pros) > 0 else "false"
+
     @app.route('/api/studies/<study_id>/participants/<participant_id>/get_closed_running_pros', methods=['GET', 'POST'])
     def api_get_closed_running_pros(study_id, participant_id):
         """
